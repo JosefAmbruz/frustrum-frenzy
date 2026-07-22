@@ -1,18 +1,4 @@
-[gd_scene format=3 uid="uid://beom1xo1yuypr"]
-
-[ext_resource type="PackedScene" uid="uid://b316ladivjlpp" path="res://src/player.tscn" id="1_tp5op"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tp5op"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_xlegt"]
-sky_material = SubResource("ProceduralSkyMaterial_tp5op")
-
-[sub_resource type="Environment" id="Environment_0qwtu"]
-background_mode = 2
-sky = SubResource("Sky_xlegt")
-glow_enabled = true
+[gd_scene format=3 uid="uid://bci52glny63gb"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tp5op"]
 data = PackedVector3Array(-8.5, -3.5, 7.5, -8.5, -3.5, -7.5, -8.5, 3.5, -7.5, 8.5, -3.5, -7.5, -8.5, -3.5, -7.5, -8.5, -3.5, 7.5, -8.5, 3.5, -7.5, -8.5, -3.5, -7.5, 8.5, -3.5, -7.5, -8.5, 3.5, -7.5, -8.5, 3.5, 7.5, -8.5, -3.5, 7.5, -8.5, -3.5, 7.5, -8.5, 3.5, 7.5, 8.5, 3.5, 7.5, 8.5, 3.5, 7.5, -8.5, 3.5, 7.5, -8.5, 3.5, -7.5, -8.5, -3.5, 7.5, 8.5, -3.5, 7.5, 8.5, -3.5, -7.5, 8.5, 3.5, 7.5, 8.5, -3.5, 7.5, -8.5, -3.5, 7.5, 8.5, -3.5, -7.5, 8.5, -3.5, 7.5, 8.5, 3.5, 7.5, 8.5, -3.5, -7.5, 8.5, 3.5, -7.5, -8.5, 3.5, -7.5, -8.5, 3.5, -7.5, 8.5, 3.5, -7.5, 8.5, 3.5, 7.5, 8.5, 3.5, 7.5, 8.5, 3.5, -7.5, 8.5, -3.5, -7.5)
@@ -20,30 +6,20 @@ data = PackedVector3Array(-8.5, -3.5, 7.5, -8.5, -3.5, -7.5, -8.5, 3.5, -7.5, 8.
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ktcc2"]
 data = PackedVector3Array(-14.496094, -0.5, 14.814575, -14.496094, -0.5, -14.814575, -14.496094, 0.5, -14.814575, 14.496094, -0.5, -14.814575, -14.496094, -0.5, -14.814575, -14.496094, -0.5, 14.814575, -14.496094, 0.5, -14.814575, -14.496094, -0.5, -14.814575, 14.496094, -0.5, -14.814575, -14.496094, 0.5, -14.814575, -14.496094, 0.5, 14.814575, -14.496094, -0.5, 14.814575, -14.496094, -0.5, 14.814575, -14.496094, 0.5, 14.814575, 14.496094, 0.5, 14.814575, 14.496094, 0.5, 14.814575, -14.496094, 0.5, 14.814575, -14.496094, 0.5, -14.814575, -14.496094, -0.5, 14.814575, 14.496094, -0.5, 14.814575, 14.496094, -0.5, -14.814575, 14.496094, 0.5, 14.814575, 14.496094, -0.5, 14.814575, -14.496094, -0.5, 14.814575, 14.496094, -0.5, -14.814575, 14.496094, -0.5, 14.814575, 14.496094, 0.5, 14.814575, 14.496094, -0.5, -14.814575, 14.496094, 0.5, -14.814575, -14.496094, 0.5, -14.814575, -14.496094, 0.5, -14.814575, 14.496094, 0.5, -14.814575, 14.496094, 0.5, 14.814575, 14.496094, 0.5, 14.814575, 14.496094, 0.5, -14.814575, 14.496094, -0.5, -14.814575)
 
-[node name="World" type="Node3D" unique_id=1707678945]
+[node name="Level" type="Node3D" unique_id=1350949316]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=392420581]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 9.563047, 0)
-shadow_enabled = true
+[node name="Ground" type="StaticBody3D" parent="." unique_id=485651671]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1943398960]
-environment = SubResource("Environment_0qwtu")
-
-[node name="Ground" type="StaticBody3D" parent="." unique_id=1619138972]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Ground" unique_id=1705100137]
+[node name="CSGBox3D" type="CSGBox3D" parent="Ground" unique_id=1188712448]
 size = Vector3(28.992188, 1, 29.62915)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Ground" unique_id=378120777]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Ground" unique_id=697037224]
 transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, -16, 3, -10)
 size = Vector3(17, 7, 15)
 
-[node name="CSGBakedCollisionShape3D2" type="CollisionShape3D" parent="Ground" unique_id=2133566275]
+[node name="CSGBakedCollisionShape3D2" type="CollisionShape3D" parent="Ground" unique_id=1430431150]
 transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, -16, 3, -10)
 shape = SubResource("ConcavePolygonShape3D_tp5op")
 
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=813737916]
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=13172177]
 shape = SubResource("ConcavePolygonShape3D_ktcc2")
-
-[node name="Player" parent="." unique_id=1178688999 instance=ExtResource("1_tp5op")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.102926, 0)

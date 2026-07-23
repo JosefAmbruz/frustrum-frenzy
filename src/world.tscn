@@ -28,3 +28,4 @@ environment = SubResource("Environment_0qwtu")
 
 [node name="Player" parent="." unique_id=1178688999 instance=ExtResource("1_tp5op")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2908545, 2.2983694, 1.855339)
+jump_cut_multiplier = 0.5

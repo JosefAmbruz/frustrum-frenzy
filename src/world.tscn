@@ -35,6 +35,7 @@ adjustment_saturation = 1.1
 [node name="World" type="Node3D" unique_id=1707678945]
 
 [node name="Level" parent="." unique_id=1350949316 instance=ExtResource("1_xlegt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=392420581]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 9.563047, 0)

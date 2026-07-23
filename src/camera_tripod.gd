@@ -74,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			dot_tween.kill()
 		red_dot.modulate.a = 1.0
 		
-		countdown_timer.start(15)
+		countdown_timer.start(10)
 		countdown_label.visible = true
 		camera_overlay.visible = false
 		print("debug: Start timer")

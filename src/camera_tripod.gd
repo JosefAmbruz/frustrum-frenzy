@@ -116,7 +116,7 @@ func _on_countdown_timer_timeout() -> void:
 	
 	print("debug: Camera shoot")
 
-func _on_interact():
+func _on_interact(player : CharacterBody3D):
 	if not in_camera:
 		# Capture players' movement
 		EventBus.player_captured.emit()

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dxliitdheuxne"
-path="res://.godot/imported/radish.glb-01ca297fd50ae18864b7547d6cd419ad.scn"
+uid="uid://b2uwhncoaf7nv"
+path="res://.godot/imported/apple.glb-8c4b1e9226900f9c7dc0ddb507b85bc8.scn"
 
 [deps]
 
-source_file="res://assets/models/items/radish.glb"
-dest_files=["res://.godot/imported/radish.glb-01ca297fd50ae18864b7547d6cd419ad.scn"]
+source_file="res://assets/models/items/apple.glb"
+dest_files=["res://.godot/imported/apple.glb-8c4b1e9226900f9c7dc0ddb507b85bc8.scn"]
 
 [params]
 

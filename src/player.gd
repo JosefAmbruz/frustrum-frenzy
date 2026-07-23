@@ -60,6 +60,9 @@ var climb_normal := Vector3.ZERO
 @onready var _skin : Node3D = %PlayerSkin
 @onready var _particle_trail : GPUParticles3D = %ParticleTrail
 @onready var _sound_footsteps = %SoundFootsteps
+@onready var _hold_position := %HoldPosition
+
+var held_item: RigidBody3D
 
 func _ready() -> void:
 	_coyote_time_left = coyote_time
@@ -123,6 +126,9 @@ func wall_jump() -> void:
 
 	_last_wall_jump_normal = any_wall_normal
 	_wall_jump_lock_left = wall_jump_lock_time
+
+func set_hand_item(item: RigidBody3D) -> void:
+	held_item = item
 
 func _physics_process(delta: float) -> void:
 	if is_captured:

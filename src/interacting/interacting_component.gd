@@ -1,8 +1,15 @@
 extends Node3D
 
+@export var player: NodePath
+
 @onready var interaction_label: Label3D = %Label3D
 var curr_interactions := []
 var can_interact := true
+
+func _get_player_node() -> Node:
+	if player != NodePath():
+		return get_node_or_null(player)
+	return get_tree().get_first_node_in_group("player")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and can_interact:
@@ -10,7 +17,7 @@ func _input(event: InputEvent) -> void:
 			can_interact = false
 			interaction_label.hide()
 			
-			await curr_interactions[0].interact.call()
+			await curr_interactions[0].interact.call(_get_player_node())
 			
 			can_interact = true
 

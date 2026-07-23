@@ -23,6 +23,19 @@ var _jump_impulse : float
 var _gravity : float
 var _coyote_time_left := 0.0
 
+
+@export_category("Wall Jump")
+@export var wall_jump_push := 14
+@export var wall_jump_up_factor := 0.78      
+@export var wall_jump_lock_time := 0.18      # anti-spam for same wall
+@export var same_wall_dot_threshold := 0.82 
+
+var _last_wall_jump_normal := Vector3.ZERO
+var _wall_jump_lock_left := 0.0
+
+var is_near_any_wall := false
+var any_wall_normal := Vector3.ZERO
+
 @export_category("Climbing")
 @export var climb_speed_up := 3.5
 @export var climb_speed_down := 2.0
@@ -31,7 +44,6 @@ var _coyote_time_left := 0.0
 @export var climb_detach_push := 1.2
 @export var min_into_wall_dot := 0.08 # how much does the input have to aim into the wall
 @export var wall_stick_force := 0.4
-@export var wall_jump_push := 6.0
 
 var is_climbing := false
 var is_wall_jumping := false
@@ -66,25 +78,44 @@ func check_climbing() -> void:
 	is_climbing = false
 	climb_normal = Vector3.ZERO
 
+	is_near_any_wall = false
+	any_wall_normal = Vector3.ZERO
+
 	for i in range(get_slide_collision_count()):
 		var collision := get_slide_collision(i)
+		var n := collision.get_normal()
 		var collider := collision.get_collider()
+
+		# any wall for wall jump
+		if abs(n.y) < 0.6:
+			is_near_any_wall = true
+			any_wall_normal = n
 
 		if collider and collider.is_in_group("climbable"):
 			is_climbing = true
-			climb_normal = collision.get_normal()
-			return
+			climb_normal = n
 
 func wall_jump() -> void:
+	if not is_near_any_wall:
+		return
+
+	# lock anti jumping on same wall
+	if _wall_jump_lock_left > 0.0 and any_wall_normal.dot(_last_wall_jump_normal) > same_wall_dot_threshold:
+		return
+
 	is_climbing = false
 	is_wall_jumping = true
 
-	velocity.y = _jump_impulse
-	velocity += climb_normal * wall_jump_push
+	velocity.y = _jump_impulse * wall_jump_up_factor
+	velocity += any_wall_normal * wall_jump_push
+
+	_last_wall_jump_normal = any_wall_normal
+	_wall_jump_lock_left = wall_jump_lock_time
 
 func _physics_process(delta: float) -> void:
 	_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
 	_jump_impulse = _gravity * jump_time_to_apex
+	_wall_jump_lock_left = maxf(_wall_jump_lock_left - delta, 0.0)
 
 	handle_effects(delta)
 
@@ -122,7 +153,10 @@ func _physics_process(delta: float) -> void:
 	if is_climbing and move_direction != Vector3.ZERO:
 		into_wall = move_direction.dot(-climb_normal)
 
-	var wants_wall_jump := Input.is_action_just_pressed("jump") and is_climbing
+	var wants_wall_jump := Input.is_action_just_pressed("jump") \
+		and is_near_any_wall \
+		and not is_on_floor() \
+		and _wall_jump_lock_left <= 0.0	
 	var can_jump := is_on_floor() or _coyote_time_left > 0.0
 	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump and not is_climbing
 

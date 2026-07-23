@@ -41,12 +41,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	# If we click E in camera
 	if event.is_action_pressed("interact") and in_camera and not _interact_lock:
 		# Leaving camera
+		
 		view_camera.clear_current()
 		in_camera = false
 		camera_overlay.visible = false
 		interactable.is_interactable = true
 		print("debug: Cleared camera view")
 		_interact_lock = true
+		
+		EventBus.player_released.emit()
 
 		if dot_tween:
 			dot_tween.kill()
@@ -64,6 +67,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		countdown_timer.start(10)
 		countdown_label.visible = true
 		camera_overlay.visible = false
+		
+		print_debug("Release 2")
+		
+		EventBus.player_released.emit()
 		print("debug: Start timer")
 
 
@@ -111,6 +118,9 @@ func _on_countdown_timer_timeout() -> void:
 
 func _on_interact():
 	if not in_camera:
+		# Capture players' movement
+		EventBus.player_captured.emit()
+		
 		_interact_lock = true
 		# Turn off in-world interaactions
 		interactable.is_interactable = false

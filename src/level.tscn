@@ -28,11 +28,17 @@ _surfaces = [{
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_68xyb"]
 data = PackedVector3Array(-0.3536, -0.775, -0.3536, -0.5, -0.775, 0, 0, -0.775, 0, -0.5, -0.775, 0, -0.3536, -0.775, -0.3536, -0.3536, 0.775, -0.3536, 0, -0.775, -0.5, -0.3536, -0.775, -0.3536, 0, -0.775, 0, -0.3536, -0.775, -0.3536, 0, -0.775, -0.5, 0, 0.775, -0.5, -0.5, -0.775, 0, -0.3536, -0.775, 0.3536, 0, -0.775, 0, -0.3536, -0.775, 0.3536, -0.5, -0.775, 0, -0.5, 0.775, 0, -0.3536, -0.775, 0.3536, 0, -0.775, 0.5, 0, -0.775, 0, 0, -0.775, 0.5, -0.3536, -0.775, 0.3536, -0.3536, 0.775, 0.3536, -0.3536, 0.775, -0.3536, -0.5, 0.775, 0, -0.5, -0.775, 0, -0.5, 0.775, 0, -0.3536, 0.775, -0.3536, 0, 0.775, 0, 0, 0.775, -0.5, -0.3536, 0.775, -0.3536, -0.3536, -0.775, -0.3536, -0.3536, 0.775, -0.3536, 0, 0.775, -0.5, 0, 0.775, 0, -0.5, 0.775, 0, -0.3536, 0.775, 0.3536, -0.3536, -0.775, 0.3536, -0.3536, 0.775, 0.3536, -0.5, 0.775, 0, 0, 0.775, 0, -0.3536, 0.775, 0.3536, 0, 0.775, 0.5, 0, -0.775, 0.5, 0, 0.775, 0.5, -0.3536, 0.775, 0.3536, 0, 0.775, 0, 0.3536, -0.775, -0.3536, 0, -0.775, -0.5, 0, -0.775, 0, 0, -0.775, -0.5, 0.3536, -0.775, -0.3536, 0.3536, 0.775, -0.3536, 0.5, -0.775, 0, 0.3536, -0.775, -0.3536, 0, -0.775, 0, 0.3536, -0.775, -0.3536, 0.5, -0.775, 0, 0.5, 0.775, 0, 0, -0.775, 0.5, 0.3536, -0.775, 0.3536, 0, -0.775, 0, 0.3536, -0.775, 0.3536, 0, -0.775, 0.5, 0, 0.775, 0.5, 0.3536, -0.775, 0.3536, 0.5, -0.775, 0, 0, -0.775, 0, 0.5, -0.775, 0, 0.3536, -0.775, 0.3536, 0.3536, 0.775, 0.3536, 0.3536, 0.775, -0.3536, 0, 0.775, -0.5, 0, -0.775, -0.5, 0, 0.775, -0.5, 0.3536, 0.775, -0.3536, 0, 0.775, 0, 0.5, 0.775, 0, 0.3536, 0.775, -0.3536, 0.3536, -0.775, -0.3536, 0.3536, 0.775, -0.3536, 0.5, 0.775, 0, 0, 0.775, 0, 0, 0.775, 0.5, 0.3536, 0.775, 0.3536, 0.3536, -0.775, 0.3536, 0.3536, 0.775, 0.3536, 0, 0.775, 0.5, 0, 0.775, 0, 0.3536, 0.775, 0.3536, 0.5, 0.775, 0, 0.5, -0.775, 0, 0.5, 0.775, 0, 0.3536, 0.775, 0.3536, 0, 0.775, 0)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7i26j"]
+albedo_color = Color(0, 1, 1, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_idsc0"]
-size = Vector3(6, 8, 0.5)
+size = Vector3(6, 16, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_msxom"]
-size = Vector3(6, 8, 0.5)
+size = Vector3(6, 16, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pothl"]
+albedo_color = Color(0.25540692, 0.7149689, 0.5710863, 1)
 
 [node name="Level" type="Node3D" unique_id=1350949316]
 
@@ -48,6 +54,9 @@ shape = SubResource("ConcavePolygonShape3D_ktcc2")
 
 [node name="CSGBakedMeshInstance3D" parent="." unique_id=1852391849 instance=ExtResource("2_4q7qo")]
 transform = Transform3D(2.8211772, -0.38963395, -0.18794261, 0.93057615, 1.22962, 0.068043776, 0.36605737, -0.12300983, 1.2754818, 16.216623, 5.131362, -0.46406928)
+
+[node name="CSGBakedMeshInstance3D" parent="CSGBakedMeshInstance3D" unique_id=662000645 instance=ExtResource("2_4q7qo")]
+transform = Transform3D(0.8964022, -1.2362276, -0.008177422, 2.7188466, 0.3668027, 0.3974145, -0.8736876, -0.12690556, 1.228332, -7.2175217, 7.295089, -8.263798)
 
 [node name="CSGBakedMeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1882177812]
 transform = Transform3D(3.0570963e-15, -1.293857e-07, -1.5999999, -1.5999997, -1.2938568e-07, 0, -6.993821e-08, 2.96, -6.9938224e-08, 17.706001, 7.9999995, -9)
@@ -67,33 +76,33 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)
 [node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
 transform = Transform3D(-0.0665036, 0.049868375, 0.99653924, 0.5999282, 0.80005383, 0, -0.797285, 0.597852, -0.08312391, -0.5, 0.59040606, 0.2)
 
-[node name="ClimbableWall" type="Node" parent="." unique_id=1293785637]
+[node name="ClimbableWall2" type="StaticBody3D" parent="." unique_id=984455118 groups=["climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.011003, 5.2057543, 13.477322)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ClimbableWall" unique_id=563330007 groups=["climbable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 14)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall/StaticBody3D" unique_id=906173188]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall2" unique_id=1113521116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15641, 0)
+material_override = SubResource("StandardMaterial3D_7i26j")
 mesh = SubResource("BoxMesh_idsc0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/StaticBody3D" unique_id=1144311452]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall2" unique_id=1981453748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.169798, 0)
 shape = SubResource("BoxShape3D_msxom")
 
-[node name="ClimbableWall2" type="Node" parent="ClimbableWall" unique_id=1689024641]
+[node name="ClimbableWall" type="StaticBody3D" parent="." unique_id=563330007 groups=["climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 14)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ClimbableWall/ClimbableWall2" unique_id=984455118 groups=["climbable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.820317, 10.463127)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall/ClimbableWall2/StaticBody3D" unique_id=1113521116]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall" unique_id=906173188]
+material_override = SubResource("StandardMaterial3D_pothl")
 mesh = SubResource("BoxMesh_idsc0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/ClimbableWall2/StaticBody3D" unique_id=1981453748]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall" unique_id=1144311452]
 shape = SubResource("BoxShape3D_msxom")
 
 [node name="RespawnPoint" type="Node3D" parent="." unique_id=34591289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
 
 [node name="Area3D" parent="." unique_id=1748378536 node_paths=PackedStringArray("respawn_point") instance=ExtResource("6_jq0je")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, -11.7, 19.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.149264, -11.692973, 19.978575)
 respawn_point = NodePath("../RespawnPoint")
 
 [node name="PickupableItems" type="Node3D" parent="." unique_id=864772700]

@@ -23,6 +23,11 @@ var _jump_impulse : float
 var _gravity : float
 var _coyote_time_left := 0.0
 
+@export_category("Movement Tuning")
+@export var ground_acceleration := 55.0
+@export var ground_deceleration := 70.0
+@export var air_acceleration := 14.0
+@export var air_deceleration := 6.0
 
 @export_category("Wall Jump")
 @export var wall_jump_push := 14
@@ -162,8 +167,23 @@ func _physics_process(delta: float) -> void:
 
 	# Horizontal velocity (always smooth)
 	var y_velocity := velocity.y
-	velocity.y = 0.0
-	velocity = velocity.move_toward(move_direction * current_speed, acceleration * delta)
+	var horizontal_velocity := Vector3(velocity.x, 0.0, velocity.z)
+	var target_horizontal := move_direction * current_speed
+
+	var has_input := move_direction.length() > 0.01
+	var on_ground := is_on_floor()
+
+	var accel := ground_acceleration if on_ground else air_acceleration
+	var decel := ground_deceleration if on_ground else air_deceleration
+
+	if has_input:
+		horizontal_velocity = horizontal_velocity.move_toward(target_horizontal, accel * delta)
+	else:
+		horizontal_velocity = horizontal_velocity.move_toward(Vector3.ZERO, decel * delta)
+
+	velocity.x = horizontal_velocity.x
+	velocity.z = horizontal_velocity.z
+	velocity.y = y_velocity
 
 	# Vertical handling
 	if is_climbing and not is_wall_jumping:

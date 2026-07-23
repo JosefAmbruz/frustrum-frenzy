@@ -2,34 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://b316ladivjlpp" path="res://src/player.tscn" id="1_tp5op"]
 [ext_resource type="PackedScene" uid="uid://bci52glny63gb" path="res://src/level.tscn" id="1_xlegt"]
-[ext_resource type="Texture2D" uid="uid://cwbc8uuegkeab" path="res://assets/sprites/skybox.png" id="2_0qwtu"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_xlegt"]
-panorama = ExtResource("2_0qwtu")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tp5op"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
 [sub_resource type="Sky" id="Sky_xlegt"]
-sky_material = SubResource("PanoramaSkyMaterial_xlegt")
+sky_material = SubResource("ProceduralSkyMaterial_tp5op")
 
 [sub_resource type="Environment" id="Environment_0qwtu"]
 background_mode = 2
-background_color = Color(0.78325796, 0.7087762, 0.83601284, 1)
 sky = SubResource("Sky_xlegt")
-ambient_light_source = 2
-ambient_light_color = Color(0.975555, 0.8982481, 0.9229168, 1)
-tonemap_mode = 2
-tonemap_exposure = 0.9
-ssao_enabled = true
-ssao_radius = 0.45
-ssao_intensity = 1.0
-ssao_power = 15.0
 glow_enabled = true
-glow_levels/2 = 0.6
-glow_levels/3 = 0.6
-glow_intensity = 2.0
-adjustment_enabled = true
-adjustment_brightness = 0.9
-adjustment_contrast = 1.1
-adjustment_saturation = 1.1
 
 [node name="World" type="Node3D" unique_id=1707678945]
 
@@ -44,4 +28,3 @@ environment = SubResource("Environment_0qwtu")
 
 [node name="Player" parent="." unique_id=1178688999 instance=ExtResource("1_tp5op")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2908545, 2.2983694, 1.855339)
-jump_cut_multiplier = 0.5

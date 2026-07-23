@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://tsq84fjbpqum" path="res://src/items/pickupable_item.gd" id="1_6jmh3"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_tkdkl"]
+[ext_resource type="PackedScene" uid="uid://dxliitdheuxne" path="res://assets/models/items/radish.glb" id="3_h3enh"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3ynte"]
 top_radius = 0.25
@@ -38,3 +39,6 @@ interact_name = "[E] Pick up"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1022768583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49923706, 0)
 shape = SubResource("CylinderShape3D_i3kvd")
+
+[node name="radish2" parent="." unique_id=1742517370 instance=ExtResource("3_h3enh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22809482, 0, -0.91911745)

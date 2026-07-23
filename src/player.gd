@@ -158,3 +158,10 @@ func handle_effects(_delta):
 
 	if is_on_floor() and is_sprinting and is_moving:
 		_particle_trail.emitting = true
+
+func apply_external_impulse(impulse: Vector3) -> void:
+	if impulse.y > 0:
+		velocity.y = impulse.y
+	
+	velocity.x += impulse.x
+	velocity.z += impulse.z

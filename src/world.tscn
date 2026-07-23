@@ -43,5 +43,6 @@ transform = Transform3D(-0.12433318, -0.31380177, -0.94131273, 0, 0.94867396, -0
 [node name="Hologram" parent="PlayerTargetSpot" unique_id=426146297 instance=ExtResource("5_usxdn")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, -7.450581e-09, -3.7252903e-09, 1, 9.313226e-10, -7.450581e-09, 3.0733645e-08, 1, 0, 0, 0)
+visible = false
 
 [node name="HoldPosition" type="Node3D" parent="PlayerTargetSpot/Hologram" unique_id=873833121]

@@ -1,5 +1,9 @@
 extends StaticBody3D
 
+# TODO: this is temporary for testing - one camera = one scene
+@export var player_target_marker: Marker3D
+@export var target_photo: Texture2D
+
 var in_camera: bool = false
 var _interact_lock := false
 var dot_tween: Tween
@@ -10,7 +14,9 @@ var dot_tween: Tween
 @onready var camera_overlay = $CanvasLayer/CameraOverlay
 @onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
-@onready var captured_image = $CanvasLayer/PhotoResultUI/CapturedImage
+@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame/CapturedImage
+@onready var reference_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame/ReferenceImage
+@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreLabel
 @onready var fade_rect = $CanvasLayer/FadeRect
 @onready var interactable: Area3D = %Interactable
 
@@ -48,6 +54,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		interactable.is_interactable = true
 		print("debug: Cleared camera view")
 		_interact_lock = true
+		toggle_hologram(false)
+
 		
 		EventBus.player_released.emit()
 
@@ -67,6 +75,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		countdown_timer.start(10)
 		countdown_label.visible = true
 		camera_overlay.visible = false
+		toggle_hologram(false)
 		
 		print_debug("Release 2")
 		
@@ -113,7 +122,9 @@ func _on_countdown_timer_timeout() -> void:
 	view_camera.clear_current()
 	
 	interactable.is_interactable = true
-	
+
+	evaluate_photo_scene()
+
 	print("debug: Camera shoot")
 
 func _on_interact(player : CharacterBody3D):
@@ -138,5 +149,54 @@ func _on_interact(player : CharacterBody3D):
 		dot_tween.tween_property(red_dot, "modulate:a", 1.0, 1.0)
 		
 		in_camera = true
+		toggle_hologram(true)
 
+func evaluate_photo_scene() -> void:
+	var player_node = get_tree().get_first_node_in_group("player")
 	
+	var final_score = calculate_object_score(player_node, player_target_marker)
+	score_label.text = "Score: " + str(round(final_score)) + " %"
+	
+	if final_score >= 80:
+		score_label.add_theme_color_override("font_color", Color.GREEN)
+	elif final_score >= 50:
+		score_label.add_theme_color_override("font_color", Color.YELLOW)
+	else:
+		score_label.add_theme_color_override("font_color", Color.RED)
+
+	if target_photo != null:
+		reference_image.texture = target_photo
+	else:
+		print("ERROR: Missing target photo in inspector!")
+
+
+func calculate_object_score(object_node: Node3D, target_marker: Marker3D) -> float:
+	# if object is in front of objective
+	if view_camera.is_position_behind(object_node.global_position):
+		return 0.0
+	
+	# Evaluation of 2D coordinates (X, Y on photo)
+	var actual_2d_pos = view_camera.unproject_position(object_node.global_position) # player
+	var ideal_2d_pos = view_camera.unproject_position(target_marker.global_position) # marker
+	
+	var pixel_distance = actual_2d_pos.distance_to(ideal_2d_pos)
+	var max_pixel_tolerance = 300.0 # tolerance in pixels on screen
+	var composition_score = 100.0 * (1.0 - (pixel_distance / max_pixel_tolerance))
+	composition_score = clamp(composition_score, 0.0, 100.0)
+	
+	# Evaluation of size/depth (distance)
+	var actual_dist_to_cam = object_node.global_position.distance_to(view_camera.global_position)
+	var ideal_dist_to_cam = target_marker.global_position.distance_to(view_camera.global_position)
+	
+	var depth_difference = abs(actual_dist_to_cam - ideal_dist_to_cam)
+	var max_depth_tolerance = 4.0 # toleration in meters (if more than 4.0, no points for size)
+	var size_score = 100.0 * (1.0 - (depth_difference / max_depth_tolerance))
+	size_score = clamp(size_score, 0.0, 100.0)
+	
+	return (composition_score + size_score) / 2.0
+	
+
+func toggle_hologram(show_hologram: bool) -> void:
+	if player_target_marker and player_target_marker.has_node("Hologram"):
+		var holo = player_target_marker.get_node("Hologram")
+		holo.visible = show_hologram

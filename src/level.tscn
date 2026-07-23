@@ -86,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 2.274061, 7.200000
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)
 
 [node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
-transform = Transform3D(0.80005383, -0.5999282, 0, 0.5999282, 0.80005383, 0, 0, 0, 1, -0.5, 0.59040606, 0.2)
+transform = Transform3D(-0.0665036, 0.049868375, 0.99653924, 0.5999282, 0.80005383, 0, -0.797285, 0.597852, -0.08312391, -0.5, 0.59040606, 0.2)
 
 [node name="ClimbableWall" type="Node" parent="." unique_id=1293785637]
 

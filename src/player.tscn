@@ -35,6 +35,7 @@ scale_curve = SubResource("CurveTexture_bktlc")
 
 [node name="Player" type="CharacterBody3D" unique_id=1178688999]
 script = ExtResource("1_lowyb")
+acceleration = 30.0
 jump_cut_multiplier = 0.45
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1687932264]

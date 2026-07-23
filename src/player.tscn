@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b316ladivjlpp"]
 
+[ext_resource type="Script" uid="uid://bjx72vkdjfs3b" path="res://src/player.gd" id="1_lowyb"]
 [ext_resource type="PackedScene" uid="uid://dvhas6qwbp40l" path="res://src/player_skin.tscn" id="2_gmfve"]
 [ext_resource type="Texture2D" uid="uid://b564ytmwqoy3l" path="res://assets/sprites/blob_shadow.png" id="3_ehvfd"]
 [ext_resource type="PackedScene" uid="uid://d0jneonb8m7vu" path="res://src/interacting/interacting_component.tscn" id="3_pg28d"]

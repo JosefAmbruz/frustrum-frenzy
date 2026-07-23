@@ -2,6 +2,7 @@ extends StaticBody3D
 
 # TODO: this is temporary for testing - one camera = one scene
 @export var player_target_marker: Marker3D
+@export var target_photo: Texture2D
 
 var in_camera: bool = false
 var _interact_lock := false
@@ -13,7 +14,9 @@ var dot_tween: Tween
 @onready var camera_overlay = $CanvasLayer/CameraOverlay
 @onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
-@onready var captured_image = $CanvasLayer/PhotoResultUI/CapturedImage
+@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame/CapturedImage
+@onready var reference_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame/ReferenceImage
+@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreLabel
 @onready var fade_rect = $CanvasLayer/FadeRect
 @onready var interactable: Area3D = %Interactable
 
@@ -141,12 +144,22 @@ func _on_interact():
 func evaluate_photo_scene() -> void:
 	var player_node = get_tree().get_first_node_in_group("player")
 	
-	if player_node and player_target_marker:
-		var final_score = calculate_object_score(player_node, player_target_marker)
-		print("Player captured to ", round(final_score), " %")
-	else:
-		print("Error: No player found or Marker3D is missing")
+	var final_score = calculate_object_score(player_node, player_target_marker)
+	score_label.text = "Score: " + str(round(final_score)) + " %"
 	
+	if final_score >= 80:
+		score_label.add_theme_color_override("font_color", Color.GREEN)
+	elif final_score >= 50:
+		score_label.add_theme_color_override("font_color", Color.YELLOW)
+	else:
+		score_label.add_theme_color_override("font_color", Color.RED)
+
+	if target_photo != null:
+		reference_image.texture = target_photo
+	else:
+		print("ERROR: Missing target photo in inspector!")
+
+
 func calculate_object_score(object_node: Node3D, target_marker: Marker3D) -> float:
 	# if object is in front of objective
 	if view_camera.is_position_behind(object_node.global_position):

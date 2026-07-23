@@ -34,6 +34,20 @@ corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08vw2"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 60.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sriie"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 60.0
+bg_color = Color(1, 1, 1, 1)
+
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")
 
@@ -130,34 +144,50 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.5882353)
 
-[node name="PhotoFrame" type="ColorRect" parent="CanvasLayer/PhotoResultUI" unique_id=649652693]
+[node name="ResultContainer" type="VBoxContainer" parent="CanvasLayer/PhotoResultUI" unique_id=1930038234]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -415.0
-offset_top = -240.0
-offset_right = 415.0
-offset_bottom = 240.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_constants/separation = 20
 
-[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI" unique_id=1406486013]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -225.0
-offset_right = 400.0
-offset_bottom = 225.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1077149923]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Score: 100% "
+vertical_alignment = 1
+
+[node name="PhotoContainer" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=258238385]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="CapturedFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer" unique_id=1160635967]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_08vw2")
+
+[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame" unique_id=1406486013]
+custom_minimum_size = Vector2(460, 320)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ReferenceFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer" unique_id=236276635]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sriie")
+
+[node name="ReferenceImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame" unique_id=1064518495]
+custom_minimum_size = Vector2(460, 320)
+layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4

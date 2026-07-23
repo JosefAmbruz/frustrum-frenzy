@@ -5,10 +5,10 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5l7k"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_lowyb"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_v5l7k"]
 size = Vector3(1.6298828, 1.6040039, 1.7814941)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lowyb"]
 
 [node name="Player" type="CharacterBody3D" unique_id=1178688999]
 script = ExtResource("1_lowyb")
@@ -19,6 +19,12 @@ shape = SubResource("CapsuleShape3D_v5l7k")
 
 [node name="PlayerSkin" parent="." unique_id=426146297 instance=ExtResource("2_gmfve")]
 unique_name_in_owner = true
+
+[node name="InteractionComponent" type="Area3D" parent="PlayerSkin" unique_id=1575685796]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerSkin/InteractionComponent" unique_id=1091682900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9023694, 0.78318334)
+shape = SubResource("BoxShape3D_v5l7k")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=152074954]
 unique_name_in_owner = true
@@ -32,9 +38,3 @@ spring_length = 8.0
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=202418038]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, -1.4210855e-14, 1.0000001, -5.9604645e-08, 0, 5.9604645e-08, 1.0000001, 0, 0, 0)
-
-[node name="InteractionComponent" type="Area3D" parent="." unique_id=1575685796]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent" unique_id=1091682900]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9023694, 0.78318334)
-shape = SubResource("BoxShape3D_v5l7k")

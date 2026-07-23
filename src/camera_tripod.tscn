@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://7gr6v5d1mt52"]
+
+[ext_resource type="Script" path="res://src/camera_tripod.gd" id="1_v4y2o"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hwyno"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hwyno"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hwyno"]
+margin = 2.676
+size = Vector3(5, 3, 2.712)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_08vw2"]
+top_radius = 0.15576172
+bottom_radius = 0.15576172
+height = 0.44607544
+
+[node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
+script = ExtResource("1_v4y2o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=880157601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
+mesh = SubResource("CylinderMesh_hwyno")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1731509233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
+shape = SubResource("CylinderShape3D_hwyno")
+
+[node name="InteractionComponent" type="Area3D" parent="." unique_id=1167269053]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionComponent" unique_id=2063412422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.371, 0)
+shape = SubResource("BoxShape3D_hwyno")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=907995485]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0, 1.9286133, -0.00994575)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=2001284279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023262978, 2.5860891, 0)
+text = "Press E"
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=844778109]
+transform = Transform3D(-0.0034112334, 0.99999315, -0.0013386253, -0.9751212, -0.0034963987, 0.0013768049, 0.0013379876, 0.001343432, 0.99999815, 0.65238214, 1.9342393, 0.02126661)
+mesh = SubResource("CylinderMesh_08vw2")
+
+[connection signal="area_entered" from="InteractionComponent" to="." method="_on_interaction_component_area_entered"]
+[connection signal="area_exited" from="InteractionComponent" to="." method="_on_interaction_component_area_exited"]

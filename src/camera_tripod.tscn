@@ -57,7 +57,7 @@ one_shot = true
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_nym6r")]
 unique_name_in_owner = true
-interact_name = "[E] View camera"
+interact_name = "[E] View "
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=22570842]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6654053, 0)

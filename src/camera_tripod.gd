@@ -1,7 +1,7 @@
 extends StaticBody3D
 
-var can_interact: bool = false
 var in_camera: bool = false
+var _interact_lock := false
 var dot_tween: Tween
 
 @onready var view_camera = $Camera3D
@@ -21,7 +21,6 @@ func _ready() -> void:
 	camera_overlay.visible = false
 	print("debug: Camera start")
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not countdown_timer.is_stopped():
@@ -34,37 +33,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		photo_result_ui.visible = false
 		# TODO: back to player interaction
 		return
-	
-	if not can_interact:
+
+	if event.is_action_released("interact"):
+		_interact_lock = false
 		return
-	if event.is_action_pressed("interact"):
-		if not in_camera:
-			# Camera entered
-			view_camera.make_current()
-			in_camera = true
-			camera_overlay.visible = true
-			print("debug: Switched to camera view")
-			
-			# Hande red dot tween
-			if dot_tween:
-				dot_tween.kill()
-			dot_tween = create_tween().set_loops()
-			dot_tween.set_trans(Tween.TRANS_SINE)
-			dot_tween.tween_property(red_dot, "modulate:a", 0.0, 1.0)
-			dot_tween.tween_property(red_dot, "modulate:a", 1.0, 1.0)
+	
+	# If we click E in camera
+	if event.is_action_pressed("interact") and in_camera and not _interact_lock:
+		# Leaving camera
+		view_camera.clear_current()
+		in_camera = false
+		camera_overlay.visible = false
+		interactable.is_interactable = true
+		print("debug: Cleared camera view")
+		_interact_lock = true
 
-		else:
-			# Leaving camera
-			view_camera.clear_current()
-			in_camera = false
-			camera_overlay.visible = false
-			print("debug: Cleared camera view")
-
-			if dot_tween:
-				dot_tween.kill()
-			red_dot.modulate.a = 1.0
-
-	if event.is_action_pressed("left_click") and can_interact and in_camera:
+		if dot_tween:
+			dot_tween.kill()
+		red_dot.modulate.a = 1.0
+		
+	# If we click LMB in camera
+	if event.is_action_pressed("left_click") and in_camera:
 		view_camera.clear_current()
 		in_camera = false
 		
@@ -116,8 +105,28 @@ func _on_countdown_timer_timeout() -> void:
 	
 	view_camera.clear_current()
 	
+	interactable.is_interactable = true
+	
 	print("debug: Camera shoot")
 
-
 func _on_interact():
-	interactable.is_interactable = false
+	if not in_camera:
+		_interact_lock = true
+		# Turn off in-world interaactions
+		interactable.is_interactable = false
+		# Camera entered
+		view_camera.make_current()
+		camera_overlay.visible = true
+		print("debug: Switched to camera view")
+		
+		# Hande red dot tween
+		if dot_tween:
+			dot_tween.kill()
+		dot_tween = create_tween().set_loops()
+		dot_tween.set_trans(Tween.TRANS_SINE)
+		dot_tween.tween_property(red_dot, "modulate:a", 0.0, 1.0)
+		dot_tween.tween_property(red_dot, "modulate:a", 1.0, 1.0)
+		
+		in_camera = true
+
+	

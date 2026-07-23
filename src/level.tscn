@@ -88,6 +88,17 @@ mesh = SubResource("BoxMesh_idsc0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/StaticBody3D" unique_id=1144311452]
 shape = SubResource("BoxShape3D_msxom")
 
+[node name="ClimbableWall2" type="Node" parent="ClimbableWall" unique_id=1689024641]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ClimbableWall/ClimbableWall2" unique_id=984455118 groups=["climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.820317, 10.463127)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall/ClimbableWall2/StaticBody3D" unique_id=1113521116]
+mesh = SubResource("BoxMesh_idsc0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/ClimbableWall2/StaticBody3D" unique_id=1981453748]
+shape = SubResource("BoxShape3D_msxom")
+
 [node name="RespawnPoint" type="Node3D" parent="." unique_id=34591289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
 

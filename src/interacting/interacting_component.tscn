@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d0jneonb8m7vu"]
+
+[ext_resource type="Script" uid="uid://cqrnsfitpcxhw" path="res://src/interacting/interacting_component.gd" id="1_tc6x1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v5l7k"]
+radius = 1.538148
+
+[node name="InteractingComponent" type="Node3D" unique_id=1637550885]
+script = ExtResource("1_tc6x1")
+
+[node name="InteractRange" type="Area3D" parent="." unique_id=618288070]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractRange" unique_id=1138882181]
+shape = SubResource("SphereShape3D_v5l7k")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=2106708935]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6528783, 0)
+billboard = 1
+text = "Press [E] to interact"
+
+[connection signal="area_entered" from="InteractRange" to="." method="_on_interact_range_area_entered"]
+[connection signal="area_exited" from="InteractRange" to="." method="_on_interact_range_area_exited"]

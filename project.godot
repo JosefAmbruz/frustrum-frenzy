@@ -33,6 +33,10 @@ version_control/autoload_on_startup=true
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
+[global_group]
+
+pickupable="Whether or not can the object be picked up by player"
+
 [input]
 
 jump={
@@ -87,6 +91,11 @@ sprint={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":9,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="world"
+3d_physics/layer_2="interactions"
 
 [physics]
 

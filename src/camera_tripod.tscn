@@ -69,13 +69,6 @@ one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591166412]
 
-[node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=39188668]
-offset_left = 37.0
-offset_top = 18.0
-offset_right = 160.0
-offset_bottom = 136.0
-theme_override_font_sizes/font_size = 86
-
 [node name="CameraOverlay" type="Control" parent="CanvasLayer" unique_id=563050393]
 layout_mode = 3
 anchors_preset = 15
@@ -120,6 +113,53 @@ offset_right = 1117.0
 offset_bottom = 618.0
 theme_override_font_sizes/font_size = 24
 text = "[LMB] Shoot"
+
+[node name="PhotoResultUI" type="Control" parent="CanvasLayer" unique_id=1348612492]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PhotoResultUI" unique_id=1462726920]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI" unique_id=1406486013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=39188668]
+offset_left = 37.0
+offset_top = 18.0
+offset_right = 160.0
+offset_bottom = 136.0
+theme_override_font_sizes/font_size = 86
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1685703220]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="area_entered" from="InteractionComponent" to="." method="_on_interaction_component_area_entered"]
 [connection signal="area_exited" from="InteractionComponent" to="." method="_on_interaction_component_area_exited"]

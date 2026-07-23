@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 @export_category("Movement")
 @export var move_speed := 8.0
+@export var sprint_speed := 14.0
 @export var acceleration := 20.0
 @export var rotation_speed := 12.0
 @export var jump_height := 4.0
@@ -21,6 +22,15 @@ var _last_movement_direction := Vector3.BACK
 var _jump_impulse : float
 var _gravity : float
 var _coyote_time_left := 0.0
+
+@export_category("Climbing")
+@export var climb_speed := 4.0
+@export var wall_jump_force := 20.0
+@export var wall_jump_push := 8.0
+
+var is_climbing := false
+var is_wall_jumping := false
+var climb_wall_normal := Vector3.ZERO
 
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
@@ -41,6 +51,27 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 
+func check_climbing() -> void:
+	is_climbing = false
+	climb_wall_normal = Vector3.ZERO
+
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		var collider := collision.get_collider()
+
+		if collider.is_in_group("climbable"):
+			is_climbing = true
+			climb_wall_normal = collision.get_normal()
+			return
+
+func wall_jump() -> void:
+	is_climbing = false
+	is_wall_jumping = true
+
+	velocity.y = _jump_impulse
+	velocity += climb_wall_normal * wall_jump_push
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	var is_camera_motion := (
 		event is InputEventMouseMotion and
@@ -58,7 +89,9 @@ func _physics_process(delta: float) -> void:
 
 	
 	var can_jump := is_on_floor() or _coyote_time_left > 0.0
-	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump
+	var is_wall_jump := Input.is_action_just_pressed("jump") and is_climbing
+
+	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump and not is_climbing
 
 	_camera_pivot.rotation.x += _camera_input_direction.y * delta
 	_camera_pivot.rotation.x = clamp(_camera_pivot.rotation.x, deg_to_rad(-85.0), deg_to_rad(20.0))
@@ -74,18 +107,42 @@ func _physics_process(delta: float) -> void:
 	move_direction.y = 0.0 # camera in world is tilted
 	move_direction = move_direction.normalized()
 	
+	var is_sprinting := Input.is_action_pressed("sprint")
+	var current_speed := sprint_speed if is_sprinting else move_speed
+	
 	var y_velocity := velocity.y
 	velocity.y = 0.0 # Ground acceleration calculation will not affect gravity
-	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
+	velocity = velocity.move_toward(move_direction * current_speed, acceleration * delta)
 	var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
-	velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
-
+	if is_climbing:
+		velocity.y = 0.0
+	else:
+		velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
+	
+	if is_climbing and not is_wall_jumping:
+		var climb_input := Input.get_axis("move_down", "move_up")
+		velocity.y = climb_input * climb_speed
+	
 	
 	if is_starting_jump:
 		velocity.y = _jump_impulse
 		_coyote_time_left = 0.0
 	
+	if is_wall_jump:
+		wall_jump()
+
 	move_and_slide()
+	
+	if is_wall_jumping and not is_climbing:
+		is_wall_jumping = false
+
+	check_climbing()
+
+	if is_on_floor():
+		is_wall_jumping = false
+	
+	if is_climbing:
+		print("CLIMBING")
 
 	# variable jump height: if the player releases jump while still moving upward,
 	# cut the upward velocity so short taps produce smaller jumps (Mario-style)
@@ -118,10 +175,20 @@ func _physics_process(delta: float) -> void:
 			# TODO: Change skin state to idle
 			pass
 
-func handle_effects(delta):
-
+func handle_effects(_delta):
+	var is_sprinting := Input.is_action_pressed("sprint")
+	var ground_speed := velocity.length()
+	var is_moving := ground_speed > 0.2
+	
 	_particle_trail.emitting = false
 	_sound_footsteps.stream_paused = true
 
-	if is_on_floor():
+	if is_on_floor() and is_sprinting and is_moving:
 		_particle_trail.emitting = true
+
+func apply_external_impulse(impulse: Vector3) -> void:
+	if impulse.y > 0:
+		velocity.y = impulse.y
+	
+	velocity.x += impulse.x
+	velocity.z += impulse.z

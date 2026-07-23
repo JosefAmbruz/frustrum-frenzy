@@ -50,6 +50,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		interactable.is_interactable = true
 		print("debug: Cleared camera view")
 		_interact_lock = true
+		toggle_hologram(false)
+
 
 		if dot_tween:
 			dot_tween.kill()
@@ -67,6 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		countdown_timer.start(10)
 		countdown_label.visible = true
 		camera_overlay.visible = false
+		toggle_hologram(false)
 		print("debug: Start timer")
 
 
@@ -133,6 +136,7 @@ func _on_interact():
 		dot_tween.tween_property(red_dot, "modulate:a", 1.0, 1.0)
 		
 		in_camera = true
+		toggle_hologram(true)
 
 func evaluate_photo_scene() -> void:
 	var player_node = get_tree().get_first_node_in_group("player")
@@ -168,3 +172,8 @@ func calculate_object_score(object_node: Node3D, target_marker: Marker3D) -> flo
 	
 	return (composition_score + size_score) / 2.0
 	
+
+func toggle_hologram(show_hologram: bool) -> void:
+	if player_target_marker and player_target_marker.has_node("Hologram"):
+		var holo = player_target_marker.get_node("Hologram")
+		holo.visible = show_hologram

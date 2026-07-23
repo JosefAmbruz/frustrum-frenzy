@@ -12,9 +12,8 @@ top_radius = 0.15576172
 bottom_radius = 0.15576172
 height = 0.44607544
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_v5l7k"]
-height = 2.5490723
-radius = 1.9682617
+[sub_resource type="BoxShape3D" id="BoxShape3D_nym6r"]
+size = Vector3(0.68322754, 1.3616333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfxto"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -71,11 +70,12 @@ one_shot = true
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_nym6r")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9318713, 0, 0)
 interact_name = "[E] View "
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=22570842]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6654053, 0)
-shape = SubResource("CylinderShape3D_v5l7k")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0758667, 1.4042969, 0)
+shape = SubResource("BoxShape3D_nym6r")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591166412]
 

@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 [global_group]
 
 pickupable="Whether or not can the object be picked up by player"
+player=""
 
 [input]
 

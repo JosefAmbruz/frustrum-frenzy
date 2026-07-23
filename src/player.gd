@@ -25,6 +25,8 @@ var _coyote_time_left := 0.0
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
 @onready var _skin : Node3D = %PlayerSkin
+@onready var _particle_trail : GPUParticles3D = %ParticleTrail
+@onready var _sound_footsteps : = %SoundFootsteps
 
 func _ready() -> void:
 	_coyote_time_left = coyote_time
@@ -51,6 +53,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
 	_jump_impulse = _gravity * jump_time_to_apex
+	
+	handle_effects(delta)
+
 	
 	var can_jump := is_on_floor() or _coyote_time_left > 0.0
 	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump
@@ -112,3 +117,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			# TODO: Change skin state to idle
 			pass
+
+func handle_effects(delta):
+
+	_particle_trail.emitting = false
+	_sound_footsteps.stream_paused = true
+
+	if is_on_floor():
+		_particle_trail.emitting = true

@@ -1,5 +1,8 @@
 extends StaticBody3D
 
+# TODO: this is temporary for testing - one camera = one scene
+@export var player_target_marker: Marker3D
+
 var in_camera: bool = false
 var _interact_lock := false
 var dot_tween: Tween
@@ -106,7 +109,9 @@ func _on_countdown_timer_timeout() -> void:
 	view_camera.clear_current()
 	
 	interactable.is_interactable = true
-	
+
+	evaluate_photo_scene()
+
 	print("debug: Camera shoot")
 
 func _on_interact():
@@ -129,4 +134,37 @@ func _on_interact():
 		
 		in_camera = true
 
+func evaluate_photo_scene() -> void:
+	var player_node = get_tree().get_first_node_in_group("player")
+	
+	if player_node and player_target_marker:
+		var final_score = calculate_object_score(player_node, player_target_marker)
+		print("Player captured to ", round(final_score), " %")
+	else:
+		print("Error: No player found or Marker3D is missing")
+	
+func calculate_object_score(object_node: Node3D, target_marker: Marker3D) -> float:
+	# if object is in front of objective
+	if view_camera.is_position_behind(object_node.global_position):
+		return 0.0
+	
+	# Evaluation of 2D coordinates (X, Y on photo)
+	var actual_2d_pos = view_camera.unproject_position(object_node.global_position) # player
+	var ideal_2d_pos = view_camera.unproject_position(target_marker.global_position) # marker
+	
+	var pixel_distance = actual_2d_pos.distance_to(ideal_2d_pos)
+	var max_pixel_tolerance = 300.0 # tolerance in pixels on screen
+	var composition_score = 100.0 * (1.0 - (pixel_distance / max_pixel_tolerance))
+	composition_score = clamp(composition_score, 0.0, 100.0)
+	
+	# Evaluation of size/depth (distance)
+	var actual_dist_to_cam = object_node.global_position.distance_to(view_camera.global_position)
+	var ideal_dist_to_cam = target_marker.global_position.distance_to(view_camera.global_position)
+	
+	var depth_difference = abs(actual_dist_to_cam - ideal_dist_to_cam)
+	var max_depth_tolerance = 4.0 # toleration in meters (if more than 4.0, no points for size)
+	var size_score = 100.0 * (1.0 - (depth_difference / max_depth_tolerance))
+	size_score = clamp(size_score, 0.0, 100.0)
+	
+	return (composition_score + size_score) / 2.0
 	

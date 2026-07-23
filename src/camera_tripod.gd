@@ -5,7 +5,7 @@ var in_camera: bool = false
 var dot_tween: Tween
 
 @onready var view_camera = $Camera3D
-@onready var interact_label = $Label3D
+@onready var interact_label = %Label3D
 @onready var countdown_timer = $CountdownTimer
 @onready var countdown_label = $CanvasLayer/CountdownLabel
 @onready var camera_overlay = $CanvasLayer/CameraOverlay

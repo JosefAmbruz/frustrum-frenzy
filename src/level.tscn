@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bhphwu4735keq" path="res://icon.svg" id="1_ybxv7"]
 [ext_resource type="PackedScene" uid="uid://c5osj0o6tio6b" path="res://src/container_shaped_block.tscn" id="2_4q7qo"]
+[ext_resource type="PackedScene" uid="uid://bt6xk0xaas4kv" path="res://src/platform.tscn" id="3_68xyb"]
+[ext_resource type="PackedScene" uid="uid://cv5skg4d3oy0v" path="res://src/rotating_platform.tscn" id="4_feg4a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kjmu"]
 albedo_texture = ExtResource("1_ybxv7")
@@ -42,6 +44,7 @@ data = PackedVector3Array(-0.3536, -0.775, -0.3536, -0.5, -0.775, 0, 0, -0.775, 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=485651671]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ground" unique_id=1188712448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0)
 size = Vector3(28.992188, 1, 29.62915)
 material = SubResource("StandardMaterial3D_6kjmu")
 
@@ -68,3 +71,9 @@ mesh = SubResource("ArrayMesh_68xyb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBakedMeshInstance3D3/StaticBody3D" unique_id=797293800]
 shape = SubResource("ConcavePolygonShape3D_68xyb")
+
+[node name="platform" parent="." unique_id=494455518 instance=ExtResource("3_68xyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.800001, 1.8, 7.2000003)
+
+[node name="StaticBody3D" parent="." unique_id=2038079127 instance=ExtResource("4_feg4a")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)

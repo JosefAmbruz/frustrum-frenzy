@@ -22,6 +22,8 @@ var _last_movement_direction := Vector3.BACK
 var _jump_impulse : float
 var _gravity : float
 var _coyote_time_left := 0.0
+var is_climbing := false
+@export var climb_speed := 4.0
 
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
@@ -41,6 +43,18 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+
+func check_climbing() -> void:
+	is_climbing = false
+
+	for i in get_slide_collision_count():
+		var collision := get_slide_collision(i)
+		var collider := collision.get_collider()
+
+		if collider.is_in_group("climbable"):
+			is_climbing = true
+			return
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	var is_camera_motion := (
@@ -82,14 +96,26 @@ func _physics_process(delta: float) -> void:
 	velocity.y = 0.0 # Ground acceleration calculation will not affect gravity
 	velocity = velocity.move_toward(move_direction * current_speed, acceleration * delta)
 	var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
-	velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
+	if is_climbing:
+		velocity.y = 0.0
+	else:
+		velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
+	
+	if is_climbing:
+		var climb_input := Input.get_axis("move_down", "move_up")
 
+		if Input.is_action_pressed("jump"):
+			climb_input = 1.0
+
+		velocity.y = climb_input * climb_speed
+	
 	
 	if is_starting_jump:
 		velocity.y = _jump_impulse
 		_coyote_time_left = 0.0
 	
 	move_and_slide()
+	check_climbing()
 
 	# variable jump height: if the player releases jump while still moving upward,
 	# cut the upward velocity so short taps produce smaller jumps (Mario-style)

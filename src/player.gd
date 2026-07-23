@@ -35,6 +35,7 @@ var _wall_jump_lock_left := 0.0
 
 var is_near_any_wall := false
 var any_wall_normal := Vector3.ZERO
+var is_captured := false
 
 @export_category("Climbing")
 @export var climb_speed_up := 3.5
@@ -59,6 +60,9 @@ func _ready() -> void:
 	_coyote_time_left = coyote_time
 
 func _input(event: InputEvent) -> void:
+	if is_captured:
+		return
+
 	# Capture Mouse
 	if event.is_action_pressed("left_click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -66,6 +70,9 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_captured:
+		return
+
 	var is_camera_motion := (
 		event is InputEventMouseMotion and
 		Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
@@ -113,6 +120,11 @@ func wall_jump() -> void:
 	_wall_jump_lock_left = wall_jump_lock_time
 
 func _physics_process(delta: float) -> void:
+	if is_captured:
+		velocity = Vector3.ZERO
+		handle_effects(delta)
+		return
+
 	_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
 	_jump_impulse = _gravity * jump_time_to_apex
 	_wall_jump_lock_left = maxf(_wall_jump_lock_left - delta, 0.0)
@@ -241,3 +253,23 @@ func apply_external_impulse(impulse: Vector3) -> void:
 
 	velocity.x += impulse.x
 	velocity.z += impulse.z
+ 
+func _on_player_captured() -> void:
+	print_debug("Player Captured")
+	is_captured = true
+	velocity = Vector3.ZERO
+	_camera_input_direction = Vector2.ZERO
+	is_climbing = false
+	is_wall_jumping = false
+
+func _on_player_released() -> void:
+	print_debug("Player Released")
+	is_captured = false
+
+func _on_tree_entered() -> void:
+	EventBus.player_captured.connect(_on_player_captured)
+	EventBus.player_released.connect(_on_player_released)
+
+func _on_tree_exited() -> void:
+	EventBus.player_captured.disconnect(_on_player_captured)
+	EventBus.player_released.disconnect(_on_player_released)

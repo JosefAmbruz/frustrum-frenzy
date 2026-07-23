@@ -78,3 +78,6 @@ draw_pass_1 = ExtResource("4_bktlc")
 
 [node name="SoundFootsteps" type="AudioStreamPlayer" parent="." unique_id=235858510]
 unique_name_in_owner = true
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bt6xk0xaas4kv" path="res://src/platform.tscn" id="3_68xyb"]
 [ext_resource type="PackedScene" uid="uid://cv5skg4d3oy0v" path="res://src/rotating_platform.tscn" id="4_feg4a"]
 [ext_resource type="PackedScene" uid="uid://yy8kk4gf0qn8" path="res://src/trampoline.tscn" id="5_dh7pt"]
-[ext_resource type="PackedScene" uid="uid://yy8kk4gf0qn8" path="res://src/trampoline.tscn" id="5_dh7pt"]
 [ext_resource type="PackedScene" uid="uid://6fqa00bic2rv" path="res://src/kill_plane.tscn" id="6_jq0je"]
 [ext_resource type="PackedScene" uid="uid://jx1o12weknrv" path="res://src/items/pickupable_item.tscn" id="7_pothl"]
 
@@ -73,7 +72,7 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.5815512, 18.626482, 
 
 [node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
 transform = Transform3D(0.8851019, -1.6161158, 0.7776659, 1.6624569, 1.0646816, 0.3204528, -0.67292774, 0.50460136, 1.8145373, 18.16276, 8.232737, -13.775636)
-force_mult = 45.0
+force_mult = 35.0
 
 [node name="ClimbableWall2" type="StaticBody3D" parent="." unique_id=984455118 groups=["climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.011003, 5.2057543, 13.477322)
@@ -140,3 +139,7 @@ transform = Transform3D(0.9425411, -0.30070654, -0.14557363, 0.3109008, 0.948979
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D3" unique_id=869663345]
 transform = Transform3D(0.9425411, -0.30070654, -0.14557363, 0.3109008, 0.94897985, 0.05270427, 0.12229795, -0.09493491, 0.9879425, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pothl")
+
+[node name="Trampoline2" parent="." unique_id=1482591233 instance=ExtResource("5_dh7pt")]
+transform = Transform3D(2.0000002, 0, 0, 0, 2.0000002, 0, 0, 0, 2.0000002, 0, 0.6954012, -13.373116)
+force_mult = 10.0

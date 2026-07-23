@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 @export_category("Movement")
 @export var move_speed := 8.0
+@export var sprint_speed := 14.0
 @export var acceleration := 20.0
 @export var rotation_speed := 12.0
 @export var jump_height := 4.0
@@ -74,9 +75,12 @@ func _physics_process(delta: float) -> void:
 	move_direction.y = 0.0 # camera in world is tilted
 	move_direction = move_direction.normalized()
 	
+	var is_sprinting := Input.is_action_pressed("sprint")
+	var current_speed := sprint_speed if is_sprinting else move_speed
+	
 	var y_velocity := velocity.y
 	velocity.y = 0.0 # Ground acceleration calculation will not affect gravity
-	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
+	velocity = velocity.move_toward(move_direction * current_speed, acceleration * delta)
 	var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
 	velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
 
@@ -118,10 +122,13 @@ func _physics_process(delta: float) -> void:
 			# TODO: Change skin state to idle
 			pass
 
-func handle_effects(delta):
-
+func handle_effects(_delta):
+	var is_sprinting := Input.is_action_pressed("sprint")
+	var ground_speed := velocity.length()
+	var is_moving := ground_speed > 0.2
+	
 	_particle_trail.emitting = false
 	_sound_footsteps.stream_paused = true
 
-	if is_on_floor():
+	if is_on_floor() and is_sprinting and is_moving:
 		_particle_trail.emitting = true

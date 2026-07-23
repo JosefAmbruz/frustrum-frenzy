@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://jx1o12weknrv"]
+
+[ext_resource type="Script" uid="uid://tsq84fjbpqum" path="res://src/items/pickupable_item.gd" id="1_6jmh3"]
+[ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_tkdkl"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3ynte"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 0.47961426
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5l7k"]
+albedo_color = Color(0.4042926, 0.98142344, 0.998184, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8juqg"]
+height = 0.48295593
+radius = 0.41503906
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i3kvd"]
+height = 1.0015259
+radius = 0.81640625
+
+[node name="PickupableItem" type="RigidBody3D" unique_id=1365369840 groups=["pickupable"]]
+script = ExtResource("1_6jmh3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=846048708]
+transform = Transform3D(1.6726053, 0, 0, 0, 1, 0, 0, 0, 1.6726053, 0, 0.23980713, 0)
+mesh = SubResource("CylinderMesh_3ynte")
+surface_material_override/0 = SubResource("StandardMaterial3D_v5l7k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=338835205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23868561, 0)
+shape = SubResource("CylinderShape3D_8juqg")
+
+[node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_tkdkl")]
+unique_name_in_owner = true
+interact_name = "[E] Pick up"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1022768583]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49923706, 0)
+shape = SubResource("CylinderShape3D_i3kvd")

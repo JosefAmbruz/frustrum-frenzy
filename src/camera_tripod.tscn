@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://s8ebssk2p6wu"]
 
-[ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera_tripod.gd" id="1_v4y2o"]
+[gd_scene format=3 uid="uid://7gr6v5d1mt52"]
+
+[ext_resource type="Script" path="res://src/camera_tripod.gd" id="1_v4y2o"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hwyno"]
 

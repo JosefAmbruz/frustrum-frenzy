@@ -65,14 +65,14 @@ mesh = SubResource("ArrayMesh_68xyb")
 shape = SubResource("ConcavePolygonShape3D_68xyb")
 
 [node name="platform" parent="." unique_id=494455518 instance=ExtResource("3_68xyb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 16.284388, -9.030151)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.337311, 9.463205, -9.069397)
 
 [node name="rotor" parent="." unique_id=2038079127 instance=ExtResource("4_feg4a")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.5815512, 18.626482, -8.786158)
 
 [node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
-transform = Transform3D(0.8851019, -1.6161158, 0.7776659, 1.6624569, 1.0646816, 0.3204528, -0.67292774, 0.50460136, 1.8145373, 18.16276, 8.232737, -13.775636)
-force_mult = 35.0
+transform = Transform3D(0.9701636, -2.836453, 0.115373306, 2.8312087, 0.9578595, -0.25837865, 0.20745559, 0.19243897, 2.9866247, 19.341, 11.812454, -10.528423)
+force_mult = 7.0
 
 [node name="ClimbableWall2" type="StaticBody3D" parent="." unique_id=984455118 groups=["climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.011003, 5.2057543, 13.477322)
@@ -83,6 +83,7 @@ material_override = SubResource("StandardMaterial3D_7i26j")
 mesh = SubResource("BoxMesh_idsc0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall2" unique_id=1981453748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.169798, 0)
 shape = SubResource("BoxShape3D_msxom")
 
 [node name="ClimbableWall" type="StaticBody3D" parent="." unique_id=563330007 groups=["climbable"]]
@@ -99,7 +100,7 @@ shape = SubResource("BoxShape3D_msxom")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
 
 [node name="Area3D" parent="." unique_id=1748378536 node_paths=PackedStringArray("respawn_point") instance=ExtResource("6_jq0je")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.298423, -11.544942, 20.091238)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.055198, -11.778376, 19.929356)
 respawn_point = NodePath("../RespawnPoint")
 
 [node name="PickupableItems" type="Node3D" parent="." unique_id=864772700]
@@ -108,7 +109,7 @@ respawn_point = NodePath("../RespawnPoint")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.452864, 2.2959433, 0)
 
 [node name="Node3D" type="Node3D" parent="." unique_id=1941396817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.774593, 3.8071432, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 17.774593, 3.8071432, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Node3D" unique_id=1806192406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5900955, 1.626648, 0)
@@ -142,4 +143,8 @@ shape = SubResource("ConcavePolygonShape3D_pothl")
 
 [node name="Trampoline2" parent="." unique_id=1482591233 instance=ExtResource("5_dh7pt")]
 transform = Transform3D(2.0000002, 0, 0, 0, 2.0000002, 0, 0, 0, 2.0000002, 0, 0.6954012, -13.373116)
-force_mult = 10.0
+force_mult = 5.0
+
+[node name="Trampoline3" parent="." unique_id=509576511 instance=ExtResource("5_dh7pt")]
+transform = Transform3D(-0.07539623, -0.75125736, -1.8520066, -1.9949018, -0.08407794, 0.11531938, -0.12117371, 1.8516328, -0.7461728, 6.004281, 0.7373409, -13.373116)
+force_mult = 7.0

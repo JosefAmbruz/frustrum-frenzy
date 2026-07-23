@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://b66flfredp6ig"]
-
-[ext_resource type="PackedScene" uid="uid://b2uwhncoaf7nv" path="res://assets/models/items/apple.glb" id="1_u4cju"]
-
-[node name="Apple" unique_id=1958323789 instance=ExtResource("1_u4cju")]

@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EventBus="*uid://buxus5sq6w424"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [display]
 
@@ -36,7 +36,6 @@ enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 [global_group]
 
 pickupable="Whether or not can the object be picked up by player"
-player=""
 
 [input]
 

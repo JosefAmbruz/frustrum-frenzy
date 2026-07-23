@@ -288,8 +288,8 @@ gravity = Vector3(0, 0.1, 0)
 scale_min = 0.75
 scale_curve = SubResource("CurveTexture_bktlc")
 
-[node name="Player" type="CharacterBody3D" unique_id=1178688999 groups=["player"]]
-script = ExtResource("1_lowyb")
+[node name="Player" type="CharacterBody3D" unique_id=1178688999]
+script = SubResource("GDScript_bktlc")
 acceleration = 30.0
 jump_cut_multiplier = 0.45
 external_damping = 100.0
@@ -303,12 +303,9 @@ shape = SubResource("CapsuleShape3D_v5l7k")
 unique_name_in_owner = true
 
 [node name="InteractingComponent" parent="PlayerSkin" unique_id=1637550885 instance=ExtResource("3_pg28d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8064624, 0.094560385)
-player = NodePath("../..")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8168986, 0.51417863)
 
 [node name="HoldPosition" type="Node3D" parent="PlayerSkin" unique_id=668428007]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5180094, 0.8444779)
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=152074954]
 unique_name_in_owner = true
@@ -340,6 +337,3 @@ draw_pass_1 = ExtResource("4_bktlc")
 
 [node name="SoundFootsteps" type="AudioStreamPlayer" parent="." unique_id=235858510]
 unique_name_in_owner = true
-
-[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
-[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

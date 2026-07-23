@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dvhas6qwbp40l"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v5l7k"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cpu8u"]
+size = Vector3(0.8076172, 0.39050293, 0.41906738)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gmfve"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="PlayerSkin" type="Node3D" unique_id=426146297]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=894294227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_v5l7k")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1186420078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5775018, 0.3169036)
+mesh = SubResource("BoxMesh_cpu8u")
+surface_material_override/0 = SubResource("StandardMaterial3D_gmfve")

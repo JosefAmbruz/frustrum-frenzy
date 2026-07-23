@@ -11,3 +11,7 @@ func _ready() -> void:
 # Move to _physics_process for physics bodies
 func _physics_process(delta: float) -> void:
 	roundboud_rotation(delta)
+
+
+func _on_spring_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

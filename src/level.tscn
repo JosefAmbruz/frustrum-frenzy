@@ -88,21 +88,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 2.274061, 7.200000
 [node name="rotor" parent="." unique_id=2038079127 instance=ExtResource("4_feg4a")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)
 
-[node name="spring" type="StaticBody3D" parent="." unique_id=2073616620]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0.2)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="spring" unique_id=1561675736]
-height = 0.099999994
-
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="spring" unique_id=1582540455]
-shape = SubResource("ConcavePolygonShape3D_jq0je")
-
-[node name="Area3D" type="Area3D" parent="spring" unique_id=1333301717]
+[node name="Spring" type="Area3D" parent="." unique_id=1333301717]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.59040606, 0.2)
 script = ExtResource("5_dh7pt")
 
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="spring/Area3D" unique_id=145070529]
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Spring" unique_id=145070529]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045336485, 0)
 shape = SubResource("ConcavePolygonShape3D_jq0je")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spring" unique_id=1561675736]
+height = 0.099999994
 
 [node name="ClimbableWall" type="Node" parent="." unique_id=1293785637]
 
@@ -114,3 +109,5 @@ mesh = SubResource("BoxMesh_idsc0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/StaticBody3D" unique_id=1144311452]
 shape = SubResource("BoxShape3D_msxom")
+
+[connection signal="body_entered" from="Spring" to="Spring" method="_on_spring_body_entered"]

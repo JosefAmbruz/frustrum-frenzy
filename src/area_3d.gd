@@ -1,9 +1,8 @@
 extends Area3D
 
-@export var boost_force := 30.0
+@export var boost_force := Vector3(0, 50, 0)
 
-func _on_body_entered(body):
-	if body.is_in_group("player"):
-		var direction = -global_transform.basis.z.normalized()
-
-		body.velocity = direction * boost_force
+func _on_spring_body_entered(body: Node3D) -> void:
+	print_debug("Hellnoi")
+	if body.has_method("apply_external_impulse"):
+		body.apply_external_impulse(boost_force)

@@ -24,44 +24,55 @@ var _gravity : float
 var _coyote_time_left := 0.0
 
 @export_category("Climbing")
-@export var climb_speed := 4.0
-@export var wall_jump_force := 20.0
-@export var wall_jump_push := 8.0
+@export var climb_speed_up := 3.5
+@export var climb_speed_down := 2.0
+@export var climb_slide_idle := 2.5
+@export var climb_accel := 18.0
+@export var climb_detach_push := 1.2
+@export var min_into_wall_dot := 0.08 # how much does the input have to aim into the wall
+@export var wall_stick_force := 0.4
+@export var wall_jump_push := 6.0
 
 var is_climbing := false
 var is_wall_jumping := false
-var climb_wall_normal := Vector3.ZERO
+var climb_normal := Vector3.ZERO
 
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
 @onready var _skin : Node3D = %PlayerSkin
 @onready var _particle_trail : GPUParticles3D = %ParticleTrail
-@onready var _sound_footsteps : = %SoundFootsteps
+@onready var _sound_footsteps = %SoundFootsteps
 
 func _ready() -> void:
 	_coyote_time_left = coyote_time
 
 func _input(event: InputEvent) -> void:
-	#Capture Mouse
-	# -- only in windowed mode?
-	
+	# Capture Mouse
 	if event.is_action_pressed("left_click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
+
+func _unhandled_input(event: InputEvent) -> void:
+	var is_camera_motion := (
+		event is InputEventMouseMotion and
+		Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
+	)
+
+	if is_camera_motion:
+		_camera_input_direction = event.screen_relative * mouse_sensitivity
 
 func check_climbing() -> void:
 	is_climbing = false
-	climb_wall_normal = Vector3.ZERO
+	climb_normal = Vector3.ZERO
 
-	for i in get_slide_collision_count():
+	for i in range(get_slide_collision_count()):
 		var collision := get_slide_collision(i)
 		var collider := collision.get_collider()
 
-		if collider.is_in_group("climbable"):
+		if collider and collider.is_in_group("climbable"):
 			is_climbing = true
-			climb_wall_normal = collision.get_normal()
+			climb_normal = collision.get_normal()
 			return
 
 func wall_jump() -> void:
@@ -69,117 +80,121 @@ func wall_jump() -> void:
 	is_wall_jumping = true
 
 	velocity.y = _jump_impulse
-	velocity += climb_wall_normal * wall_jump_push
+	velocity += climb_normal * wall_jump_push
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	var is_camera_motion := (
-		event is InputEventMouseMotion and
-		Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
-	)
-	
-	if is_camera_motion:
-		_camera_input_direction = event.screen_relative * mouse_sensitivity
-	
 func _physics_process(delta: float) -> void:
 	_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
 	_jump_impulse = _gravity * jump_time_to_apex
-	
+
 	handle_effects(delta)
 
-	
-	var can_jump := is_on_floor() or _coyote_time_left > 0.0
-	var is_wall_jump := Input.is_action_just_pressed("jump") and is_climbing
-
-	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump and not is_climbing
-
+	# Camera look
 	_camera_pivot.rotation.x += _camera_input_direction.y * delta
 	_camera_pivot.rotation.x = clamp(_camera_pivot.rotation.x, deg_to_rad(-85.0), deg_to_rad(20.0))
 	_camera_pivot.rotation.y -= _camera_input_direction.x * delta
-	
 	_camera_input_direction = Vector2.ZERO
-	
+
+	# Camera-relative movement input (ground plane)
 	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var forward := _camera.global_basis.z
-	var right := _camera.global_basis.x
-	
-	var move_direction := forward * raw_input.y + right * raw_input.x
-	move_direction.y = 0.0 # camera in world is tilted
-	move_direction = move_direction.normalized()
-	
+
+	var cam_forward := _camera.global_basis.z
+	cam_forward.y = 0.0
+	cam_forward = cam_forward.normalized()
+
+	var cam_right := _camera.global_basis.x
+	cam_right.y = 0.0
+	cam_right = cam_right.normalized()
+
+	var move_direction := cam_forward * raw_input.y + cam_right * raw_input.x
+	if move_direction.length() > 0.001:
+		move_direction = move_direction.normalized()
+	else:
+		move_direction = Vector3.ZERO
+
 	var is_sprinting := Input.is_action_pressed("sprint")
 	var current_speed := sprint_speed if is_sprinting else move_speed
-	
+
+	# Check climbing state from last slide results
+	check_climbing()
+
+	# Climbing: player must push into wall (camera-relative), not fixed key
+	var into_wall := 0.0
+	if is_climbing and move_direction != Vector3.ZERO:
+		into_wall = move_direction.dot(-climb_normal)
+
+	var wants_wall_jump := Input.is_action_just_pressed("jump") and is_climbing
+	var can_jump := is_on_floor() or _coyote_time_left > 0.0
+	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump and not is_climbing
+
+	# Horizontal velocity (always smooth)
 	var y_velocity := velocity.y
-	velocity.y = 0.0 # Ground acceleration calculation will not affect gravity
+	velocity.y = 0.0
 	velocity = velocity.move_toward(move_direction * current_speed, acceleration * delta)
-	var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
-	if is_climbing:
-		velocity.y = 0.0
-	else:
-		velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
-	
+
+	# Vertical handling
 	if is_climbing and not is_wall_jumping:
-		var climb_input := Input.get_axis("move_down", "move_up")
-		velocity.y = climb_input * climb_speed
-	
-	
+		var target_vy := -climb_slide_idle
+
+		# Move up only when moving into wall and pressing forward
+		if into_wall > min_into_wall_dot:
+			target_vy = climb_speed_up
+		elif into_wall < -min_into_wall_dot:
+			target_vy = -climb_speed_down
+		# else: idle slide down
+
+		velocity.y = move_toward(y_velocity, target_vy, climb_accel * delta)
+		# keep slight adhesion to wall
+		velocity += -climb_normal * wall_stick_force
+	else:
+		var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
+		velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
+
 	if is_starting_jump:
 		velocity.y = _jump_impulse
 		_coyote_time_left = 0.0
-	
-	if is_wall_jump:
+
+	if wants_wall_jump:
 		wall_jump()
 
 	move_and_slide()
-	
-	if is_wall_jumping and not is_climbing:
+
+	# Reset wall-jump lock when grounded or off wall
+	if is_wall_jumping and (is_on_floor() or not is_climbing):
 		is_wall_jumping = false
 
-	check_climbing()
-
-	if is_on_floor():
-		is_wall_jumping = false
-	
-	if is_climbing:
-		print("CLIMBING")
-
-	# variable jump height: if the player releases jump while still moving upward,
-	# cut the upward velocity so short taps produce smaller jumps (Mario-style)
+	# variable jump height: if player releases jump while still moving upward, cut it
 	if Input.is_action_just_released("jump") and velocity.y > 0.0:
 		velocity.y *= jump_cut_multiplier
 
+	# Coyote time
 	if is_on_floor():
 		_coyote_time_left = coyote_time
 	else:
 		_coyote_time_left = maxf(_coyote_time_left - delta, 0.0)
-	
+
+	# Visual facing
 	if move_direction.length() > 0.2:
 		_last_movement_direction = move_direction
 	var target_angle := Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
 	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
-	
+
+	# TODO animation state switches
 	if is_starting_jump:
-		# TODO: Change skin state to jump
 		pass
 	elif not is_on_floor() and velocity.y < 0:
-		# TODO: Change skin state to falling
 		pass
 	elif is_on_floor():
-	
-		var ground_speed := velocity.length()
+		var ground_speed := Vector2(velocity.x, velocity.z).length()
 		if ground_speed > 0.0:
-			# TODO: Change skin state to move
 			pass
 		else:
-			# TODO: Change skin state to idle
 			pass
 
-func handle_effects(_delta):
+func handle_effects(_delta: float) -> void:
 	var is_sprinting := Input.is_action_pressed("sprint")
-	var ground_speed := velocity.length()
+	var ground_speed := Vector2(velocity.x, velocity.z).length()
 	var is_moving := ground_speed > 0.2
-	
+
 	_particle_trail.emitting = false
 	_sound_footsteps.stream_paused = true
 
@@ -189,6 +204,6 @@ func handle_effects(_delta):
 func apply_external_impulse(impulse: Vector3) -> void:
 	if impulse.y > 0:
 		velocity.y = impulse.y
-	
+
 	velocity.x += impulse.x
 	velocity.z += impulse.z

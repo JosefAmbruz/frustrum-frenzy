@@ -37,7 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			in_camera = false
 			interact_label.visible = true
 			print("debug: Cleared camera view")
-	if event.is_action_pressed("left_click") and can_interact:
+	if event.is_action_pressed("left_click") and can_interact and in_camera:
 		view_camera.clear_current()
 		in_camera = false
 		

@@ -85,6 +85,7 @@ material_override = SubResource("StandardMaterial3D_7i26j")
 mesh = SubResource("BoxMesh_idsc0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall2" unique_id=1981453748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.169798, 0)
 shape = SubResource("BoxShape3D_msxom")
 
 [node name="ClimbableWall" type="StaticBody3D" parent="." unique_id=563330007 groups=["climbable"]]
@@ -101,7 +102,7 @@ shape = SubResource("BoxShape3D_msxom")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
 
 [node name="Area3D" parent="." unique_id=1748378536 node_paths=PackedStringArray("respawn_point") instance=ExtResource("6_jq0je")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, -11.7, 19.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.149264, -11.692973, 19.978575)
 respawn_point = NodePath("../RespawnPoint")
 
 [node name="PickupableItems" type="Node3D" parent="." unique_id=864772700]

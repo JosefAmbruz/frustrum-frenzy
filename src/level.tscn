@@ -18,3 +18,13 @@ material = SubResource("StandardMaterial3D_6kjmu")
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=13172177]
 shape = SubResource("ConcavePolygonShape3D_ktcc2")
+
+[node name="Ground2" type="StaticBody3D" parent="." unique_id=939487271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.600521, 1.5851545, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Ground2" unique_id=1844414474]
+size = Vector3(28.992188, 1, 29.62915)
+material = SubResource("StandardMaterial3D_6kjmu")
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ground2" unique_id=244779206]
+shape = SubResource("ConcavePolygonShape3D_ktcc2")

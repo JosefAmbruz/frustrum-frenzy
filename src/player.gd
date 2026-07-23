@@ -14,14 +14,19 @@ extends CharacterBody3D
 @export var acceleration := 20.0
 @export var rotation_speed := 12.0
 @export var jump_impulse := 12.0
+@export_range(0.0, 0.5, 0.01) var coyote_time := 0.12
 
 var _camera_input_direction := Vector2.ZERO
 var _last_movement_direction := Vector3.BACK
 var _gravity := -30.0
+var _coyote_time_left := 0.0
 
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
 @onready var _skin : Node3D = %PlayerSkin
+
+func _ready() -> void:
+	_coyote_time_left = coyote_time
 
 func _input(event: InputEvent) -> void:
 	#Capture Mouse
@@ -43,6 +48,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		_camera_input_direction = event.screen_relative * mouse_sensitivity
 	
 func _physics_process(delta: float) -> void:
+	var can_jump := is_on_floor() or _coyote_time_left > 0.0
+	var is_starting_jump := Input.is_action_just_pressed("jump") and can_jump
+
 	_camera_pivot.rotation.x += _camera_input_direction.y * delta
 	_camera_pivot.rotation.x = clamp(_camera_pivot.rotation.x, deg_to_rad(-85.0), deg_to_rad(20.0))
 	_camera_pivot.rotation.y -= _camera_input_direction.x * delta
@@ -62,11 +70,16 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
 	velocity.y = y_velocity + _gravity * delta
 	
-	var is_starting_jump := Input.is_action_just_pressed("jump") and is_on_floor()
 	if is_starting_jump:
-		velocity.y += jump_impulse
+		velocity.y = jump_impulse
+		_coyote_time_left = 0.0
 	
 	move_and_slide()
+
+	if is_on_floor():
+		_coyote_time_left = coyote_time
+	else:
+		_coyote_time_left = maxf(_coyote_time_left - delta, 0.0)
 	
 	if move_direction.length() > 0.2:
 		_last_movement_direction = move_direction

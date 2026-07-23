@@ -45,5 +45,18 @@ text = "Press E"
 transform = Transform3D(-0.0034112334, 0.99999315, -0.0013386253, -0.9751212, -0.0034963987, 0.0013768049, 0.0013379876, 0.001343432, 0.99999815, 0.65238214, 1.9342393, 0.02126661)
 mesh = SubResource("CylinderMesh_08vw2")
 
+[node name="CountdownTimer" type="Timer" parent="." unique_id=1828718521]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591166412]
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=39188668]
+offset_left = 37.0
+offset_top = 18.0
+offset_right = 160.0
+offset_bottom = 136.0
+theme_override_font_sizes/font_size = 86
+
 [connection signal="area_entered" from="InteractionComponent" to="." method="_on_interaction_component_area_entered"]
 [connection signal="area_exited" from="InteractionComponent" to="." method="_on_interaction_component_area_exited"]
+[connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]

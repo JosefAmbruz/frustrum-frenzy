@@ -59,13 +59,14 @@ mesh = SubResource("ArrayMesh_68xyb")
 shape = SubResource("ConcavePolygonShape3D_68xyb")
 
 [node name="platform" parent="." unique_id=494455518 instance=ExtResource("3_68xyb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 2.274061, 7.2000003)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 9.40445, -9.030151)
 
 [node name="rotor" parent="." unique_id=2038079127 instance=ExtResource("4_feg4a")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)
 
 [node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
-transform = Transform3D(-0.0665036, 0.049868375, 0.99653924, 0.5999282, 0.80005383, 0, -0.797285, 0.597852, -0.08312391, -0.5, 0.59040606, 0.2)
+transform = Transform3D(0.8851019, -1.6161158, 0.7776659, 1.6624569, 1.0646816, 0.3204528, -0.67292774, 0.50460136, 1.8145373, 18.16276, 8.232737, -13.775636)
+force_mult = 45.0
 
 [node name="ClimbableWall" type="Node" parent="." unique_id=1293785637]
 

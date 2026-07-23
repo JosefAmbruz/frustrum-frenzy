@@ -1,9 +1,6 @@
 extends CharacterBody3D
 
 # TODO:
-# - calculate _jump_impulse and gravity from jump_height and time_to_apex
-# - coyote time
-# - variable jump height
 # - item propelling
 
 @export_category("Camera")
@@ -13,7 +10,7 @@ extends CharacterBody3D
 @export var move_speed := 8.0
 @export var acceleration := 20.0
 @export var rotation_speed := 12.0
-@export var jump_height := 2.0
+@export var jump_height := 4.0
 @export var jump_time_to_apex := 0.4
 @export var jump_descent_mult := 2.0
 @export_range(0.0, 1.0, 0.01) var jump_cut_multiplier := 0.5
@@ -75,7 +72,8 @@ func _physics_process(delta: float) -> void:
 	var y_velocity := velocity.y
 	velocity.y = 0.0 # Ground acceleration calculation will not affect gravity
 	velocity = velocity.move_toward(move_direction * move_speed, acceleration * delta)
-	velocity.y = y_velocity - _gravity * delta
+	var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
+	velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
 
 	
 	if is_starting_jump:

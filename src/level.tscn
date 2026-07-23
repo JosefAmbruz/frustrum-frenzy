@@ -77,32 +77,28 @@ shape = SubResource("ConcavePolygonShape3D_jq0je")
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Spring" unique_id=1561675736]
 height = 0.099999994
 
-[node name="ClimbableWall" type="Node" parent="." unique_id=1293785637]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="ClimbableWall" unique_id=563330007 groups=["climbable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 14)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall/StaticBody3D" unique_id=906173188]
-mesh = SubResource("BoxMesh_idsc0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/StaticBody3D" unique_id=1144311452]
-shape = SubResource("BoxShape3D_msxom")
-
-[node name="ClimbableWall2" type="Node" parent="ClimbableWall" unique_id=1689024641]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="ClimbableWall/ClimbableWall2" unique_id=984455118 groups=["climbable"]]
+[node name="ClimbableWall2" type="StaticBody3D" parent="." unique_id=984455118 groups=["climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.820317, 10.463127)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall/ClimbableWall2/StaticBody3D" unique_id=1113521116]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall2" unique_id=1113521116]
 mesh = SubResource("BoxMesh_idsc0")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall/ClimbableWall2/StaticBody3D" unique_id=1981453748]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall2" unique_id=1981453748]
+shape = SubResource("BoxShape3D_msxom")
+
+[node name="ClimbableWall" type="StaticBody3D" parent="." unique_id=563330007 groups=["climbable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 14)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall" unique_id=906173188]
+mesh = SubResource("BoxMesh_idsc0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall" unique_id=1144311452]
 shape = SubResource("BoxShape3D_msxom")
 
 [node name="RespawnPoint" type="Node3D" parent="." unique_id=34591289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
 
-[node name="Area3D" parent="." unique_id=1748378536 node_paths=PackedStringArray("respawn_point") instance=ExtResource("6_jq0je")]
+[node name="KillPlane" parent="." unique_id=1748378536 node_paths=PackedStringArray("respawn_point") instance=ExtResource("6_jq0je")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, -11.7, 19.9)
 respawn_point = NodePath("../RespawnPoint")
 

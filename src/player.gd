@@ -25,7 +25,6 @@ var _coyote_time_left := 0.0
 
 @export_category("Climbing")
 @export var climb_speed := 4.0
-@export var wall_jump_force := 20.0
 @export var wall_jump_push := 8.0
 
 var is_climbing := false
@@ -67,7 +66,6 @@ func check_climbing() -> void:
 func wall_jump() -> void:
 	is_climbing = false
 	is_wall_jumping = true
-
 	velocity.y = _jump_impulse
 	velocity += climb_wall_normal * wall_jump_push
 
@@ -86,7 +84,6 @@ func _physics_process(delta: float) -> void:
 	_jump_impulse = _gravity * jump_time_to_apex
 	
 	handle_effects(delta)
-
 	
 	var can_jump := is_on_floor() or _coyote_time_left > 0.0
 	var is_wall_jump := Input.is_action_just_pressed("jump") and is_climbing
@@ -113,37 +110,35 @@ func _physics_process(delta: float) -> void:
 	var y_velocity := velocity.y
 	velocity.y = 0.0 # Ground acceleration calculation will not affect gravity
 	velocity = velocity.move_toward(move_direction * current_speed, acceleration * delta)
-	var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
-	if is_climbing:
-		velocity.y = 0.0
-	else:
-		velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
 	
+	# Gravity / climbing
 	if is_climbing and not is_wall_jumping:
 		var climb_input := Input.get_axis("move_down", "move_up")
 		velocity.y = climb_input * climb_speed
-	
-	
+
+	else:
+		var gravity_multiplier := jump_descent_mult if y_velocity < 0.0 else 1.0
+		velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
+
+	# Normal jump
 	if is_starting_jump:
 		velocity.y = _jump_impulse
 		_coyote_time_left = 0.0
-	
+
+	# Wall jump
 	if is_wall_jump:
 		wall_jump()
 
+	# Move character
 	move_and_slide()
-	
-	if is_wall_jumping and not is_climbing:
-		is_wall_jumping = false
 
+	# Detect wall after movement
 	check_climbing()
 
+	# Reset wall jump state
 	if is_on_floor():
 		is_wall_jumping = false
 	
-	if is_climbing:
-		print("CLIMBING")
-
 	# variable jump height: if the player releases jump while still moving upward,
 	# cut the upward velocity so short taps produce smaller jumps (Mario-style)
 	if Input.is_action_just_released("jump") and velocity.y > 0.0:
@@ -154,11 +149,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		_coyote_time_left = maxf(_coyote_time_left - delta, 0.0)
 	
+	# Player rotation
 	if move_direction.length() > 0.2:
 		_last_movement_direction = move_direction
 	var target_angle := Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
 	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
 	
+	# Animation states
 	if is_starting_jump:
 		# TODO: Change skin state to jump
 		pass

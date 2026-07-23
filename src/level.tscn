@@ -99,4 +99,4 @@ respawn_point = NodePath("../RespawnPoint")
 [node name="PickupableItems" type="Node3D" parent="." unique_id=864772700]
 
 [node name="PickupableItem" parent="PickupableItems" unique_id=1365369840 instance=ExtResource("7_pothl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.159081, 2.2959433, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.452864, 2.2959433, 0)

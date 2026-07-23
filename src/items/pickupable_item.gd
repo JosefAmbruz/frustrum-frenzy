@@ -1,11 +1,11 @@
 extends RigidBody3D
 
 
-# Called when the node enters the scene tree for the first time.
+@onready var interactable: Area3D = %Interactable
+
 func _ready() -> void:
-	pass # Replace with function body.
+	interactable.interact = _on_interact
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_interact():
+	print_debug("Interacted")
+	interactable.is_interactable = false

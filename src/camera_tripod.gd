@@ -5,7 +5,6 @@ var in_camera: bool = false
 var dot_tween: Tween
 
 @onready var view_camera = $Camera3D
-@onready var interact_label = %Label3D
 @onready var countdown_timer = $CountdownTimer
 @onready var countdown_label = $CanvasLayer/CountdownLabel
 @onready var camera_overlay = $CanvasLayer/CameraOverlay
@@ -13,10 +12,11 @@ var dot_tween: Tween
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
 @onready var captured_image = $CanvasLayer/PhotoResultUI/CapturedImage
 @onready var fade_rect = $CanvasLayer/FadeRect
+@onready var interactable: Area3D = %Interactable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	interact_label.visible = false
+	interactable.interact = _on_interact
 	countdown_label.visible = false
 	camera_overlay.visible = false
 	print("debug: Camera start")
@@ -42,7 +42,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			# Camera entered
 			view_camera.make_current()
 			in_camera = true
-			interact_label.visible = false # trun off "Press E" label
 			camera_overlay.visible = true
 			print("debug: Switched to camera view")
 			
@@ -58,7 +57,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			# Leaving camera
 			view_camera.clear_current()
 			in_camera = false
-			interact_label.visible = true
 			camera_overlay.visible = false
 			print("debug: Cleared camera view")
 
@@ -79,18 +77,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera_overlay.visible = false
 		print("debug: Start timer")
 
-
-# Entering camera area
-func _on_interaction_component_area_entered(area: Area3D) -> void:
-	can_interact = true
-	interact_label.visible = true
-	print("debug: Entered camera area")
-
-# Exiting camera area
-func _on_interaction_component_area_exited(area: Area3D) -> void:
-	can_interact = false
-	interact_label.visible = false
-	print("debug: Exited camera area")
 
 # Timer ended
 func _on_countdown_timer_timeout() -> void:
@@ -131,3 +117,7 @@ func _on_countdown_timer_timeout() -> void:
 	view_camera.clear_current()
 	
 	print("debug: Camera shoot")
+
+
+func _on_interact():
+	interactable.is_interactable = false

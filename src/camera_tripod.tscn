@@ -39,6 +39,7 @@ transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.38
 
 [node name="Label3D" type="Label3D" parent="." unique_id=2001284279]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023262978, 2.5860891, 0)
+billboard = 1
 text = "Press E"
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=844778109]

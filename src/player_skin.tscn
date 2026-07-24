@@ -2,6 +2,302 @@
 
 [ext_resource type="Material" uid="uid://bcd4jlecxaws6" path="res://assets/models/player/Hare_Material.tres" id="1_r53ix"]
 
+[sub_resource type="Animation" id="Animation_r53ix"]
+resource_name = "Idle"
+length = 6.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/Torso:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.1114119, 0), Vector3(0, 0.25238818, 0), Vector3(0, 0.1114119, 0), Vector3(0, 0.25238818, 0), Vector3(0, 0.1114119, 0), Vector3(0, 0.25238818, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base/Torso:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Base/Torso:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Base/Torso/Neck/LeftEar:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Base/Torso/Neck/RightEar:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ig8t0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/Torso:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.1114119, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base/Torso:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Base/Torso:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Base/LeftLeg:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Base/LeftLeg:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0.3)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Base/RightLeg:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.111, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Base/RightLeg:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Base/Torso/Neck/LeftEar:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Base/Torso/Neck/RightEar:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_62nud"]
+resource_name = "Running"
+length = 0.39999999999999997
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/LeftLeg:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Vector3(-0.7853982, 0, 0), Vector3(0, 0, 0), Vector3(0.7853982, 0, 0), Vector3(0, 0, 0), Vector3(-0.7853982, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base/LeftLeg:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0.3), Vector3(0, 0.111, 0), Vector3(0, 0.3, -0.3), Vector3(0, 0.111, 0), Vector3(0, 0.3, 0.3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Base/RightLeg:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, -0.3), Vector3(0, 0.111, 0), Vector3(0, 0.3, 0.3), Vector3(0, 0.111, 0), Vector3(0, 0.3, -0.3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Base/RightLeg:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.09999999, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.7853982, 0, 0), Vector3(0, 0, 0), Vector3(-0.7853982, 0, 0), Vector3(0, 0, 0), Vector3(0.7853982, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Base/Torso:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Vector3(0, 0.1114119, 0), Vector3(0, 0.025357634, 0), Vector3(0, 0.1114119, 0), Vector3(0, 0.025357634, 0), Vector3(0, 0.1114119, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Base/Torso/Neck/LeftEar:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.04, 0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-4.1477874e-09, 0.5615054, 1.4426703), Vector3(0, 0, 0.7577162), Vector3(0, 0, 1.5524471), Vector3(0, 0, 0.73693097)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Base/Torso/Neck/RightEar:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.04, 0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.3541893), Vector3(0, 0, -0.7502672), Vector3(0, 0, -1.6246717), Vector3(-0.07433509, -0.21060733, -0.74287844)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ig8t0"]
+_data = {
+&"Idle": SubResource("Animation_r53ix"),
+&"RESET": SubResource("Animation_ig8t0"),
+&"Running": SubResource("Animation_62nud")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r53ix"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ig8t0"]
+animation = &"Running"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62nud"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7hk18"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ta0g"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v5l7k"]
+states/Idle/node = SubResource("AnimationNodeAnimation_r53ix")
+states/Idle/position = Vector2(391, 100)
+states/Running/node = SubResource("AnimationNodeAnimation_ig8t0")
+states/Running/position = Vector2(635, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_62nud"), "Idle", "Running", SubResource("AnimationNodeStateMachineTransition_7hk18"), "Running", "End", SubResource("AnimationNodeStateMachineTransition_0ta0g")]
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_jvbru"]
 _surfaces = [{
 "aabb": AABB(-0.99999994, -0.8296321, -0.83449966, 2, 2.1362941, 1.6965828),
@@ -324,90 +620,90 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_boh62")
 
-[sub_resource type="Animation" id="Animation_r53ix"]
-resource_name = "Idle"
-
-[sub_resource type="Animation" id="Animation_ig8t0"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ig8t0"]
-_data = {
-&"Idle": SubResource("Animation_r53ix"),
-&"RESET": SubResource("Animation_ig8t0")
-}
-
 [node name="Hare" type="Node3D" unique_id=685421737]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 
-[node name="Body" type="Marker3D" parent="." unique_id=1852717074]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43322298, 0)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=70628751]
+libraries/ = SubResource("AnimationLibrary_ig8t0")
+autoplay = &"Running"
 
-[node name="Neck" type="Marker3D" parent="Body" unique_id=1523058872]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1224320658]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_v5l7k")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Base" type="Marker3D" parent="." unique_id=2019024372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32181108, 0)
+
+[node name="Torso" type="Marker3D" parent="Base" unique_id=1852717074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1114119, 0)
+
+[node name="Neck" type="Marker3D" parent="Base/Torso" unique_id=1523058872]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0963613, 0)
 metadata/_edit_group_ = true
 
-[node name="Head" type="MeshInstance3D" parent="Body/Neck" unique_id=1341000627]
+[node name="Head" type="MeshInstance3D" parent="Base/Torso/Neck" unique_id=1341000627]
 transform = Transform3D(0.44932652, 0, 0, 0, 0.44932652, 0, 0, 0, 0.44932652, 0, 0.5422112, 0)
 mesh = SubResource("ArrayMesh_n63q0")
 metadata/_edit_lock_ = true
 
-[node name="LeftEar" type="Marker3D" parent="Body/Neck" unique_id=891673143]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2733713, 0.8567859, 0)
+[node name="LeftEar" type="Marker3D" parent="Base/Torso/Neck" unique_id=891673143]
+transform = Transform3D(0.9999997, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 0.2733713, 0.8567859, 0)
 
-[node name="EarL" type="MeshInstance3D" parent="Body/Neck/LeftEar" unique_id=1376308223]
+[node name="EarL" type="MeshInstance3D" parent="Base/Torso/Neck/LeftEar" unique_id=1376308223]
 transform = Transform3D(0.3935417, 0, 0, 0, 0.3935417, 0, 0, 0, 0.3935417, 0.18333754, -0.11469674, -0.019630192)
 mesh = SubResource("ArrayMesh_0epun")
 metadata/_edit_group_ = true
 
-[node name="RightEar" type="Marker3D" parent="Body/Neck" unique_id=865560002]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26295212, 0.85859334, 0)
+[node name="RightEar" type="Marker3D" parent="Base/Torso/Neck" unique_id=865560002]
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999994, -0.26295212, 0.85859334, 0)
 
-[node name="EarR" type="MeshInstance3D" parent="Body/Neck/RightEar" unique_id=1646767850]
+[node name="EarR" type="MeshInstance3D" parent="Base/Torso/Neck/RightEar" unique_id=1646767850]
 transform = Transform3D(-0.3935417, 0, -3.4404508e-08, 0, 0.3935417, 0, 3.4404508e-08, 0, -0.3935417, -0.18472806, -0.122134924, -0.09755931)
 mesh = SubResource("ArrayMesh_2e7ud")
 metadata/_edit_group_ = true
 
-[node name="LeftArm" type="Marker3D" parent="Body" unique_id=2103100970]
+[node name="LeftArm" type="Marker3D" parent="Base/Torso" unique_id=2103100970]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29564178, 0.9688927, 0)
 metadata/_edit_group_ = true
 
-[node name="HandL" type="MeshInstance3D" parent="Body/LeftArm" unique_id=296165714]
+[node name="HandL" type="MeshInstance3D" parent="Base/Torso/LeftArm" unique_id=296165714]
 transform = Transform3D(0.31753296, 0, 0, 0, 0.31753296, 0, 0, 0, 0.31753296, 0.4993837, -0.6204936, 0.21530019)
 mesh = SubResource("ArrayMesh_u6o2x")
 
-[node name="RightArm" type="Marker3D" parent="Body" unique_id=1288549907]
+[node name="RightArm" type="Marker3D" parent="Base/Torso" unique_id=1288549907]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30718473, 0.9688927, 0)
 metadata/_edit_group_ = true
 
-[node name="HandR" type="MeshInstance3D" parent="Body/RightArm" unique_id=225790502]
+[node name="HandR" type="MeshInstance3D" parent="Base/Torso/RightArm" unique_id=225790502]
 transform = Transform3D(-0.31753296, 0, -2.7759613e-08, 0, 0.31753296, 0, 2.7759613e-08, 0, -0.31753296, -0.4833677, -0.6204936, 0.21530019)
 mesh = SubResource("ArrayMesh_2kprh")
 
-[node name="Tail" type="Marker3D" parent="Body" unique_id=564683054]
+[node name="Tail" type="Marker3D" parent="Base/Torso" unique_id=564683054]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17733005, -0.48038363)
 metadata/_edit_group_ = true
 
-[node name="Tail" type="MeshInstance3D" parent="Body/Tail" unique_id=1812040942]
+[node name="Tail" type="MeshInstance3D" parent="Base/Torso/Tail" unique_id=1812040942]
 transform = Transform3D(0.2075895, 0, 0, 0, 0.2075895, 0, 0, 0, 0.2075895, 0.004754007, 0.016267061, -0.23006648)
 mesh = SubResource("ArrayMesh_y2fcy")
 
-[node name="LeftLeg" type="Marker3D" parent="Body" unique_id=86059182]
+[node name="Torso" type="MeshInstance3D" parent="Base/Torso" unique_id=1102990750]
+transform = Transform3D(0.5425897, 0, 0, 0, 0.60925806, 0, 0, 0, 0.60925806, 0, 0.30484322, 0)
+mesh = SubResource("ArrayMesh_yg31f")
+metadata/_edit_lock_ = true
+
+[node name="LeftLeg" type="Marker3D" parent="Base" unique_id=86059182]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.3, 0.3)
 metadata/_edit_group_ = true
 
-[node name="FootL" type="MeshInstance3D" parent="Body/LeftLeg" unique_id=1268730411]
+[node name="FootL" type="MeshInstance3D" parent="Base/LeftLeg" unique_id=1268730411]
 transform = Transform3D(0.00030895337, 0, -0.35407987, 0, 0.35408, 0, 0.35407987, 0, 0.00030895337, 0.43444675, -0.3113135, 0.005741628)
 mesh = SubResource("ArrayMesh_3j3br")
 
-[node name="RightLeg" type="Marker3D" parent="Body" unique_id=1476065590]
+[node name="RightLeg" type="Marker3D" parent="Base" unique_id=1476065590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111, 0)
 metadata/_edit_group_ = true
 
-[node name="FootR" type="MeshInstance3D" parent="Body/RightLeg" unique_id=739980374]
+[node name="FootR" type="MeshInstance3D" parent="Base/RightLeg" unique_id=739980374]
 transform = Transform3D(0.00030895337, 0, -0.35407987, 0, 0.35408, 0, 0.35407987, 0, 0.00030895337, -0.4387459, -0.30828908, 0.0057416186)
 mesh = SubResource("ArrayMesh_rtxd5")
-
-[node name="Torso" type="MeshInstance3D" parent="Body" unique_id=1102990750]
-transform = Transform3D(0.5425897, 0, 0, 0, 0.60925806, 0, 0, 0, 0.60925806, 0, 0.30484322, 0)
-mesh = SubResource("ArrayMesh_yg31f")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=70628751]
-libraries/ = SubResource("AnimationLibrary_ig8t0")

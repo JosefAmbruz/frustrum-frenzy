@@ -134,6 +134,12 @@ func _physics_process(delta: float) -> void:
 	if is_captured:
 		handle_effects(delta)
 		_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
+		var on_ground := is_on_floor()
+		var decel := ground_deceleration if on_ground else air_deceleration
+		var h := Vector3(velocity.x, 0.0, velocity.z)
+		h = h.move_toward(Vector3.ZERO, decel * delta)
+		velocity.x = h.x
+		velocity.z = h.z
 		velocity.y -= _gravity * delta
 		move_and_slide()
 		return

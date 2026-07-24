@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://s8ebssk2p6wu"]
 
 [ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera_tripod.gd" id="1_v4y2o"]
+[ext_resource type="Texture2D" uid="uid://1h7uo5axi24t" path="res://assets/scenes/testing_camera_scene_1.png" id="2_01m8a"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
+[ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hwyno"]
 
@@ -40,6 +42,18 @@ content_margin_right = 15.0
 content_margin_bottom = 60.0
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5y8sc"]
+shader = ExtResource("3_pr2qs")
+shader_parameter/noise_scale = 4.0
+shader_parameter/vignette_strength = 0.47000001906512
+shader_parameter/sepia_strength = 0.4650000220875
+shader_parameter/contrast = 1.2
+shader_parameter/glow_range = 12.0
+shader_parameter/glow_strength = 0.75
+shader_parameter/glow_falloff = 2.0
+shader_parameter/dirt_strength = 0.4
+shader_parameter/dirt_scale = 8.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sriie"]
 content_margin_left = 15.0
 content_margin_top = 15.0
@@ -47,8 +61,32 @@ content_margin_right = 15.0
 content_margin_bottom = 60.0
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1y3"]
+shader = ExtResource("3_pr2qs")
+shader_parameter/noise_scale = 4.0
+shader_parameter/vignette_strength = 0.7
+shader_parameter/sepia_strength = 0.85
+shader_parameter/contrast = 1.2
+shader_parameter/glow_range = 12.0
+shader_parameter/glow_strength = 0.75
+shader_parameter/glow_falloff = 2.0
+shader_parameter/dirt_strength = 0.4
+shader_parameter/dirt_scale = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.5882353)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")
+target_photo = ExtResource("2_01m8a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=880157601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
@@ -59,7 +97,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
 shape = SubResource("CylinderShape3D_hwyno")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=907995485]
-transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.38785064, 1.9286133, -0.00994575)
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.38785064, 1.9406892, 0.026506633)
+fov = 38.147804
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=844778109]
 transform = Transform3D(-0.0034112334, 0.99999315, -0.0013386253, -0.9751212, -0.0034963987, 0.0013768049, 0.0013379876, 0.001343432, 0.99999815, 0.65238214, 1.9342393, 0.02126661)
@@ -175,6 +214,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_08vw2")
 
 [node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame" unique_id=1406486013]
+material = SubResource("ShaderMaterial_5y8sc")
 custom_minimum_size = Vector2(460, 320)
 layout_mode = 2
 mouse_filter = 2
@@ -186,18 +226,12 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sriie")
 
 [node name="ReferenceImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame" unique_id=1064518495]
+material = SubResource("ShaderMaterial_pt1y3")
 custom_minimum_size = Vector2(460, 320)
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4
-
-[node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=39188668]
-offset_left = 37.0
-offset_top = 18.0
-offset_right = 160.0
-offset_bottom = 136.0
-theme_override_font_sizes/font_size = 86
 
 [node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1685703220]
 modulate = Color(1, 1, 1, 0)
@@ -207,5 +241,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="TimerUI" type="PanelContainer" parent="CanvasLayer" unique_id=334476303]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_top = 20.0
+offset_right = 20.5
+offset_bottom = 85.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e5o58")
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer/TimerUI" unique_id=39188668]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
 
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]

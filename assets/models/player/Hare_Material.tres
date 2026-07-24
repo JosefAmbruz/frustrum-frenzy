@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bcd4jlecxaws6"]
+
+[ext_resource type="Texture2D" uid="uid://dnd7fnxlloicv" path="res://assets/models/player/Hare_Color.png" id="1_dv10w"]
+
+[resource]
+resource_name = "Material"
+cull_mode = 2
+albedo_texture = ExtResource("1_dv10w")
+roughness = 0.5

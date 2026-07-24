@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dhp3ajbnvpt2w"
+uid="uid://x8irqxv64ni8"
 path="res://.godot/imported/hare.blend-b80077c4583513b3341e4652cde1c73b.scn"
 
 [deps]
@@ -39,7 +39,15 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/player/Hare_Material.tres",
+"use_external/path": "uid://bcd4jlecxaws6"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

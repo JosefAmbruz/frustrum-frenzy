@@ -88,6 +88,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if is_camera_motion:
 		_camera_input_direction = event.screen_relative * mouse_sensitivity
+		
+	if event.is_action_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		if held_item != null and held_item.has_method("throw"):
+			var aim_dir = -_camera.global_transform.basis.z.normalized()
+			held_item.throw(self, aim_dir)
 
 func check_climbing() -> void:
 	is_climbing = false
@@ -175,6 +180,10 @@ func _physics_process(delta: float) -> void:
 
 	var is_sprinting := Input.is_action_pressed("sprint")
 	var current_speed := sprint_speed if is_sprinting else move_speed
+
+	# ITEM SLOW
+	if held_item != null and "player_speed_modifier" in held_item:
+		current_speed *= held_item.player_speed_modifier
 
 	# Check climbing state from last slide results
 	check_climbing()

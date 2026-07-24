@@ -15,6 +15,8 @@ radius = 0.81640625
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_h3enh")
 script = ExtResource("1_6jmh3")
+boost_jump_power = 20.0
+player_speed_modifier = 0.75
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_tkdkl")]
 unique_name_in_owner = true

@@ -4,19 +4,25 @@
 [ext_resource type="PackedScene" uid="uid://con4hetyyxmd6" path="res://src/items/pumpkin.tscn" id="2_h3enh"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_tkdkl"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h3enh"]
+friction = 3.0
+rough = true
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8juqg"]
-height = 0.48295593
-radius = 0.41503906
+height = 0.33387375
+radius = 0.47216797
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_i3kvd"]
 height = 1.0015259
 radius = 0.81640625
 
 [node name="PickupableItem" type="RigidBody3D" unique_id=1365369840 groups=["pickupable"]]
+collision_layer = 4
+physics_material_override = SubResource("PhysicsMaterial_h3enh")
 script = ExtResource("1_6jmh3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=338835205]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23868561, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16414452, 0)
 shape = SubResource("CylinderShape3D_8juqg")
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_tkdkl")]
@@ -28,3 +34,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49923706, 0)
 shape = SubResource("CylinderShape3D_i3kvd")
 
 [node name="Pumpkin" parent="." unique_id=2118398621 instance=ExtResource("2_h3enh")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

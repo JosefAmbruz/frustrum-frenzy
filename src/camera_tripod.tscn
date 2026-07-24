@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera_tripod.gd" id="1_v4y2o"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
+[ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hwyno"]
 
@@ -40,6 +41,18 @@ content_margin_right = 15.0
 content_margin_bottom = 60.0
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5y8sc"]
+shader = ExtResource("3_pr2qs")
+shader_parameter/noise_scale = 4.0
+shader_parameter/vignette_strength = 0.47000001906512
+shader_parameter/sepia_strength = 0.4650000220875
+shader_parameter/contrast = 1.2
+shader_parameter/glow_range = 12.0
+shader_parameter/glow_strength = 0.75
+shader_parameter/glow_falloff = 2.0
+shader_parameter/dirt_strength = 0.4
+shader_parameter/dirt_scale = 8.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sriie"]
 content_margin_left = 15.0
 content_margin_top = 15.0
@@ -57,6 +70,17 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1y3"]
+shader = ExtResource("3_pr2qs")
+shader_parameter/noise_scale = 4.0
+shader_parameter/vignette_strength = 0.7
+shader_parameter/sepia_strength = 0.85
+shader_parameter/contrast = 1.2
+shader_parameter/glow_range = 12.0
+shader_parameter/glow_strength = 0.75
+shader_parameter/glow_falloff = 2.0
+shader_parameter/dirt_strength = 0.4
+shader_parameter/dirt_scale = 8.0
 
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")
@@ -136,7 +160,6 @@ theme_override_font_sizes/font_size = 24
 text = "[LMB] Shoot"
 
 [node name="PhotoResultUI" type="Control" parent="CanvasLayer" unique_id=1348612492]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -186,6 +209,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_08vw2")
 
 [node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame" unique_id=1406486013]
+material = SubResource("ShaderMaterial_5y8sc")
 custom_minimum_size = Vector2(460, 320)
 layout_mode = 2
 mouse_filter = 2
@@ -197,6 +221,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sriie")
 
 [node name="ReferenceImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame" unique_id=1064518495]
+material = SubResource("ShaderMaterial_pt1y3")
 custom_minimum_size = Vector2(460, 320)
 layout_mode = 2
 mouse_filter = 2

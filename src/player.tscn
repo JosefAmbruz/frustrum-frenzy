@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://b316ladivjlpp"]
 
 [ext_resource type="Script" uid="uid://bjx72vkdjfs3b" path="res://src/player.gd" id="1_lowyb"]
-[ext_resource type="PackedScene" uid="uid://dvhas6qwbp40l" path="res://src/player_skin.tscn" id="2_gmfve"]
 [ext_resource type="Texture2D" uid="uid://b564ytmwqoy3l" path="res://assets/sprites/blob_shadow.png" id="3_ehvfd"]
 [ext_resource type="PackedScene" uid="uid://d0jneonb8m7vu" path="res://src/interacting/interacting_component.tscn" id="3_pg28d"]
 [ext_resource type="ArrayMesh" uid="uid://deu06eho4c74" path="res://assets/dust.res" id="4_bktlc"]
+[ext_resource type="PackedScene" uid="uid://cbtq1prauup1l" path="res://assets/player_ai_generated.glb" id="4_pg28d"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5l7k"]
 
@@ -36,11 +36,7 @@ script = ExtResource("1_lowyb")
 acceleration = 30.0
 jump_cut_multiplier = 0.45
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1687932264]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8146973e-06, 1, 0)
-shape = SubResource("CapsuleShape3D_v5l7k")
-
-[node name="PlayerSkin" parent="." unique_id=426146297 instance=ExtResource("2_gmfve")]
+[node name="PlayerSkin" parent="." unique_id=1239990618 instance=ExtResource("4_pg28d")]
 unique_name_in_owner = true
 
 [node name="InteractingComponent" parent="PlayerSkin" unique_id=1637550885 instance=ExtResource("3_pg28d")]
@@ -49,7 +45,11 @@ player = NodePath("../..")
 
 [node name="HoldPosition" type="Node3D" parent="PlayerSkin" unique_id=668428007]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5180094, 0.8444779)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24424899, 0.8444779)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1687932264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8146973e-06, 1, 0)
+shape = SubResource("CapsuleShape3D_v5l7k")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=152074954]
 unique_name_in_owner = true

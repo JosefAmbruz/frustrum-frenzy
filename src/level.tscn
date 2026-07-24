@@ -129,17 +129,3 @@ respawn_point = NodePath("../RespawnPoint")
 
 [node name="PickupableItem" parent="PickupableItems" unique_id=1365369840 instance=ExtResource("7_pothl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.452864, 2.2959433, 0)
-
-[node name="CameraTripod" parent="." unique_id=126854732 node_paths=PackedStringArray("player_target_marker") instance=ExtResource("8_wc5yb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.594711, 0, 0)
-player_target_marker = NodePath("../PlayerTargetSpot")
-
-[node name="PlayerTargetSpot" type="Marker3D" parent="." unique_id=83456733]
-transform = Transform3D(-0.12433318, -0.31380177, -0.94131273, 0, 0.94867396, -0.31625578, 0.99224055, -0.039321087, -0.117951654, 13.5821295, 6.2439127, -1.0338829)
-
-[node name="Hologram" parent="PlayerTargetSpot" unique_id=426146297 instance=ExtResource("9_ssy8p")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, -7.450581e-09, -3.7252903e-09, 1, 9.313226e-10, -7.450581e-09, 3.0733645e-08, 1, 0, 0, 0)
-visible = false
-
-[node name="HoldPosition" type="Node3D" parent="PlayerTargetSpot/Hologram" unique_id=708392680]

@@ -132,8 +132,10 @@ func set_hand_item(item: RigidBody3D) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_captured:
-		velocity = Vector3.ZERO
 		handle_effects(delta)
+		_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
+		velocity.y -= _gravity * delta
+		move_and_slide()
 		return
 
 	_gravity = (2.0 * jump_height) / (jump_time_to_apex * jump_time_to_apex)
@@ -283,7 +285,6 @@ func apply_external_impulse(impulse: Vector3) -> void:
 func _on_player_captured() -> void:
 	print_debug("Player Captured")
 	is_captured = true
-	velocity = Vector3.ZERO
 	_camera_input_direction = Vector2.ZERO
 	is_climbing = false
 	is_wall_jumping = false

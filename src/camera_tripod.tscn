@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://s8ebssk2p6wu"]
+[gd_scene format=3 uid="uid://7gr6v5d1mt52"]
 
 [ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera_tripod.gd" id="1_v4y2o"]
 [ext_resource type="Texture2D" uid="uid://1h7uo5axi24t" path="res://assets/scenes/testing_camera_scene_1.png" id="2_01m8a"]

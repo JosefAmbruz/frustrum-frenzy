@@ -1,14 +1,16 @@
 [gd_scene format=3 uid="uid://beom1xo1yuypr"]
 
-[ext_resource type="PackedScene" uid="uid://b316ladivjlpp" path="res://src/player.tscn" id="1_tp5op"]
 [ext_resource type="PackedScene" uid="uid://bci52glny63gb" path="res://src/level.tscn" id="1_xlegt"]
 [ext_resource type="Environment" uid="uid://bx3wlrfbbvdu" path="res://src/resources/global_environment.tres" id="2_t101k"]
-[ext_resource type="PackedScene" uid="uid://s8ebssk2p6wu" path="res://src/camera_tripod.tscn" id="4_t101k"]
+[ext_resource type="PackedScene" uid="uid://26aodhfudj8i" path="res://src/level_new.tscn" id="2_usxdn"]
 
 [node name="World" type="Node3D" unique_id=1707678945]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1647634644]
 environment = ExtResource("2_t101k")
+
+[node name="Level2" parent="." unique_id=878389163 instance=ExtResource("2_usxdn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 2.714592, 53.550312)
 
 [node name="Level" parent="." unique_id=1350949316 instance=ExtResource("1_xlegt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 0, 0)
@@ -17,15 +19,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 0, 0)
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 9.563047, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." unique_id=1178688999 instance=ExtResource("1_tp5op")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2908545, 2.2983694, 1.855339)
-jump_cut_multiplier = 0.5
-
-[node name="CameraTripod" parent="." unique_id=126854732 instance=ExtResource("4_t101k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.594711, 0, 0)
-
-[node name="CameraTripod2" parent="." unique_id=1843031265 instance=ExtResource("4_t101k")]
-transform = Transform3D(0.866193, -0.098824695, -0.48984012, 0.086022355, 0.99510485, -0.04864643, 0.49224976, 0, 0.870454, -9.10691, 0, -10.256975)
-
-[node name="CameraTripod3" parent="." unique_id=617821256 instance=ExtResource("4_t101k")]
-transform = Transform3D(0.44635096, 0, 0.894858, 0.28608224, 0.94752026, -0.14269647, -0.8478961, 0.31969568, 0.42292657, -5.736345, 0, 10.132708)
+[node name="PlayerTargetSpot_Hologram#HoldPosition" type="Node3D" parent="." unique_id=873833121]

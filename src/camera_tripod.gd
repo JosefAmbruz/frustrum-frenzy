@@ -187,21 +187,42 @@ func calculate_object_score(object_node: Node3D, target_marker: Marker3D) -> flo
 	# Evaluation of 2D coordinates (X, Y on photo)
 	var actual_2d_pos = view_camera.unproject_position(object_node.global_position) # player
 	var ideal_2d_pos = view_camera.unproject_position(target_marker.global_position) # marker
-	
 	var pixel_distance = actual_2d_pos.distance_to(ideal_2d_pos)
-	var max_pixel_tolerance = 300.0 # tolerance in pixels on screen
-	var composition_score = 100.0 * (1.0 - (pixel_distance / max_pixel_tolerance))
-	composition_score = clamp(composition_score, 0.0, 100.0)
+	
+	# Settings for 2D difficulty
+	var perfect_pixel_radius = 40.0 # 100% if any minor imperfection
+	var max_pixel_tolerance = 300.0 # above 300px is 0%
+	var composition_score = 0.0
+	
+	if pixel_distance <= perfect_pixel_radius:
+		composition_score = 100.0
+	elif pixel_distance >= max_pixel_tolerance:
+		composition_score = 0.0
+	else:
+		# scale distance to 0.0 to 1.0
+		var ratio = (pixel_distance - perfect_pixel_radius) / (max_pixel_tolerance - perfect_pixel_radius)
+		# quadratic falloff
+		composition_score = 100.0 * (1.0 - pow(ratio, 2))
 	
 	# Evaluation of size/depth (distance)
 	var actual_dist_to_cam = object_node.global_position.distance_to(view_camera.global_position)
 	var ideal_dist_to_cam = target_marker.global_position.distance_to(view_camera.global_position)
-	
 	var depth_difference = abs(actual_dist_to_cam - ideal_dist_to_cam)
-	var max_depth_tolerance = 4.0 # toleration in meters (if more than 4.0, no points for size)
-	var size_score = 100.0 * (1.0 - (depth_difference / max_depth_tolerance))
-	size_score = clamp(size_score, 0.0, 100.0)
 	
+	# Settings for 3D difficulty (depth/size)
+	var perfect_depth_radius = 0.5 # 0.5 metres radius is still 100%
+	var max_depth_tolerance = 4.0 # toleration in meters (if more than 4.0, no points for size)
+	var size_score = 0.0
+	
+	if depth_difference <= perfect_depth_radius:
+		size_score = 100.0
+	elif depth_difference >= max_depth_tolerance:
+		size_score = 0.0
+	else:
+		var ratio = (depth_difference - perfect_depth_radius) / (max_depth_tolerance - perfect_depth_radius)
+		size_score = 100.0 * (1.0 - pow(ratio, 2))
+	
+	# evaluation
 	return (composition_score + size_score) / 2.0
 	
 

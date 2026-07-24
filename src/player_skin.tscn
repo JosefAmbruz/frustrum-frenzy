@@ -5,3 +5,4 @@
 [node name="PlayerSkin" type="Node3D" unique_id=426146297]
 
 [node name="HareModel" parent="." unique_id=126820466 instance=ExtResource("1_r53ix")]
+transform = Transform3D(0.6026257, 0, 0, 0, 0.6026257, 0, 0, 0, 0.6026257, 0, 0, 0)

@@ -3,6 +3,12 @@ extends RigidBody3D
 @onready var interactable: Area3D = %Interactable
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
+# item properties
+@export_group("Item Properties")
+@export var throw_force: float = 15.0
+@export var boost_jump_power: float = 10.0
+@export var player_speed_modifier: float = 1.0 # 1.0 = normal speed
+
 var _held := false
 var _saved_parent: Node = null
 var _saved_transform: Transform3D
@@ -78,3 +84,11 @@ func drop(player: CharacterBody3D) -> void:
 	_held = false
 	player.held_item = null
 	
+
+func throw(player: CharacterBody3D, aim_direction: Vector3) -> void:
+	drop(player)
+	apply_central_impulse(aim_direction * throw_force)
+	
+	# looking down = double jump
+	if aim_direction.y < -0.5 and not player.is_on_floor():
+		player.apply_external_impulse(Vector3(0, boost_jump_power, 0))

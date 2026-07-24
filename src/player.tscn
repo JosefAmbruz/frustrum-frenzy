@@ -37,6 +37,8 @@ scale_curve = SubResource("CurveTexture_bktlc")
 script = ExtResource("1_lowyb")
 acceleration = 30.0
 jump_cut_multiplier = 0.45
+external_damping = 100.0
+friction = 1000.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1687932264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8146973e-06, 0.8774414, 0)

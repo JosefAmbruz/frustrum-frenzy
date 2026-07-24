@@ -160,6 +160,7 @@ theme_override_font_sizes/font_size = 24
 text = "[LMB] Shoot"
 
 [node name="PhotoResultUI" type="Control" parent="CanvasLayer" unique_id=1348612492]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://s8ebssk2p6wu"]
 
 [ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera_tripod.gd" id="1_v4y2o"]
+[ext_resource type="Texture2D" uid="uid://1h7uo5axi24t" path="res://assets/scenes/testing_camera_scene_1.png" id="2_01m8a"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
 [ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
 
@@ -60,16 +61,6 @@ content_margin_right = 15.0
 content_margin_bottom = 60.0
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
-bg_color = Color(0, 0, 0, 0.5882353)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1y3"]
 shader = ExtResource("3_pr2qs")
 shader_parameter/noise_scale = 4.0
@@ -82,8 +73,20 @@ shader_parameter/glow_falloff = 2.0
 shader_parameter/dirt_strength = 0.4
 shader_parameter/dirt_scale = 8.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.5882353)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")
+target_photo = ExtResource("2_01m8a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=880157601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
@@ -94,7 +97,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
 shape = SubResource("CylinderShape3D_hwyno")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=907995485]
-transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.38785064, 1.9286133, -0.00994575)
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.38785064, 1.9406892, 0.026506633)
+fov = 38.147804
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=844778109]
 transform = Transform3D(-0.0034112334, 0.99999315, -0.0013386253, -0.9751212, -0.0034963987, 0.0013768049, 0.0013379876, 0.001343432, 0.99999815, 0.65238214, 1.9342393, 0.02126661)

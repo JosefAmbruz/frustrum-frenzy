@@ -1,5 +1,7 @@
 [gd_scene format=4 uid="uid://dvhas6qwbp40l"]
 
+[ext_resource type="PackedScene" uid="uid://dhp3ajbnvpt2w" path="res://assets/models/player/hare.blend" id="1_r53ix"]
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_62nud"]
 _surfaces = [{
 "aabb": AABB(-0.5, -0.5, -0.5, 1, 1, 1),
@@ -64,6 +66,8 @@ mesh = SubResource("ArrayMesh_41brp")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Head" unique_id=17389717]
 transform = Transform3D(-0.111839704, -0.00040970743, -0.6335705, -0.023772253, -0.33491972, 0.010047793, -0.42671612, 0.018765675, 0.16549519, -0.38690326, 0.13478231, 0.09389629)
 radius = 1.0
+
+[node name="hare" parent="." unique_id=126820466 instance=ExtResource("1_r53ix")]
 
 [node name="Feet" type="Node3D" parent="." unique_id=2033425450]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)

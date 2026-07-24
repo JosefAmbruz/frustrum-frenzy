@@ -14,6 +14,7 @@ radius = 0.81640625
 [node name="PickupableItem" type="RigidBody3D" unique_id=1365369840 groups=["pickupable"]]
 collision_layer = 4
 physics_material_override = SubResource("PhysicsMaterial_h3enh")
+continuous_cd = true
 script = ExtResource("1_6jmh3")
 boost_jump_power = 20.0
 player_speed_modifier = 0.75

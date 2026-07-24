@@ -60,16 +60,6 @@ content_margin_right = 15.0
 content_margin_bottom = 60.0
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
-content_margin_left = 20.0
-content_margin_top = 10.0
-content_margin_right = 20.0
-content_margin_bottom = 10.0
-bg_color = Color(0, 0, 0, 0.5882353)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1y3"]
 shader = ExtResource("3_pr2qs")
 shader_parameter/noise_scale = 4.0
@@ -81,6 +71,17 @@ shader_parameter/glow_strength = 0.75
 shader_parameter/glow_falloff = 2.0
 shader_parameter/dirt_strength = 0.4
 shader_parameter/dirt_scale = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.5882353)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")

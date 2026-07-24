@@ -98,6 +98,7 @@ func _on_countdown_timer_timeout() -> void:
 	#await get_tree().create_timer(0.5).timeout # TODO: do I need this???
 	EventBus.player_captured.emit() # lock player movement
 	timer_ui.visible = false
+	EventBus.interaction_text_toggled.emit(false) # turn off text like "Drop [E]"
 
 	# fade to black (or white)
 	var flash_tween = create_tween()
@@ -121,7 +122,8 @@ func _on_countdown_timer_timeout() -> void:
 	# show picture
 	captured_image.texture = final_texture
 	photo_result_ui.visible = true
-	
+	EventBus.interaction_text_toggled.emit(true) # turn on text like "Drop [E]"
+
 	# show picture
 	var reveal_tween = create_tween()
 	reveal_tween.tween_property(fade_rect, "modulate:a", 0.0, 0.2)

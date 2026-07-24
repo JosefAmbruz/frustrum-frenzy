@@ -68,7 +68,7 @@ transform = Transform3D(1, 0, 0, -1.4210855e-14, 1.0000001, -5.9604645e-08, 0, 5
 
 [node name="Shadow" type="Decal" parent="." unique_id=561272712]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
-size = Vector3(1, 10.877472, 1)
+size = Vector3(2, 10.877, 2)
 texture_albedo = ExtResource("3_ehvfd")
 modulate = Color(1, 1, 1, 0.7058824)
 normal_fade = 0.5

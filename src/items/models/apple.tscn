@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://b2uwhncoaf7nv" path="res://assets/models/items/apple.glb" id="1_u4cju"]
 
 [node name="Apple" unique_id=1958323789 instance=ExtResource("1_u4cju")]
+
+[node name="apple" parent="." index="0" unique_id=757276755]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

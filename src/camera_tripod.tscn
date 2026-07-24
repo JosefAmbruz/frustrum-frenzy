@@ -60,6 +60,16 @@ content_margin_right = 15.0
 content_margin_bottom = 60.0
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.5882353)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1y3"]
 shader = ExtResource("3_pr2qs")
 shader_parameter/noise_scale = 4.0
@@ -219,13 +229,6 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4
 
-[node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=39188668]
-offset_left = 37.0
-offset_top = 18.0
-offset_right = 160.0
-offset_bottom = 136.0
-theme_override_font_sizes/font_size = 86
-
 [node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1685703220]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -234,5 +237,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="TimerUI" type="PanelContainer" parent="CanvasLayer" unique_id=334476303]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_top = 20.0
+offset_right = 20.5
+offset_bottom = 85.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e5o58")
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer/TimerUI" unique_id=39188668]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
 
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]

@@ -10,7 +10,7 @@ var dot_tween: Tween
 
 @onready var view_camera = $Camera3D
 @onready var countdown_timer = $CountdownTimer
-@onready var countdown_label = $CanvasLayer/CountdownLabel
+@onready var countdown_label = $CanvasLayer/TimerUI/CountdownLabel
 @onready var camera_overlay = $CanvasLayer/CameraOverlay
 @onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
@@ -19,25 +19,34 @@ var dot_tween: Tween
 @onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreLabel
 @onready var fade_rect = $CanvasLayer/FadeRect
 @onready var interactable: Area3D = %Interactable
+@onready var timer_ui = $CanvasLayer/TimerUI
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	interactable.interact = _on_interact
-	countdown_label.visible = false
+	if timer_ui:
+		timer_ui.visible = false
 	camera_overlay.visible = false
 	print("debug: Camera start")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not countdown_timer.is_stopped():
-		countdown_label.text = str(ceil(int(countdown_timer.time_left)))
+		var time_left = countdown_timer.time_left
+		
+		countdown_label.text = "%.1f s" % time_left
+		
+		if time_left <= 5.0:
+			countdown_label.add_theme_color_override("font_color", Color.RED)
+		else:
+			countdown_label.add_theme_color_override("font_color", Color.WHITE)
 
 # Switch and leave camera view
 func _unhandled_input(event: InputEvent) -> void:
 	# throw away photo
 	if photo_result_ui.visible and event.is_action_pressed("left_click"):
 		photo_result_ui.visible = false
-		# TODO: back to player interaction
+		EventBus.player_released.emit() # back to player interaction
 		return
 
 	if event.is_action_released("interact"):
@@ -63,7 +72,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			dot_tween.kill()
 		red_dot.modulate.a = 1.0
 		
-	# If we click LMB in camera
+	# If we click LMB in camera - start countdown
 	if event.is_action_pressed("left_click") and in_camera:
 		view_camera.clear_current()
 		in_camera = false
@@ -73,7 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		red_dot.modulate.a = 1.0
 		
 		countdown_timer.start(10)
-		countdown_label.visible = true
+		timer_ui.visible = true
 		camera_overlay.visible = false
 		toggle_hologram(false)
 		
@@ -84,14 +93,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # Timer ended
-func _on_countdown_timer_timeout() -> void:
-	countdown_label.visible = false
-	
-	# TODO: lock player movement
-	
+func _on_countdown_timer_timeout() -> void:	
 	# grace period - leave one second to finish movement
-	await get_tree().create_timer(1.0).timeout
-	
+	#await get_tree().create_timer(0.5).timeout # TODO: do I need this???
+	EventBus.player_captured.emit() # lock player movement
+	timer_ui.visible = false
+
 	# fade to black (or white)
 	var flash_tween = create_tween()
 	flash_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.15)

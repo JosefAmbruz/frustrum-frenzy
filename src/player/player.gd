@@ -11,6 +11,9 @@ extends CharacterBody3D
 @onready var skin: Node3D = %PlayerSkin
 @onready var hold_position: Marker3D = %HoldPosition
 
+@onready var _idle_state: State = %StateMachine.get_node("Idle")
+@onready var _captured_state: State = %StateMachine.get_node("Captured")
+
 #Camera
 var _camera_input_direction := Vector2.ZERO
 
@@ -92,3 +95,18 @@ func get_camera_global_basis() -> Basis:
 
 func set_hand_item(item: RigidBody3D) -> void:
 	held_item = item
+
+func _on_tree_entered() -> void:
+	EventBus.player_captured.connect(_on_player_captured)
+	EventBus.player_released.connect(_on_player_released)
+
+func _on_tree_exited() -> void:
+	EventBus.player_captured.disconnect(_on_player_captured)
+	EventBus.player_released.disconnect(_on_player_released)
+
+func _on_player_captured() -> void:
+	_camera_input_direction = Vector2.ZERO
+	state_machine.change_state(_captured_state)
+
+func _on_player_released() -> void:
+	state_machine.change_state(_idle_state)

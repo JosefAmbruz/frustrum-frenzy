@@ -56,6 +56,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_direction = Vector3.ZERO
 	
+	# --- DISABLED MODE ---
+	if movement_type == MovementTypes.DISABLED:
+		var y_velocity := character_body.velocity.y
+		var horizontal_velocity := Vector3(character_body.velocity.x, 0.0, character_body.velocity.z)
+		horizontal_velocity = horizontal_velocity.move_toward(Vector3.ZERO, movement_config.ground_dec * delta)
+		character_body.velocity.x = horizontal_velocity.x
+		character_body.velocity.z = horizontal_velocity.z
+		character_body.velocity.y = y_velocity
+		var gravity_multiplier := movement_config.jump_descent_mult if y_velocity < 0.0 else 1.0
+		character_body.velocity.y = y_velocity - (_gravity * gravity_multiplier * delta)
+		character_body.move_and_slide()
+		_detect_climbing()
+		return
+
 	# --- CLIMBING MODE ---
 	if movement_type == MovementTypes.CLIMBING:
 		var y_velocity := character_body.velocity.y

@@ -11,3 +11,4 @@ class_name MovementConfig extends Resource
 @export var jump_height: float
 @export var jump_time_to_apex: float
 @export var jump_descent_mult: float
+@export_range(0.0, 1.0, 0.01) var jump_cut_multiplier := 0.5

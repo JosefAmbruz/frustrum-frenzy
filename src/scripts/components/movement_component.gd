@@ -78,6 +78,9 @@ func _physics_process(delta: float) -> void:
 func is_grounded() -> bool:
 	return character_body.is_on_floor()
 
+func is_falling() -> bool:
+	return character_body.velocity.y > 0.0
+
 func can_jump() -> bool:
 	if coyote_time:
 		return character_body.is_on_floor() or coyote_time.get_time_left()
@@ -101,6 +104,10 @@ func get_last_movement_direction() -> Vector3:
 func jump() -> void:
 	character_body.velocity.y = _jump_impulse
 	coyote_time.stop()
+
+func fall() -> void:
+	character_body.velocity.y *= movement_config.jump_cut_multiplier
+
 
 func apply_impulse(impulse: Vector3) -> void:
 	if impulse.y > 0:

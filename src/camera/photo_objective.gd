@@ -51,11 +51,11 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		total_score += pos_score
 		
 		if pos_score == int(POINTS_PLAYER_POSITION):
-			details.append("Perfect player position: +%d" % pos_score)
+			details.append("Perfect player position: +%d" % pos_score + " / %d" % POINTS_PLAYER_POSITION)
 		elif pos_score > 0:
-			details.append("Good player position: +%d" % pos_score)
+			details.append("Good player position: +%d" % pos_score + " / %d" % POINTS_PLAYER_POSITION)
 		else:
-			details.append("Wrong player position: 0")
+			details.append("Wrong player position: 0" + " / %d" % POINTS_PLAYER_POSITION)
 			
 		# Check holding (This remains binary - you either hold it or you don't)
 		if player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
@@ -66,11 +66,11 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 				
 			if hold_id == player_target.must_hold_item_id:
 				total_score += POINTS_PLAYER_HOLD
-				details.append("Correct item in hand (%s): +%d" % [hold_id, POINTS_PLAYER_HOLD])
+				details.append("Correct item in hand (%s): +%d" % [hold_id, POINTS_PLAYER_HOLD] + " / %d" % POINTS_PLAYER_HOLD)
 				if actual_player.held_item not in used_items:
 					used_items.append(actual_player.held_item)
 			else:
-				details.append("Wrong/missing item in hand: 0")
+				details.append("Wrong/missing item in hand: 0" + " / %d" % POINTS_PLAYER_HOLD)
 				
 	# 3. ITEMS EVALUATION
 	for target in item_targets:
@@ -94,11 +94,11 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 			used_items.append(best_match)
 			
 			if item_score == int(POINTS_PER_ITEM):
-				details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score])
+				details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % max_possible_score)
 			else:
-				details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score])
+				details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % max_possible_score)
 		else:
-			details.append("Missing/far item (%s): 0" % target.required_item_id)
+			details.append("Missing/far item (%s): 0" % target.required_item_id + " / %d" % max_possible_score)
 			
 	# 4. PENALTY FOR EXTRA ITEMS IN VIEW
 	var extra_items_count = items_in_camera_view.size() - used_items.size()

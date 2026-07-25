@@ -98,6 +98,10 @@ func get_gravity() -> float:
 func get_last_movement_direction() -> Vector3:
 	return _last_movement_direction
 
+func jump() -> void:
+	character_body.velocity.y = _jump_impulse
+	coyote_time.stop()
+
 func apply_impulse(impulse: Vector3) -> void:
 	if impulse.y > 0:
 		_velocity.y = impulse.y

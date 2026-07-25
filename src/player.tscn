@@ -135,8 +135,10 @@ jump_state = NodePath("../Jump")
 movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=1649362700]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1649362700 node_paths=PackedStringArray("move_state", "movement_component")]
 script = ExtResource("9_nic3v")
+move_state = NodePath("../Move")
+movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="WallJump" type="Node" parent="StateMachine" unique_id=127669017]

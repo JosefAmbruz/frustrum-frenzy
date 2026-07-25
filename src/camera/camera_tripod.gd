@@ -1,6 +1,7 @@
 extends StaticBody3D
 
 @export var target_photo: Texture2D
+@export var countdown_time: int = 15
 
 var in_camera: bool = false
 var _interact_lock := false
@@ -82,7 +83,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		red_dot.modulate.a = 1.0
 		
 		reset_objective_items()
-		countdown_timer.start(10)
+		countdown_timer.start(countdown_time)
 		timer_ui.visible = true
 		camera_overlay.visible = false
 		

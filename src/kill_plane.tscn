@@ -19,6 +19,7 @@ shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1080770289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+visible = false
 size = Vector3(1000, 1, 1000)
 material = SubResource("StandardMaterial3D_57qmd")
 

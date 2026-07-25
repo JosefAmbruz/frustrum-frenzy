@@ -120,19 +120,17 @@ debug_mode = true
 _debug_label = NodePath("../DebugLabel")
 metadata/_custom_type_script = "uid://cqjvw1qlq1t8y"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=2136070807 node_paths=PackedStringArray("move_state", "jump_state", "movement_component")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2136070807 node_paths=PackedStringArray("move_state", "jump_state")]
 script = ExtResource("7_rq7o7")
 move_state = NodePath("../Move")
 jump_state = NodePath("../Jump")
-movement_component = NodePath("../../MovementComponent")
 movement_config = ExtResource("2_nc72e")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
-[node name="Move" type="Node" parent="StateMachine" unique_id=1639418335 node_paths=PackedStringArray("idle_state", "jump_state", "movement_component")]
+[node name="Move" type="Node" parent="StateMachine" unique_id=1639418335 node_paths=PackedStringArray("idle_state", "jump_state")]
 script = ExtResource("8_dxtnc")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jump")
-movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="Jump" type="Node" parent="StateMachine" unique_id=1649362700]

@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 EventBus="*uid://buxus5sq6w424"
-PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [display]
 

@@ -142,8 +142,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.134836, 0, 0)
 [node name="TargetPlayer" parent="CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=2083384584 instance=ExtResource("12_8osof")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.355682, 7.0213637, -1.0940967)
 must_hold_item_id = "apple"
+position_tolerance = 5.0
 
 [node name="TargetItem" parent="CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=646093582 instance=ExtResource("13_8osof")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.149853, 3.0818822, -0.57852435)
+position_tolerance = 5.0
 
 [editable path="CameraTripod"]

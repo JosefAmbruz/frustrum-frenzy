@@ -203,11 +203,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1077149923]
+[node name="ScoreContainer" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=807837786]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer" unique_id=1077149923]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Score: 100% "
 vertical_alignment = 1
+
+[node name="DetailsLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer" unique_id=1916489103]
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="PhotoContainer" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=258238385]
 layout_mode = 2

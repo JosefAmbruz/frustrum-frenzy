@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MovementConfig" format=3 uid="uid://bqd5vwvbt4r4b"]
+
+[ext_resource type="Script" uid="uid://bgwqo10dp1xre" path="res://src/player/movement_config.gd" id="1_ulckd"]
+
+[resource]
+script = ExtResource("1_ulckd")
+jump_height = 4.0
+jump_time_to_apex = 0.4
+jump_descent_mult = 2.0
+metadata/_custom_type_script = "uid://bgwqo10dp1xre"

@@ -2,11 +2,15 @@ extends CharacterBody3D
 
 @export_range(0.0, 1.0) var mouse_sensitivity := 0.25
 @export var rotation_speed := 12.0
+@export var camera_normal_length: float = 8.0
+@export var camera_sprint_length: float = 10.0
+@export var camera_zoom_speed: float = 6.0
 
 @onready var state_machine: StateMachine = %StateMachine
 @onready var movement_component: MovementComponent = %MovementComponent
 @onready var camera_pivot: Marker3D = %CameraPivot
 @onready var camera : Camera3D = %Camera3D
+@onready var camera_spring_arm: SpringArm3D = %CameraPivot.get_node("SpringArm3D")
 @onready var particle_trail: GPUParticles3D = %ParticleTrail
 @onready var skin: Node3D = %PlayerSkin
 @onready var hold_position: Marker3D = %HoldPosition
@@ -22,6 +26,10 @@ var held_item: PickupableItem
 
 #Respawn / Checkpoint
 var current_checkpoint: Vector3
+
+#Sprint camera zoom
+var _is_sprinting: bool = false
+var _target_camera_length: float = 8.0
 
 func _ready() -> void:
 	current_checkpoint = global_position
@@ -74,8 +82,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	handle_effects(delta)
-	
-	
+
+	var sprinting := Input.is_action_pressed("sprint") and Vector2(velocity.x, velocity.z).length() > 0.2
+
+	if sprinting != _is_sprinting:
+		_is_sprinting = sprinting
+		_target_camera_length = camera_sprint_length if sprinting else camera_normal_length
+
+	camera_spring_arm.spring_length = lerp(camera_spring_arm.spring_length, _target_camera_length, camera_zoom_speed * delta)
+
 	# Camera handling
 	camera_pivot.rotation.x += _camera_input_direction.y * delta
 	camera_pivot.rotation.x = clamp(camera_pivot.rotation.x, deg_to_rad(-85.0), deg_to_rad(20.0))

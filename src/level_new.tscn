@@ -1279,17 +1279,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13646638, -26.304344)
 [node name="PhotoObjective" parent="CameraTripod/Objectives" parent_id_path=PackedInt32Array(126854732, 1146842973) index="0" unique_id=2135743080 instance=ExtResource("26_0y8il")]
 
 [node name="TargetItem" parent="CameraTripod/Objectives/PhotoObjective" unique_id=646093582 instance=ExtResource("27_0y8il")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.911938, 0.47672677, -3.6758423)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5538, 0.03032872, -3.6758423)
 position_tolerance = 4.0
 linked_item = NodePath("../../../../PickupableItems/PhotoPumpkinItem2")
 
 [node name="TargetPlayer" parent="CameraTripod/Objectives/PhotoObjective" unique_id=2083384584 instance=ExtResource("26_2onrh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.73586, 1.3204877, 0)
+transform = Transform3D(0.026012661, 0, -0.9996616, 0, 1, 0, 0.9996616, 0, 0.026012661, 29.434368, 0.064483166, -0.2574449)
 must_hold_item_id = "apple"
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1116104894]
 stream = ExtResource("29_jf0pr")
 autoplay = true
+
 [node name="CameraTripod2" parent="." unique_id=1389881091 instance=ExtResource("7_wa755")]
 transform = Transform3D(0.15279543, 0, 0.9882578, 0, 1, 0, -0.9882578, 0, 0.15279543, -11.06132, 0, -9.165364)
 

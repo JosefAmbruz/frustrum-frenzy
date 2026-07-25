@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+PhantomCameraManager="*uid://duq6jhf6unyis"
 EventBus="*uid://buxus5sq6w424"
 
 [display]
@@ -34,6 +35,12 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[file_customization]
+
+folder_colors={
+"res://src/scripts/": "green"
+}
 
 [filesystem]
 

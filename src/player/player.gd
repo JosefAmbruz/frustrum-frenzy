@@ -20,6 +20,12 @@ var _camera_input_direction := Vector2.ZERO
 #Pickupable items
 var held_item: PickupableItem
 
+#Respawn / Checkpoint
+var current_checkpoint: Vector3
+
+func _ready() -> void:
+	current_checkpoint = global_position
+
 func _input(event: InputEvent) -> void:
 	if state_machine.active_state.name == "Captured":
 		return

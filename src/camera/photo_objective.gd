@@ -94,11 +94,11 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 			used_items.append(best_match)
 			
 			if item_score == int(POINTS_PER_ITEM):
-				details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % max_possible_score)
+				details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
 			else:
-				details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % max_possible_score)
+				details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
 		else:
-			details.append("Missing/far item (%s): 0" % target.required_item_id + " / %d" % max_possible_score)
+			details.append("Missing/far item (%s): 0" % target.required_item_id + " / %d" % POINTS_PER_ITEM)
 			
 	# 4. PENALTY FOR EXTRA ITEMS IN VIEW
 	var extra_items_count = items_in_camera_view.size() - used_items.size()

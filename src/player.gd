@@ -91,8 +91,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	if event.is_action_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if held_item != null and held_item.has_method("throw"):
-			var aim_dir = -_camera.global_transform.basis.z.normalized()
-			held_item.throw(self, aim_dir)
+			var aim_dir = _last_movement_direction.normalized()
+			aim_dir.y += 0.6 # add upward arc
+			var force : float = velocity.length() * 1.0 + 6.0
+			held_item.throw(self, aim_dir, force)
 
 func check_climbing() -> void:
 	is_climbing = false

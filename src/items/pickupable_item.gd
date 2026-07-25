@@ -5,9 +5,10 @@ extends RigidBody3D
 
 # item properties
 @export_group("Item Properties")
-@export var throw_force: float = 15.0
+# @export var throw_force: float = 15.0
 @export var boost_jump_power: float = 10.0
 @export var player_speed_modifier: float = 1.0 # 1.0 = normal speed
+@export var picked_up_label: String = "[E] Drop [LMB] Throw"
 
 var _held := false
 var _saved_parent: Node = null
@@ -42,7 +43,7 @@ func pickup(player: CharacterBody3D) -> void:
 
 	_held = true
 	player.set_hand_item(self)
-	interactable.interact_name = "[E] Drop"
+	interactable.interact_name = picked_up_label
 
 	freeze = true
 	sleeping = true
@@ -85,10 +86,7 @@ func drop(player: CharacterBody3D) -> void:
 	player.held_item = null
 	
 
-func throw(player: CharacterBody3D, aim_direction: Vector3) -> void:
+func throw(player: CharacterBody3D, aim_direction: Vector3, force: float) -> void:
 	drop(player)
-	apply_central_impulse(aim_direction * throw_force)
+	apply_central_impulse(aim_direction * force)
 	
-	# looking down = double jump
-	if aim_direction.y < -0.5 and not player.is_on_floor():
-		player.apply_external_impulse(Vector3(0, boost_jump_power, 0))

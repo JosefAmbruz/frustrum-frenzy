@@ -22,3 +22,9 @@ class_name MovementConfig extends Resource
 @export var min_into_wall_dot := 0.08
 @export var wall_stick_force := 0.4
 @export var climb_strafe_speed := 2.5
+
+@export_category("Wall Jump")
+@export var wall_jump_push := 14.0
+@export var wall_jump_up_factor := 0.78
+@export var wall_jump_lock_time := 0.18
+@export var same_wall_dot_threshold := 0.82

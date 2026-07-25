@@ -4,6 +4,7 @@ extends State
 @export var idle_state: State
 @export var move_state: State
 @export var jump_state: State
+@export var wall_jump_state: State
 
 @export_category("Components")
 @export var movement_component: MovementComponent
@@ -29,8 +30,5 @@ func physics_update(delta: float) -> void:
 		return
 
 	if Input.is_action_just_pressed("jump"):
-		movement_component.jump()
-		var push := movement_component.climb_normal * movement_config.climb_detach_push
-		push.y = 0.0
-		movement_component.apply_impulse(push)
-		switch_state.emit(jump_state)
+		switch_state.emit(wall_jump_state)
+		return

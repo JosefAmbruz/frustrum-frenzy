@@ -19,6 +19,13 @@ var _jump_impulse: float
 var is_near_climbable_wall := false
 var climb_normal := Vector3.ZERO
 
+# Wall detection (any wall, for wall jumping)
+var is_near_any_wall := false
+var any_wall_normal := Vector3.ZERO
+
+var _last_wall_jump_normal := Vector3.ZERO
+var _wall_jump_lock_left := 0.0
+
 func _ready() -> void:
 	pass
 
@@ -28,7 +35,8 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	_gravity = (2.0 * movement_config.jump_height) / (movement_config.jump_time_to_apex * movement_config.jump_time_to_apex)
 	_jump_impulse = _gravity * movement_config.jump_time_to_apex
-	
+	_wall_jump_lock_left = maxf(_wall_jump_lock_left - delta, 0.0)
+
 	# Camera relative movement
 	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -120,8 +128,20 @@ func can_jump() -> bool:
 	return character_body.is_on_floor()
 
 func can_wall_jump() -> bool:
-	#TODO
-	return false
+	if is_grounded():
+		return false
+	if not is_near_any_wall:
+		return false
+	if _wall_jump_lock_left > 0.0 and any_wall_normal.dot(_last_wall_jump_normal) > movement_config.same_wall_dot_threshold:
+		return false
+	return true
+
+func do_wall_jump() -> void:
+	character_body.velocity.y = _jump_impulse * movement_config.wall_jump_up_factor
+	character_body.velocity += any_wall_normal * movement_config.wall_jump_push
+	_last_wall_jump_normal = any_wall_normal
+	_wall_jump_lock_left = movement_config.wall_jump_lock_time
+	coyote_time.stop()
 
 func can_climb() -> bool:
 	return is_near_climbable_wall
@@ -158,12 +178,18 @@ func deccelerate() -> void:
 func _detect_climbing() -> void:
 	is_near_climbable_wall = false
 	climb_normal = Vector3.ZERO
+	is_near_any_wall = false
+	any_wall_normal = Vector3.ZERO
 
 	for i in range(character_body.get_slide_collision_count()):
 		var collision := character_body.get_slide_collision(i)
 		var n := collision.get_normal()
 		var collider := collision.get_collider()
 
-		if abs(n.y) < 0.6 and collider and collider.is_in_group("climbable"):
-			is_near_climbable_wall = true
-			climb_normal = n
+		if abs(n.y) < 0.6:
+			is_near_any_wall = true
+			any_wall_normal = n
+
+			if collider and collider.is_in_group("climbable"):
+				is_near_climbable_wall = true
+				climb_normal = n

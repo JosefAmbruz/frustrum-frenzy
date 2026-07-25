@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://31k6mdjvraph" path="res://src/resources/GLB format/block-grass-long.glb" id="2_uihir"]
 [ext_resource type="PackedScene" uid="uid://b316ladivjlpp" path="res://src/player.tscn" id="2_ul14i"]
 [ext_resource type="PackedScene" uid="uid://bihenomr6wx7w" path="res://src/items/apple_item.tscn" id="3_423ok"]
-[ext_resource type="PackedScene" uid="uid://eqb0c8dqcys6" path="res://src/resources/GLB format/Camera stand by Jason Oudshoorn - 5CHQvf_emuN.glb" id="4_hal3b"]
 [ext_resource type="PackedScene" uid="uid://cic1mumryrvmy" path="res://src/resources/GLB format/block-grass-low-large.glb" id="4_lrf7k"]
 [ext_resource type="PackedScene" uid="uid://b0yk2kml1qfqk" path="res://src/items/pumpkin_item.tscn" id="4_uihir"]
 [ext_resource type="PackedScene" uid="uid://cxwelis05nt17" path="res://src/resources/GLB format/block-grass-large-tall.glb" id="6_e56t1"]
@@ -15,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dejob811kocp3" path="res://src/resources/GLB format/block-grass-overhang-narrow.glb" id="8_xxk20"]
 [ext_resource type="PackedScene" uid="uid://ciq0n7es33ajt" path="res://src/resources/GLB format/ladder-long.glb" id="9_2onrh"]
 [ext_resource type="PackedScene" uid="uid://blasbyd70dl4" path="res://src/resources/GLB format/block-grass-overhang-low-hexagon.glb" id="9_6vr31"]
+[ext_resource type="PackedScene" uid="uid://6fqa00bic2rv" path="res://src/kill_plane.tscn" id="9_jf0pr"]
 [ext_resource type="PackedScene" uid="uid://b1mvv7dx75ohh" path="res://src/resources/GLB format/block-grass-overhang-large-tall.glb" id="9_ma8n1"]
 [ext_resource type="PackedScene" uid="uid://k1jn2nmn6w5i" path="res://src/resources/GLB format/fence-corner-curved.glb" id="10_00yaw"]
 [ext_resource type="PackedScene" uid="uid://u1wdpi5kph0e" path="res://src/resources/GLB format/fence-broken.glb" id="11_bxnrg"]
@@ -82,9 +82,6 @@ transform = Transform3D(1.0320904, 0, 0, 0, 1, 0, 0, 0, 1.0245037, 0.030822754, 
 visible = false
 use_collision = true
 size = Vector3(1.8630676, 1, 1)
-
-[node name="Camera stand by Jason Oudshoorn - 5CHQvf_emuN" parent="CSGCombiner3D" unique_id=2143013680 instance=ExtResource("4_hal3b")]
-transform = Transform3D(5.9624403e-09, 0, -0.5, 0, 0.49715245, 0, 0.5, 0, 5.9624403e-09, 0.15492868, 1.3564713, -26.3648)
 
 [node name="block-grass-low-large2" parent="CSGCombiner3D" unique_id=285070453 instance=ExtResource("4_lrf7k")]
 transform = Transform3D(32.013306, 0, 0, 0, 0.99798894, 0, 0, 0, 32.648056, 0.01663971, -0.6096255, -23.856619)
@@ -223,6 +220,9 @@ transform = Transform3D(0.030147485, 0, 0, 0, 1, 0, 0, 0, 0.02758569, -0.1080439
 
 [node name="trap-spikes-large2" parent="CSGCombiner3D/block-grass-low-large2" unique_id=1832991959 instance=ExtResource("8_50g3t")]
 transform = Transform3D(0.07242931, 0, 0, 0, 1, 0, 0, 0, 0.071231365, -0.22464737, 0.51101863, 0.013426017)
+
+[node name="Area3D" parent="CSGCombiner3D/block-grass-low-large2/trap-spikes-large2" unique_id=1748378536 instance=ExtResource("9_jf0pr")]
+transform = Transform3D(0.0010000002, 0, 0, 0, 0.001, 0, 0, 0, 0.0010000002, 0.01032424, 0.08438134, -0.005984314)
 
 [node name="ladder-long2" parent="CSGCombiner3D/block-grass-low-large2" unique_id=348235511 instance=ExtResource("9_2onrh")]
 transform = Transform3D(0.079772964, 0, 0, 0, 2.3747034, 0, 0, 0, 0.09678891, -0.16442463, 0, 0.13880807)
@@ -1260,7 +1260,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7980987, -0.0062624216, -5
 transform = Transform3D(0.6718359, 0, 0.7407, 0, 1, 0, -0.7407, 0, 0.6718359, -1.2702184, 1.3981432, -4.289818)
 
 [node name="Player" parent="." unique_id=1178688999 instance=ExtResource("2_ul14i")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 2, 4, -22.871298)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -3.8039584, 1.9542952, -32.37182)
 
 [node name="PickupableItems" type="Node3D" parent="." unique_id=1663206561]
 
@@ -1274,13 +1274,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.2823012, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.612291, 0, -31.758135)
 
 [node name="CameraTripod" parent="." unique_id=126854732 instance=ExtResource("7_wa755")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.470106, -26.304344)
-
-[node name="MeshInstance3D" parent="CameraTripod" index="0" unique_id=880157601]
-visible = false
-
-[node name="MeshInstance3D2" parent="CameraTripod" index="3" unique_id=844778109]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13646638, -26.304344)
 
 [node name="PhotoObjective" parent="CameraTripod/Objectives" parent_id_path=PackedInt32Array(126854732, 1146842973) index="0" unique_id=2135743080 instance=ExtResource("26_0y8il")]
 
@@ -1296,5 +1290,7 @@ must_hold_item_id = "apple"
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1116104894]
 stream = ExtResource("29_jf0pr")
 autoplay = true
+[node name="CameraTripod2" parent="." unique_id=1389881091 instance=ExtResource("7_wa755")]
+transform = Transform3D(0.15279543, 0, 0.9882578, 0, 1, 0, -0.9882578, 0, 0.15279543, -11.06132, 0, -9.165364)
 
 [editable path="CameraTripod"]

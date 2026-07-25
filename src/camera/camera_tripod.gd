@@ -2,6 +2,7 @@ extends StaticBody3D
 
 @export var target_photo: Texture2D
 @export var countdown_time: int = 15
+@export var respawn_offset: Vector3 = Vector3(0, 1, 2)
 
 var in_camera: bool = false
 var _interact_lock := false
@@ -141,8 +142,10 @@ func _on_countdown_timer_timeout() -> void:
 	
 	print("debug: Camera shoot")
 
-func _on_interact(_player : CharacterBody3D):
+func _on_interact(player : CharacterBody3D):
 	if not in_camera:
+		player.current_checkpoint = global_position + global_transform.basis * respawn_offset
+
 		# Capture players' movement
 		EventBus.player_captured.emit()
 		

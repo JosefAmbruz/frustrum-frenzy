@@ -18,6 +18,7 @@ continuous_cd = true
 script = ExtResource("1_6jmh3")
 boost_jump_power = 20.0
 player_speed_modifier = 0.75
+item_id = "pumpkin"
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_tkdkl")]
 unique_name_in_owner = true

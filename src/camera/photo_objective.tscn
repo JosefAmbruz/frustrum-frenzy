@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cemjcrw6goelj"]
+
+[ext_resource type="Script" uid="uid://d1iukkybhkjlc" path="res://src/camera/photo_objective.gd" id="1_q7evv"]
+
+[node name="PhotoObjective" type="Node3D" unique_id=2135743080]
+script = ExtResource("1_q7evv")

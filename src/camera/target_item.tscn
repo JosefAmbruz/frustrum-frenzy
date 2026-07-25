@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://diact247a3miu"]
+
+[ext_resource type="Script" uid="uid://bjk6mknsfhbbo" path="res://src/camera/target_item.gd" id="1_g71qk"]
+[ext_resource type="Material" uid="uid://buhhlqg3lkjjf" path="res://src/resources/hologram_blue.tres" id="2_drujl"]
+
+[node name="TargetItem" type="Marker3D" unique_id=646093582]
+script = ExtResource("1_g71qk")
+position_tolerance = 1.0
+
+[node name="GhostMesh" type="MeshInstance3D" parent="." unique_id=685153639]
+material_override = ExtResource("2_drujl")

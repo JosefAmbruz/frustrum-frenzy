@@ -9,6 +9,7 @@ extends RigidBody3D
 @export var boost_jump_power: float = 10.0
 @export var player_speed_modifier: float = 1.0 # 1.0 = normal speed
 @export var picked_up_label: String = "[E] Drop [LMB] Throw"
+@export var item_id: String = "unknown"
 
 var _held := false
 var _saved_parent: Node = null

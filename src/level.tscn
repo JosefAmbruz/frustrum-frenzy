@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://6fqa00bic2rv" path="res://src/kill_plane.tscn" id="6_jq0je"]
 [ext_resource type="PackedScene" uid="uid://jx1o12weknrv" path="res://src/items/pickupable_item.tscn" id="7_pothl"]
 [ext_resource type="Texture2D" uid="uid://dsa6is6e5irol" path="res://assets/texture_light.png" id="7_wc5yb"]
-[ext_resource type="PackedScene" uid="uid://s8ebssk2p6wu" path="res://src/camera_tripod.tscn" id="8_wc5yb"]
-[ext_resource type="PackedScene" uid="uid://dvhas6qwbp40l" path="res://src/player_skin.tscn" id="9_ssy8p"]
+[ext_resource type="PackedScene" uid="uid://7gr6v5d1mt52" path="res://src/camera/camera_tripod.tscn" id="8_wc5yb"]
+[ext_resource type="PackedScene" uid="uid://cemjcrw6goelj" path="res://src/camera/photo_objective.tscn" id="11_cl2ww"]
+[ext_resource type="PackedScene" uid="uid://b4nkr8ckvw1y5" path="res://src/camera/target_player.tscn" id="12_8osof"]
+[ext_resource type="PackedScene" uid="uid://diact247a3miu" path="res://src/camera/target_item.tscn" id="13_8osof"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc5yb"]
 albedo_texture = ExtResource("1_7i26j")
@@ -129,19 +131,19 @@ respawn_point = NodePath("../RespawnPoint")
 
 [node name="PickupableItem" parent="PickupableItems" unique_id=1365369840 instance=ExtResource("7_pothl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.452864, 2.2959433, 0)
+boost_jump_power = 10.0
+player_speed_modifier = 1.0
 
-[node name="CameraTripod" parent="." unique_id=126854732 node_paths=PackedStringArray("player_target_marker") instance=ExtResource("8_wc5yb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.764032, 0, -1.1777505)
-player_target_marker = NodePath("PlayerTargetMarker")
+[node name="CameraTripod" parent="." unique_id=126854732 instance=ExtResource("8_wc5yb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.134836, 0, 0)
 
-[node name="PlayerTargetMarker" type="Marker3D" parent="CameraTripod" unique_id=114053451]
-transform = Transform3D(-0.11743294, -0.24699618, -0.9618745, -9.313226e-10, 0.9685762, -0.2487171, 0.99308085, -0.029207576, -0.11374275, 24.813025, 6.0515375, 0.114348665)
-gizmo_extents = 0.5
+[node name="Objective_PhotoWithPumpkin" parent="CameraTripod/Objectives" parent_id_path=PackedInt32Array(126854732, 1146842973) index="0" unique_id=2135743080 instance=ExtResource("11_cl2ww")]
 
-[node name="Hologram" parent="CameraTripod/PlayerTargetMarker" unique_id=685421737 instance=ExtResource("9_ssy8p")]
-unique_name_in_owner = true
-visible = false
+[node name="TargetPlayer" parent="CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=2083384584 instance=ExtResource("12_8osof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.355682, 7.0213637, -1.0940967)
+must_hold_item_id = "apple"
 
-[node name="HoldPosition" type="Node3D" parent="CameraTripod/PlayerTargetMarker/Hologram" unique_id=1437667534]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5725436, 0.57895744)
+[node name="TargetItem" parent="CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=646093582 instance=ExtResource("13_8osof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.149853, 3.0818822, -0.57852435)
+
+[editable path="CameraTripod"]

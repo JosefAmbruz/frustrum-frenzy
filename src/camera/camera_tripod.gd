@@ -115,6 +115,9 @@ func _on_countdown_timer_timeout() -> void:
 	
 	# turn off highlights so they don't appear in the photo
 	disable_highlights()
+	
+	# play camera click sound
+	SoundManager.play_sound("camera_click_sound")
 
 	# make a picture and create texture
 	var viewport_img = get_viewport().get_texture().get_image()

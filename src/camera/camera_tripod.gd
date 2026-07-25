@@ -1,6 +1,7 @@
 extends StaticBody3D
 
 @export var target_photo: Texture2D
+@export var countdown_time: int = 15
 
 var in_camera: bool = false
 var _interact_lock := false
@@ -59,6 +60,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		view_camera.clear_current()
 		in_camera = false
 		toggle_hologram(false)
+		disable_highlights()
 		camera_overlay.visible = false
 		interactable.is_interactable = true
 		print("debug: Cleared camera view")
@@ -80,7 +82,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			dot_tween.kill()
 		red_dot.modulate.a = 1.0
 		
-		countdown_timer.start(10)
+		reset_objective_items()
+		countdown_timer.start(countdown_time)
 		timer_ui.visible = true
 		camera_overlay.visible = false
 		
@@ -110,6 +113,9 @@ func _on_countdown_timer_timeout() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	
+	# turn off highlights so they don't appear in the photo
+	disable_highlights()
+
 	# make a picture and create texture
 	var viewport_img = get_viewport().get_texture().get_image()
 	var final_texture = ImageTexture.create_from_image(viewport_img)
@@ -155,6 +161,7 @@ func _on_interact(_player : CharacterBody3D):
 		
 		in_camera = true
 		toggle_hologram(true)
+		enable_highlights()
 
 # --- NEW EVALUATION SYSTEM INTEGRATION ---
 func evaluate_new_objectives() -> void:
@@ -249,6 +256,26 @@ func toggle_hologram(show_hologram: bool) -> void:
 			# if the target has a GhostMesh, change its visibility
 			if target.has_node("GhostMesh"):
 				target.get_node("GhostMesh").visible = show_hologram
-	
-	
-	
+
+func reset_objective_items() -> void:
+	if not has_node("Objectives"):
+		return
+	for objective in $Objectives.get_children():
+		if objective.has_method("reset_required_items"):
+			objective.reset_required_items()
+
+func enable_highlights() -> void:
+	if not has_node("Objectives"):
+		return
+	for objective in $Objectives.get_children():
+		for target in objective.get_children():
+			if target.has_method("set_highlight"):
+				target.set_highlight(true)
+
+func disable_highlights() -> void:
+	if not has_node("Objectives"):
+		return
+	for objective in $Objectives.get_children():
+		for target in objective.get_children():
+			if target.has_method("set_highlight"):
+				target.set_highlight(false)

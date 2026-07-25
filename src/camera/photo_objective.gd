@@ -24,9 +24,21 @@ func calculate_distance_score(max_points: float, distance: float, max_tolerance:
 		var multiplier = 1.0 - pow(ratio, 2)
 		return int(max_points * multiplier)
 
+func reset_required_items() -> void:
+	for child in get_children():
+		if "linked_item" in child and child.linked_item:
+			var item = child.get_node_or_null(child.linked_item)
+			if item and item is PickupableItem:
+				if item.has_method("force_drop"):
+					item.force_drop()
+				item.global_position = item.origin_position
+				item.global_rotation = item.origin_rotation
+				item.linear_velocity = Vector3.ZERO
+				item.angular_velocity = Vector3.ZERO
+
 func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array) -> Dictionary:
 	var total_score = 0.0
-	var max_possible_score = 0.0 # FIX: We calculate this automatically!
+	var max_possible_score = 0.0
 	var used_items = []
 	var details = []
 	
@@ -46,7 +58,6 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		
 		var dist_to_player = actual_player.global_position.distance_to(player_target.global_position)
 		
-		# Calculate smooth score for player position
 		var pos_score = calculate_distance_score(POINTS_PLAYER_POSITION, dist_to_player, player_target.position_tolerance)
 		total_score += pos_score
 		
@@ -57,7 +68,6 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		else:
 			details.append("Wrong player position: 0" + " / %d" % POINTS_PLAYER_POSITION)
 			
-		# Check holding (This remains binary - you either hold it or you don't)
 		if player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
 			max_possible_score += POINTS_PLAYER_HOLD
 			var hold_id = ""
@@ -74,31 +84,27 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 				
 	# 3. ITEMS EVALUATION
 	for target in item_targets:
-		max_possible_score += POINTS_PER_ITEM 
-		
-		var best_match = null
-		var best_dist = 999.0
-		
-		# Find the closest matching item in the camera view
-		for actual_item in items_in_camera_view:
-			if "item_id" in actual_item and actual_item.item_id == target.required_item_id and not actual_item in used_items:
-				var dist = actual_item.global_position.distance_to(target.global_position)
-				if dist < best_dist:
-					best_dist = dist
-					best_match = actual_item
-		
-		# Evaluate the closest item we found
-		if best_match and best_dist < target.position_tolerance:
-			var item_score = calculate_distance_score(POINTS_PER_ITEM, best_dist, target.position_tolerance)
-			total_score += item_score
-			used_items.append(best_match)
-			
-			if item_score == int(POINTS_PER_ITEM):
-				details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+		max_possible_score += POINTS_PER_ITEM
+
+		var linked_item = null
+		if target.linked_item:
+			linked_item = target.get_node_or_null(target.linked_item)
+
+		if linked_item and linked_item in items_in_camera_view and not linked_item in used_items:
+			var dist = linked_item.global_position.distance_to(target.global_position)
+			if dist < target.position_tolerance:
+				var item_score = calculate_distance_score(POINTS_PER_ITEM, dist, target.position_tolerance)
+				total_score += item_score
+				used_items.append(linked_item)
+
+				if item_score == int(POINTS_PER_ITEM):
+					details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+				else:
+					details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
 			else:
-				details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+				details.append("Item too far (%s): 0 / %d" % [target.required_item_id, POINTS_PER_ITEM])
 		else:
-			details.append("Missing/far item (%s): 0" % target.required_item_id + " / %d" % POINTS_PER_ITEM)
+			details.append("Missing/far item (%s): 0 / %d" % [target.required_item_id, POINTS_PER_ITEM])
 			
 	# 4. PENALTY FOR EXTRA ITEMS IN VIEW
 	var extra_items_count = items_in_camera_view.size() - used_items.size()
@@ -107,7 +113,7 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		total_score -= penalty
 		details.append("Penalty (extra items %dx): -%d" % [extra_items_count, penalty])
 		
-	total_score = max(0.0, total_score) # No negative scores
+	total_score = max(0.0, total_score)
 	
 	return {
 		"earned": total_score,

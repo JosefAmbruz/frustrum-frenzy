@@ -2,7 +2,7 @@ extends Node3D
 
 @export var player: NodePath
 
-@onready var interaction_label: Label3D = %Label3D
+@onready var interaction_label: Label3D = %Label
 var curr_interactions := []
 var can_interact := true
 var interaction_blocked := false

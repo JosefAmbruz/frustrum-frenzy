@@ -8,6 +8,7 @@ height = 0.33377075
 radius = 0.41357422
 
 [node name="PumpkinItem" unique_id=1365369840 instance=ExtResource("1_gcyxa")]
+boost_jump_power = 25.0
 
 [node name="Pumpkin" parent="." index="1" unique_id=2118398621 instance=ExtResource("2_k0d5l")]
 

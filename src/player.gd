@@ -1,8 +1,5 @@
 extends CharacterBody3D
 
-# TODO:
-# - item propelling
-
 @export_category("Camera")
 @export_range(0.0, 1.0) var mouse_sensitivity := 0.25
 
@@ -17,12 +14,6 @@ extends CharacterBody3D
 @export_range(0.0, 1.0, 0.01) var jump_cut_multiplier := 0.5
 @export_range(0.0, 0.5, 0.01) var coyote_time := 0.12
 
-var _camera_input_direction := Vector2.ZERO
-var _last_movement_direction := Vector3.BACK
-var _jump_impulse : float
-var _gravity : float
-var _coyote_time_left := 0.0
-
 @export_category("Movement Tuning")
 @export var ground_acceleration := 55.0
 @export var ground_deceleration := 70.0
@@ -35,13 +26,6 @@ var _coyote_time_left := 0.0
 @export var wall_jump_lock_time := 0.18      # anti-spam for same wall
 @export var same_wall_dot_threshold := 0.82 
 
-var _last_wall_jump_normal := Vector3.ZERO
-var _wall_jump_lock_left := 0.0
-
-var is_near_any_wall := false
-var any_wall_normal := Vector3.ZERO
-var is_captured := false
-
 @export_category("Climbing")
 @export var climb_speed_up := 3.5
 @export var climb_speed_down := 2.0
@@ -51,9 +35,25 @@ var is_captured := false
 @export var min_into_wall_dot := 0.08 # how much does the input have to aim into the wall
 @export var wall_stick_force := 0.4
 
+var _camera_input_direction := Vector2.ZERO
+var _last_movement_direction := Vector3.BACK
+var _jump_impulse : float
+var _gravity : float
+var _coyote_time_left := 0.0
+
+var _last_wall_jump_normal := Vector3.ZERO
+var _wall_jump_lock_left := 0.0
+
+var is_near_any_wall := false
+var any_wall_normal := Vector3.ZERO
+var is_captured := false
+
 var is_climbing := false
 var is_wall_jumping := false
 var climb_normal := Vector3.ZERO
+
+var held_item: PickupableItem
+var original_hold_pos: Vector3
 
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
@@ -62,10 +62,10 @@ var climb_normal := Vector3.ZERO
 @onready var _sound_footsteps = %SoundFootsteps
 @onready var _hold_position := %HoldPosition
 
-var held_item: RigidBody3D
 
 func _ready() -> void:
 	_coyote_time_left = coyote_time
+	original_hold_pos = _hold_position.position
 
 func _input(event: InputEvent) -> void:
 	if is_captured:
@@ -88,6 +88,31 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if is_camera_motion:
 		_camera_input_direction = event.screen_relative * mouse_sensitivity
+		
+	if held_item != null and held_item.has_method("throw"):
+		if event.is_action_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			var is_air_boost_throw := (not is_on_floor()) and Input.is_action_pressed("jump")
+			var aim_dir: Vector3
+			var force : float
+			assert(held_item.boost_jump_power)
+			print_debug(held_item.boost_jump_power)
+			
+			var boost_jump_power : float = 25.0 # Default
+			if held_item.boost_jump_power:
+				boost_jump_power = held_item.boost_jump_power
+			if is_air_boost_throw:
+				aim_dir = Vector3.DOWN
+			else:
+				aim_dir = _last_movement_direction.normalized()
+				aim_dir.y = 0.6 # add upward arc
+			force = _last_movement_direction.length() * 1.0 + 6.0
+			
+			held_item.throw(self, aim_dir, force)
+
+			if is_air_boost_throw:
+				force = 25
+				apply_external_impulse(Vector3(0, boost_jump_power, 0))
+		
 
 func check_climbing() -> void:
 	is_climbing = false
@@ -175,6 +200,10 @@ func _physics_process(delta: float) -> void:
 
 	var is_sprinting := Input.is_action_pressed("sprint")
 	var current_speed := sprint_speed if is_sprinting else move_speed
+
+	# ITEM SLOW
+	if held_item != null and "player_speed_modifier" in held_item:
+		current_speed *= held_item.player_speed_modifier
 
 	# Check climbing state from last slide results
 	check_climbing()

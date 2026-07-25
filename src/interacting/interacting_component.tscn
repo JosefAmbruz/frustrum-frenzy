@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d0jneonb8m7vu"]
 
 [ext_resource type="Script" uid="uid://cqrnsfitpcxhw" path="res://src/interacting/interacting_component.gd" id="1_tc6x1"]
+[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="2_wuup4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tc6x1"]
 radius = 0.73535156
@@ -17,11 +18,15 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04901123, 0.2991333, -0.006323576)
 shape = SubResource("CapsuleShape3D_tc6x1")
 
-[node name="Label3D" type="Label3D" parent="." unique_id=2106708935]
+[node name="Label" type="Label3D" parent="." unique_id=2106708935]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4254851, 0)
+pixel_size = 0.0015
 billboard = 1
+fixed_size = true
 text = "Press [E] to interact"
+font = ExtResource("2_wuup4")
+font_size = 24
 
 [connection signal="area_entered" from="InteractRange" to="." method="_on_interact_range_area_entered"]
 [connection signal="area_exited" from="InteractRange" to="." method="_on_interact_range_area_exited"]

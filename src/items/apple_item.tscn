@@ -8,6 +8,8 @@ height = 0.34765625
 radius = 0.2734375
 
 [node name="AppleItem" unique_id=1365369840 instance=ExtResource("1_itlt0")]
+boost_jump_power = 15.0
+item_id = "apple"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=2084210624]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16473949, 0)

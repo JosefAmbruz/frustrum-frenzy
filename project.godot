@@ -21,6 +21,8 @@ EventBus="*uid://buxus5sq6w424"
 
 [display]
 
+window/size/viewport_width=1600
+window/size/viewport_height=900
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -32,6 +34,16 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[file_customization]
+
+folder_colors={
+"res://src/scripts/": "green"
+}
+
+[filesystem]
+
+import/blender/enabled=false
 
 [global_group]
 

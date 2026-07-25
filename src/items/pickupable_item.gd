@@ -1,13 +1,12 @@
-extends RigidBody3D
+class_name PickupableItem extends RigidBody3D
 
 @onready var interactable: Area3D = %Interactable
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 # item properties
 @export_group("Item Properties")
-@export var throw_force: float = 15.0
-@export var boost_jump_power: float = 10.0
-@export var player_speed_modifier: float = 1.0 # 1.0 = normal speed
+@export var boost_jump_power: float = 25.0
+@export var picked_up_label: String = "[E] Drop [LMB] Throw"
 @export var item_id: String = "unknown"
 
 var _held := false
@@ -19,9 +18,16 @@ var _saved_linear_velocity := Vector3.ZERO
 var _saved_angular_velocity := Vector3.ZERO
 var _default_interact_name := ""
 
+var origin_position: Vector3
+var origin_rotation: Vector3
+
 func _ready() -> void:
 	interactable.interact = _on_interact
 	_default_interact_name = interactable.interact_name
+	
+	# save the exact location and rotation where items were placed
+	origin_position = global_position
+	origin_rotation = global_rotation
 
 func _on_interact(player: CharacterBody3D) -> void:
 	if player == null:
@@ -43,7 +49,7 @@ func pickup(player: CharacterBody3D) -> void:
 
 	_held = true
 	player.set_hand_item(self)
-	interactable.interact_name = "[E] Drop"
+	interactable.interact_name = picked_up_label
 
 	freeze = true
 	sleeping = true
@@ -54,8 +60,8 @@ func pickup(player: CharacterBody3D) -> void:
 	var old_parent := get_parent()
 	if old_parent:
 		old_parent.remove_child(self)
-	player._hold_position.add_child(self)
-	global_transform = player._hold_position.global_transform
+	player.hold_position.add_child(self)
+	global_transform = player.hold_position.global_transform
 
 	collision_layer = 0
 	collision_mask = 0
@@ -71,7 +77,7 @@ func drop(player: CharacterBody3D) -> void:
 	if old_parent:
 		old_parent.remove_child(self)
 	target_parent.add_child(self)
-	global_transform = player._hold_position.global_transform
+	global_transform = player.hold_position.global_transform
 
 	show()
 	collision_shape.disabled = false
@@ -86,10 +92,7 @@ func drop(player: CharacterBody3D) -> void:
 	player.held_item = null
 	
 
-func throw(player: CharacterBody3D, aim_direction: Vector3) -> void:
+func throw(player: CharacterBody3D, aim_direction: Vector3, force: float) -> void:
 	drop(player)
-	apply_central_impulse(aim_direction * throw_force)
+	apply_central_impulse(aim_direction * force)
 	
-	# looking down = double jump
-	if aim_direction.y < -0.5 and not player.is_on_floor():
-		player.apply_external_impulse(Vector3(0, boost_jump_power, 0))

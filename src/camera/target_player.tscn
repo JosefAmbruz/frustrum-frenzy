@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b4nkr8ckvw1y5"]
+
+[ext_resource type="Script" uid="uid://dwvllqium8umx" path="res://src/camera/target_player.gd" id="1_i0y42"]
+[ext_resource type="Material" uid="uid://buhhlqg3lkjjf" path="res://src/resources/hologram_blue.tres" id="1_p7vgq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hwyno"]
+
+[node name="TargetPlayer" type="Marker3D" unique_id=2083384584]
+script = ExtResource("1_i0y42")
+
+[node name="GhostMesh" type="MeshInstance3D" parent="." unique_id=1449389338]
+material_override = ExtResource("1_p7vgq")
+mesh = SubResource("CapsuleMesh_hwyno")

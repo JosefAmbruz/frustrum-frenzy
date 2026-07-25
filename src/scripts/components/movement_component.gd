@@ -108,13 +108,12 @@ func jump() -> void:
 func fall() -> void:
 	character_body.velocity.y *= movement_config.jump_cut_multiplier
 
-
 func apply_impulse(impulse: Vector3) -> void:
 	if impulse.y > 0:
-		_velocity.y = impulse.y
+		character_body.velocity.y = impulse.y
 
-	_velocity.x += impulse.x
-	_velocity.z += impulse.z
+	character_body.velocity.x += impulse.x
+	character_body.velocity.z += impulse.z
 
 func accelerate_to_velocity(velocity: Vector3) -> void:
 	pass

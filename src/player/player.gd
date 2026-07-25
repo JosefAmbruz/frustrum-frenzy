@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var camera : Camera3D = %Camera3D
 @onready var particle_trail: GPUParticles3D = %ParticleTrail
 @onready var skin: Node3D = %PlayerSkin
+@onready var hold_position: Marker3D = %HoldPosition
 
 #Camera
 var _camera_input_direction := Vector2.ZERO
@@ -63,6 +64,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				movement_component.apply_impulse(Vector3(0, boost_jump_power, 0))
 
 func _physics_process(delta: float) -> void:
+	handle_effects(delta)
+	
 	
 	# Camera handling
 	camera_pivot.rotation.x += _camera_input_direction.y * delta
@@ -72,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	
 	var target_angle := Vector3.BACK.signed_angle_to(movement_component.get_last_movement_direction(), Vector3.UP)
 	skin.global_rotation.y = lerp_angle(skin.rotation.y, target_angle, rotation_speed * delta)
-
+	
 
 func handle_effects(_delta: float) -> void:
 	var is_sprinting := Input.is_action_pressed("sprint")
@@ -86,3 +89,6 @@ func handle_effects(_delta: float) -> void:
 
 func get_camera_global_basis() -> Basis:
 	return camera.global_basis
+
+func set_hand_item(item: RigidBody3D) -> void:
+	held_item = item

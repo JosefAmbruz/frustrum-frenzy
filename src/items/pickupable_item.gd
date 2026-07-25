@@ -53,8 +53,8 @@ func pickup(player: CharacterBody3D) -> void:
 	var old_parent := get_parent()
 	if old_parent:
 		old_parent.remove_child(self)
-	player._hold_position.add_child(self)
-	global_transform = player._hold_position.global_transform
+	player.hold_position.add_child(self)
+	global_transform = player.hold_position.global_transform
 
 	collision_layer = 0
 	collision_mask = 0
@@ -70,7 +70,7 @@ func drop(player: CharacterBody3D) -> void:
 	if old_parent:
 		old_parent.remove_child(self)
 	target_parent.add_child(self)
-	global_transform = player._hold_position.global_transform
+	global_transform = player.hold_position.global_transform
 
 	show()
 	collision_shape.disabled = false

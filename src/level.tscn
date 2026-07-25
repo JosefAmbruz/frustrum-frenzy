@@ -96,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 2.274061, 7.200000
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)
 
 [node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
-transform = Transform3D(-0.0665036, 0.049868375, 0.99653924, 0.5999282, 0.80005383, 0, -0.797285, 0.597852, -0.08312391, -0.5, 0.59040606, 0.2)
+transform = Transform3D(-0.0665036, 0.049868375, 0.99653924, 0.5999282, 0.80005383, 0, -0.797285, 0.597852, -0.08312391, -0.32769418, 0.5904056, -3.5927339)
 
 [node name="ClimbableWall2" type="StaticBody3D" parent="." unique_id=984455118 groups=["climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.011003, 5.2057543, 13.477322)
@@ -120,19 +120,15 @@ mesh = SubResource("BoxMesh_idsc0")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall" unique_id=1144311452]
 shape = SubResource("BoxShape3D_msxom")
 
-[node name="RespawnPoint" type="Node3D" parent="." unique_id=34591289]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 1.2, 0)
-
-[node name="Area3D" parent="." unique_id=1748378536 node_paths=PackedStringArray("respawn_point") instance=ExtResource("6_jq0je")]
+[node name="KillPlane" parent="." unique_id=1748378536 instance=ExtResource("6_jq0je")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.149264, -11.692973, 19.978575)
-respawn_point = NodePath("../RespawnPoint")
+collision_mask = 3
 
 [node name="PickupableItems" type="Node3D" parent="." unique_id=864772700]
 
 [node name="PickupableItem" parent="PickupableItems" unique_id=1365369840 instance=ExtResource("7_pothl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.452864, 2.2959433, 0)
 boost_jump_power = 10.0
-player_speed_modifier = 1.0
 
 [node name="CameraTripod" parent="." unique_id=126854732 instance=ExtResource("8_wc5yb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.134836, 0, 0)

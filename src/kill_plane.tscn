@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6fqa00bic2rv"]
 
-[ext_resource type="Script" uid="uid://dudboa2xyvmo0" path="res://area_3d.gd" id="1_nj6os"]
+[ext_resource type="Script" uid="uid://dudboa2xyvmo0" path="res://src/kill_plane.gd" id="1_nj6os"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(1000, 1, 1000)
@@ -10,6 +10,7 @@ transparency = 1
 albedo_color = Color(0.69245994, 1.8410012e-06, 7.70092e-07, 1)
 
 [node name="Area3D" type="Area3D" unique_id=1748378536]
+collision_mask = 7
 script = ExtResource("1_nj6os")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=794139632]

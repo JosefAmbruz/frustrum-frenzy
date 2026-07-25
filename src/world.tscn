@@ -10,10 +10,10 @@
 environment = ExtResource("2_t101k")
 
 [node name="Level2" parent="." unique_id=878389163 instance=ExtResource("2_usxdn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 2.714592, 53.550312)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 2.714592, 33.024944)
 
 [node name="Level" parent="." unique_id=1350949316 instance=ExtResource("1_xlegt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, -25.199202, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=392420581]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 9.563047, 0)

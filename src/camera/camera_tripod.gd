@@ -14,7 +14,8 @@ var dot_tween: Tween
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
 @onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame/CapturedImage
 @onready var reference_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame/ReferenceImage
-@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreLabel
+@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/ScoreLabel
+@onready var details_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/DetailsLabel
 @onready var fade_rect = $CanvasLayer/FadeRect
 @onready var interactable: Area3D = %Interactable
 @onready var timer_ui = $CanvasLayer/TimerUI
@@ -190,6 +191,7 @@ func evaluate_new_objectives() -> void:
 	
 	var final_score = score_result["earned"]
 	var max_score = score_result["max"]
+	var details_array = score_result["details"]
 	
 	# Calculate percentage just for the colors
 	var percentage = 0.0
@@ -197,7 +199,7 @@ func evaluate_new_objectives() -> void:
 		percentage = (final_score / max_score) * 100.0
 	
 	# Update UI to show format: 2500 / 3500
-	score_label.text = "Score: %d / %d" % [final_score, max_score]
+	score_label.text = "Score: %d / %d\n" % [final_score, max_score]
 	
 	if percentage >= 80.0:
 		score_label.add_theme_color_override("font_color", Color.GREEN)
@@ -205,6 +207,14 @@ func evaluate_new_objectives() -> void:
 		score_label.add_theme_color_override("font_color", Color.YELLOW)
 	else:
 		score_label.add_theme_color_override("font_color", Color.RED)
+	
+	# details
+	if details_label != null:
+		var details_text = ""
+		for detail in details_array:
+			details_text += detail + "\n"
+			
+		details_label.text = details_text
 
 # Helper function to find all items the camera can see
 func get_items_in_camera_view() -> Array:

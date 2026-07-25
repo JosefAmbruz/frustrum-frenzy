@@ -11,6 +11,7 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 	var total_score = 0.0
 	var max_possible_score = 0.0 # FIX: We calculate this automatically!
 	var used_items = []
+	var details = []
 	
 	# 1. FIND TARGETS
 	var player_target = null
@@ -29,6 +30,7 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		var dist_to_player = actual_player.global_position.distance_to(player_target.global_position)
 		if dist_to_player <= player_target.position_tolerance:
 			total_score += POINTS_PLAYER_POSITION
+			details.append("Correct player position: +%d" % POINTS_PLAYER_POSITION)
 			
 			# Check holding
 			if player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
@@ -41,9 +43,13 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 					total_score += POINTS_PLAYER_HOLD
 					if actual_player.held_item not in used_items:
 						used_items.append(actual_player.held_item)
+				else:
+					details.append("Wrong item in hand: 0")
 			else:
 				# If no item is required, we don't add to max_possible_score
 				pass 
+		else:
+			details.append("Wrong player position: 0")
 				
 	# 3. ITEMS EVALUATION
 	for target in item_targets:
@@ -62,16 +68,22 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		if best_match and best_dist <= target.position_tolerance:
 			total_score += POINTS_PER_ITEM
 			used_items.append(best_match)
+			details.append("Photographed item (%s): +%d" % [target.required_item_id, POINTS_PER_ITEM])
+		else:
+			details.append("Missing item (%s): 0" % target.required_item_id)
 			
 	# 4. PENALTY FOR EXTRA ITEMS IN VIEW
 	var extra_items_count = items_in_camera_view.size() - used_items.size()
 	if extra_items_count > 0:
-		total_score -= (extra_items_count * PENALTY_EXTRA_ITEM)
+		var penalty = extra_items_count * PENALTY_EXTRA_ITEM
+		total_score -= penalty
+		details.append("Penalisation (extra items %dx): -%d" % [extra_items_count, penalty])
 		
 	total_score = max(0.0, total_score) # No negative scores
 	
 	# Return both the earned score and the maximum possible score
 	return {
 		"earned": total_score,
-		"max": max_possible_score
+		"max": max_possible_score,
+		"details": details
 	}

@@ -10,6 +10,7 @@ extends State
 @export var movement_config: MovementConfig
 
 func enter_state() -> void:
+	SoundManager.stop()
 	movement_component.movement_type = movement_component.MovementTypes.DISABLED
 
 func update(delta: float) -> void:	

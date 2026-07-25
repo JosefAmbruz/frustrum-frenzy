@@ -9,6 +9,7 @@ extends State
 @export var movement_component: MovementComponent
 
 func enter_state() -> void:
+	SoundManager.play_sound("player_running_sound")
 	movement_component.movement_type = movement_component.MovementTypes.WALKING
 
 func update(delta: float) -> void:

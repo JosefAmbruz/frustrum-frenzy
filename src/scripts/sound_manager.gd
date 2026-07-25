@@ -1,8 +1,9 @@
 extends Node
 
 var sounds := {
-  "camera_click_sound": preload("res://sounds/camera_click_sound.mp3"),
-  "player_jump_sound": preload("res://sounds/player_jump_sound.mp3"),
+	"camera_click_sound": preload("res://sounds/camera_click_sound.mp3"),
+	"player_jump_sound": preload("res://sounds/player_jump_sound.mp3"),
+	"player_running_sound": preload("res://sounds/player_running_sound.mp3")
 }
 
 var sound_player: AudioStreamPlayer
@@ -19,3 +20,6 @@ func play_sound(sound_name: String) -> void:
 		sound_player.play()
 	else:
 		print("Sound not found: ", sound_name)
+		
+func stop() -> void:
+	sound_player.stop()

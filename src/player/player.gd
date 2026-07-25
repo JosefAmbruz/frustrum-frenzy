@@ -96,6 +96,9 @@ func get_camera_global_basis() -> Basis:
 func set_hand_item(item: RigidBody3D) -> void:
 	held_item = item
 
+func apply_external_impulse(impulse: Vector3) -> void:
+	movement_component.apply_impulse(impulse)
+
 func _on_tree_entered() -> void:
 	EventBus.player_captured.connect(_on_player_captured)
 	EventBus.player_released.connect(_on_player_released)

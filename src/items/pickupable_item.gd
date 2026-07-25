@@ -1,13 +1,11 @@
-extends RigidBody3D
+class_name PickupableItem extends RigidBody3D
 
 @onready var interactable: Area3D = %Interactable
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 
 # item properties
 @export_group("Item Properties")
-# @export var throw_force: float = 15.0
-@export var boost_jump_power: float = 10.0
-@export var player_speed_modifier: float = 1.0 # 1.0 = normal speed
+@export var boost_jump_power: float = 25.0
 @export var picked_up_label: String = "[E] Drop [LMB] Throw"
 @export var item_id: String = "unknown"
 

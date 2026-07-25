@@ -62,10 +62,12 @@ var climb_normal := Vector3.ZERO
 @onready var _sound_footsteps = %SoundFootsteps
 @onready var _hold_position := %HoldPosition
 
-var held_item: RigidBody3D
+var held_item: PickupableItem
+var original_hold_pos: Vector3
 
 func _ready() -> void:
 	_coyote_time_left = coyote_time
+	original_hold_pos = _hold_position.position
 
 func _input(event: InputEvent) -> void:
 	if is_captured:
@@ -94,7 +96,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			var is_air_boost_throw := (not is_on_floor()) and Input.is_action_pressed("jump")
 			var aim_dir: Vector3
 			var force : float
-			var boost_jump_power : float = 25.0
+			assert(held_item.boost_jump_power)
+			print_debug(held_item.boost_jump_power)
+			
+			var boost_jump_power : float = 25.0 # Default
+			if held_item.boost_jump_power:
+				boost_jump_power = held_item.boost_jump_power
 			if is_air_boost_throw:
 				aim_dir = Vector3.DOWN
 			else:
@@ -102,15 +109,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				aim_dir.y = 0.6 # add upward arc
 			force = _last_movement_direction.length() * 1.0 + 6.0
 			
-			# Move hold position below player to avoid collision interference during throw
-			var original_hold_pos = _hold_position.position
-			_hold_position.position = Vector3(0, -2, 0)
-			
 			held_item.throw(self, aim_dir, force)
-			
-			# Restore original hold position
-			_hold_position.position = original_hold_pos
-			
+
 			if is_air_boost_throw:
 				force = 25
 				apply_external_impulse(Vector3(0, boost_jump_power, 0))

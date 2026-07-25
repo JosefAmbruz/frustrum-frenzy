@@ -1,9 +1,24 @@
 extends Area3D
 
-func _on_body_entered(body:Node3D) -> void:
+func _on_body_entered(body:Node3D) -> void:	
 	# PLAYER RESPAWN
 	if body.is_in_group("player"):
 		print("debug: Player fell out of bounds")
+		
+		# check if player is holding an item
+		if "held_item" in body and body.held_item != null:
+			var item = body.held_item
+			
+			print("debug: Player dropped item before respawning")
+			
+			# throw an item
+			if item.has_method("throw"):
+				item.throw(body, Vector3.ZERO, 0.0)
+			elif item.has_method("drop"): # fallback
+				item.drop()
+				
+			body.held_item = null
+			call_deferred("_respawn_item", item)
 		
 		# check if the player has our new checkpoint variable
 		if "current_checkpoint" in body:

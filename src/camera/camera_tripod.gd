@@ -185,15 +185,23 @@ func evaluate_new_objectives() -> void:
 	# Get all items currently visible to this camera
 	var visible_items = get_items_in_camera_view()
 	
-	# Evaluate!
-	var final_score = active_objective.evaluate_photo(player_node, visible_items)
+# Evaluate! returns a Dictionary now
+	var score_result = active_objective.evaluate_photo(player_node, visible_items)
 	
-	# Update UI
-	score_label.text = "Score: " + str(round(final_score)) + " %"
+	var final_score = score_result["earned"]
+	var max_score = score_result["max"]
 	
-	if final_score >= 80:
+	# Calculate percentage just for the colors
+	var percentage = 0.0
+	if max_score > 0:
+		percentage = (final_score / max_score) * 100.0
+	
+	# Update UI to show format: 2500 / 3500
+	score_label.text = "Score: %d / %d" % [final_score, max_score]
+	
+	if percentage >= 80.0:
 		score_label.add_theme_color_override("font_color", Color.GREEN)
-	elif final_score >= 50:
+	elif percentage >= 50.0:
 		score_label.add_theme_color_override("font_color", Color.YELLOW)
 	else:
 		score_label.add_theme_color_override("font_color", Color.RED)

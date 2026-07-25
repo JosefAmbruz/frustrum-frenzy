@@ -89,12 +89,32 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_camera_motion:
 		_camera_input_direction = event.screen_relative * mouse_sensitivity
 		
-	if event.is_action_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		if held_item != null and held_item.has_method("throw"):
-			var aim_dir = _last_movement_direction.normalized()
-			aim_dir.y += 0.6 # add upward arc
-			var force : float = velocity.length() * 1.0 + 6.0
+	if held_item != null and held_item.has_method("throw"):
+		if event.is_action_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			var is_air_boost_throw := (not is_on_floor()) and Input.is_action_pressed("jump")
+			var aim_dir: Vector3
+			var force : float
+			var boost_jump_power : float = 25.0
+			if is_air_boost_throw:
+				aim_dir = Vector3.DOWN
+			else:
+				aim_dir = _last_movement_direction.normalized()
+				aim_dir.y = 0.6 # add upward arc
+			force = _last_movement_direction.length() * 1.0 + 6.0
+			
+			# Move hold position below player to avoid collision interference during throw
+			var original_hold_pos = _hold_position.position
+			_hold_position.position = Vector3(0, -2, 0)
+			
 			held_item.throw(self, aim_dir, force)
+			
+			# Restore original hold position
+			_hold_position.position = original_hold_pos
+			
+			if is_air_boost_throw:
+				force = 25
+				apply_external_impulse(Vector3(0, boost_jump_power, 0))
+		
 
 func check_climbing() -> void:
 	is_climbing = false

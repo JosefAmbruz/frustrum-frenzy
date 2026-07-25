@@ -49,9 +49,9 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8064624, 0.094560385)
 player = NodePath("../..")
 
-[node name="HoldPosition" type="Node3D" parent="PlayerSkin" unique_id=668428007]
+[node name="HoldPosition" type="Marker3D" parent="PlayerSkin" unique_id=106769866]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5725436, 0.57895744)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5725436, 0.7132443)
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=152074954]
 unique_name_in_owner = true

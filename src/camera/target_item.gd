@@ -12,7 +12,7 @@ const MESH_DICT = {
 		_update_ghost()
 
 # INCREASED TOLERANCE: 2.0 meters gives the player a fair chance to place the item
-@export var position_tolerance: float = 2.0 
+@export var position_tolerance: float = 4.0 
 
 func _ready() -> void:
 	# 1. ALWAYS load the correct 3D model (both in editor and in game)

@@ -18,9 +18,16 @@ var _saved_linear_velocity := Vector3.ZERO
 var _saved_angular_velocity := Vector3.ZERO
 var _default_interact_name := ""
 
+var origin_position: Vector3
+var origin_rotation: Vector3
+
 func _ready() -> void:
 	interactable.interact = _on_interact
 	_default_interact_name = interactable.interact_name
+	
+	# save the exact location and rotation where items were placed
+	origin_position = global_position
+	origin_rotation = global_rotation
 
 func _on_interact(player: CharacterBody3D) -> void:
 	if player == null:

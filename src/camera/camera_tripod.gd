@@ -1,6 +1,5 @@
 extends StaticBody3D
 
-@export var target_photo: Texture2D
 @export var countdown_time: int = 15
 @export var respawn_offset: Vector3 = Vector3(0, 1, 2)
 
@@ -10,6 +9,10 @@ var dot_tween: Tween
 var _has_posed := false
 var _required_pose_key: String = ""
 var _key_labels := {"interact": "[E]", "left_click": "LMB", "jump": "SPACE"}
+var _reference_texture: Texture2D
+var _captured_texture: Texture2D
+var _ghosts_visible := true
+var _photo_taken := false
 
 @onready var view_camera = $Camera3D
 @onready var countdown_timer = $CountdownTimer
@@ -17,8 +20,8 @@ var _key_labels := {"interact": "[E]", "left_click": "LMB", "jump": "SPACE"}
 @onready var camera_overlay = $CanvasLayer/CameraOverlay
 @onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
-@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame/CapturedImage
-@onready var reference_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame/ReferenceImage
+@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/CapturedImage
+@onready var toggle_hint: Label = $CanvasLayer/PhotoResultUI/ResultContainer/ToggleHint
 @onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/ScoreLabel
 @onready var details_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/DetailsLabel
 @onready var fade_rect = $CanvasLayer/FadeRect
@@ -54,11 +57,17 @@ func _process(delta: float) -> void:
 
 # Switch and leave camera view
 func _unhandled_input(event: InputEvent) -> void:
-	# throw away photo
+	# toggle ghosts on photo result
 	if photo_result_ui.visible and event.is_action_pressed("left_click"):
+		_toggle_ghost_overlay()
+		get_viewport().set_input_as_handled()
+		return
+
+	if photo_result_ui.visible and event.is_action_pressed("interact"):
 		photo_result_ui.visible = false
-		get_viewport().set_input_as_handled() # consume the input so the player doesnt throw the item
-		EventBus.player_released.emit() # back to player interaction
+		_photo_taken = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		EventBus.player_released.emit()
 		return
 
 	if event.is_action_released("interact"):
@@ -152,10 +161,22 @@ func _on_pose_timer_timeout() -> void:
 	# turn off highlights so they don't appear in the photo
 	disable_highlights()
 
+	# --- REFERENCE PHOTO WITH GHOSTS ---
+	_ghosts_visible = true
+	toggle_hologram(true)
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	var ref_img = get_viewport().get_texture().get_image()
+	_reference_texture = ImageTexture.create_from_image(ref_img)
+
+	toggle_hologram(false)
+	await get_tree().process_frame
+
 	# fade to black (or white)
 	var flash_tween = create_tween()
 	flash_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.15)
-	await flash_tween.finished # wait for tweet to finish
+	await flash_tween.finished
 
 	# work in dark
 	camera_overlay.visible = false
@@ -163,27 +184,42 @@ func _on_pose_timer_timeout() -> void:
 	# play camera click sound
 	SoundManager.play_sound("camera_click_sound")
 
-	# make a picture and create texture
+	# --- FINAL PHOTO WITHOUT GHOSTS ---
 	var viewport_img = get_viewport().get_texture().get_image()
-	var final_texture = ImageTexture.create_from_image(viewport_img)
+	_captured_texture = ImageTexture.create_from_image(viewport_img)
 	fade_rect.visible = true
 
-	# show picture
-	captured_image.texture = final_texture
+	# show reference photo (with ghosts) first
+	captured_image.texture = _reference_texture
 	photo_result_ui.visible = true
-	EventBus.interaction_text_toggled.emit(true) # turn on text like "Drop [E]"
+	_photo_taken = true
+	toggle_hint.show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	EventBus.interaction_text_toggled.emit(true)
 
-	# show picture
+	# reveal
 	var reveal_tween = create_tween()
 	reveal_tween.tween_property(fade_rect, "modulate:a", 0.0, 0.2)
 
-	# Call the new evaluation system
+	# evaluate
 	evaluate_new_objectives()
 
 	view_camera.clear_current()
 	interactable.is_interactable = true
 
 	print("debug: Camera shoot")
+
+
+func _toggle_ghost_overlay() -> void:
+	if not _photo_taken:
+		return
+	_ghosts_visible = not _ghosts_visible
+	if _ghosts_visible:
+		captured_image.texture = _reference_texture
+		toggle_hint.text = "[LMB] Hide ghosts  |  [E] Close"
+	else:
+		captured_image.texture = _captured_texture
+		toggle_hint.text = "[LMB] Show ghosts  |  [E] Close"
 
 func _on_interact(player : CharacterBody3D):
 	if not in_camera:
@@ -214,11 +250,6 @@ func _on_interact(player : CharacterBody3D):
 
 # --- NEW EVALUATION SYSTEM INTEGRATION ---
 func evaluate_new_objectives() -> void:
-	if target_photo != null:
-		reference_image.texture = target_photo
-	else:
-		print("ERROR: Missing target photo in inspector!")
-		
 	var player_node = get_tree().get_first_node_in_group("player")
 	
 	# Find the Objectives folder

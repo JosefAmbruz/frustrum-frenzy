@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://7gr6v5d1mt52"]
 
 [ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera/camera_tripod.gd" id="1_v4y2o"]
-[ext_resource type="Texture2D" uid="uid://1h7uo5axi24t" path="res://assets/scenes/testing_camera_scene_1.png" id="2_01m8a"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
 [ext_resource type="PackedScene" uid="uid://eqb0c8dqcys6" path="res://src/resources/GLB format/Camera stand by Jason Oudshoorn - 5CHQvf_emuN.glb" id="3_ndy2e"]
 [ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
@@ -49,25 +48,6 @@ shader_parameter/glow_falloff = 2.0
 shader_parameter/dirt_strength = 0.4
 shader_parameter/dirt_scale = 8.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sriie"]
-content_margin_left = 15.0
-content_margin_top = 15.0
-content_margin_right = 15.0
-content_margin_bottom = 60.0
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pt1y3"]
-shader = ExtResource("3_pr2qs")
-shader_parameter/noise_scale = 4.0
-shader_parameter/vignette_strength = 0.7
-shader_parameter/sepia_strength = 0.85
-shader_parameter/contrast = 1.2
-shader_parameter/glow_range = 12.0
-shader_parameter/glow_strength = 0.75
-shader_parameter/glow_falloff = 2.0
-shader_parameter/dirt_strength = 0.4
-shader_parameter/dirt_scale = 8.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5o58"]
 content_margin_left = 20.0
 content_margin_top = 10.0
@@ -81,7 +61,6 @@ corner_radius_bottom_left = 30
 
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")
-target_photo = ExtResource("2_01m8a")
 
 [node name="Camera stand by Jason Oudshoorn - 5CHQvf_emuN" parent="." unique_id=1594297456 instance=ExtResource("3_ndy2e")]
 transform = Transform3D(5.9624403e-09, 0, -0.5, 0, 0.49715245, 0, 0.5, 0, 5.9624403e-09, -0.0439145, 1.4806964, -0.03250137)
@@ -186,21 +165,21 @@ color = Color(0, 0, 0, 0.5882353)
 
 [node name="ResultContainer" type="VBoxContainer" parent="CanvasLayer/PhotoResultUI" unique_id=1930038234]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="ScoreContainer" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=807837786]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer" unique_id=1077149923]
 layout_mode = 2
@@ -212,34 +191,31 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="PhotoContainer" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=258238385]
+[node name="CapturedFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1160635967]
 layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="CapturedFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer" unique_id=1160635967]
-layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_08vw2")
 
-[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame" unique_id=1406486013]
+[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame" unique_id=1406486013]
 material = SubResource("ShaderMaterial_5y8sc")
-custom_minimum_size = Vector2(460, 320)
+custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ReferenceFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer" unique_id=236276635]
+[node name="ToggleHint" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1789489493]
+visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sriie")
-
-[node name="ReferenceImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame" unique_id=1064518495]
-material = SubResource("ShaderMaterial_pt1y3")
-custom_minimum_size = Vector2(460, 320)
-layout_mode = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 4
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 24
+text = "[LMB] Toggle ghosts  |  [E] Close"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1685703220]
 modulate = Color(1, 1, 1, 0)

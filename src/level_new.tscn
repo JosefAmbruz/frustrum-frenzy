@@ -1522,6 +1522,7 @@ transform = Transform3D(-0.22283496, 0, -0.9748562, 0, 1, 0, 0.9748562, 0, -0.22
 [node name="TargetItem" parent="CameraTripod5/Objectives/PhotoObjective" unique_id=1198569044 instance=ExtResource("27_0y8il")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.016851, -1.2447557, 9.145639)
 required_item_id = "apple"
+linked_item = NodePath("../../../../PickupableItems/AppleItem3")
 
 [editable path="CameraTripod"]
 [editable path="CameraTripod3"]

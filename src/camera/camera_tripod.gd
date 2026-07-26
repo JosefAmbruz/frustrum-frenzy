@@ -8,7 +8,12 @@ var _interact_lock := false
 var dot_tween: Tween
 var _has_posed := false
 var _required_pose_key: String = ""
-var _key_labels := {"interact": "[E]", "left_click": "LMB", "jump": "SPACE"}
+
+const _KEY_E_TEXTURE := preload("res://assets/ui/inputs/keyboard_e.png")
+const _KEY_LMB_TEXTURE := preload("res://assets/ui/inputs/mouse_left.png")
+const _KEY_SPACE_TEXTURE := preload("res://assets/ui/inputs/keyboard_space.png")
+
+var _key_textures := {}
 var _reference_texture: Texture2D
 var _captured_texture: Texture2D
 var _ghosts_visible := true
@@ -30,6 +35,7 @@ var _photo_taken := false
 @onready var pose_timer: Timer = $PoseTimer
 @onready var pose_intro_timer: Timer = $PoseIntroTimer
 @onready var pose_prompt: Label = %PosePrompt
+@onready var pose_key_icon: TextureRect = %PoseKeyIcon
 @onready var reference_viewport: SubViewport = $ReferenceViewport
 @onready var reference_camera: Camera3D = $ReferenceViewport/Camera3D
 
@@ -40,6 +46,11 @@ func _ready() -> void:
 		timer_ui.visible = false
 	camera_overlay.visible = false
 	EventBus.pose_performed.connect(_on_pose_performed)
+	_key_textures = {
+		"interact": _KEY_E_TEXTURE,
+		"left_click": _KEY_LMB_TEXTURE,
+		"jump": _KEY_SPACE_TEXTURE,
+	}
 	print("debug: Camera start")
 
 func _on_pose_performed() -> void:
@@ -136,6 +147,7 @@ func _on_countdown_timer_timeout() -> void:
 	pose_prompt.text = "POSE!"
 	pose_prompt.modulate.a = 0.0
 	pose_prompt.visible = true
+	pose_key_icon.visible = false
 
 	var intro_tween = create_tween()
 	intro_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
@@ -146,10 +158,12 @@ func _on_countdown_timer_timeout() -> void:
 
 
 func _on_pose_intro_timer_timeout() -> void:
-	pose_prompt.text = _key_labels[_required_pose_key]
-	pose_prompt.modulate.a = 0.0
+	pose_prompt.visible = false
+	pose_key_icon.texture = _key_textures.get(_required_pose_key)
+	pose_key_icon.modulate.a = 0.0
+	pose_key_icon.visible = true
 	var key_tween = create_tween().set_ease(Tween.EASE_OUT)
-	key_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2)
+	key_tween.tween_property(pose_key_icon, "modulate:a", 1.0, 0.2)
 
 	EventBus.pose_window_started.emit(1.0, _required_pose_key)
 	pose_timer.start(1.0)
@@ -158,6 +172,7 @@ func _on_pose_timer_timeout() -> void:
 	EventBus.pose_window_ended.emit()
 	EventBus.interaction_text_toggled.emit(false)
 	pose_prompt.visible = false
+	pose_key_icon.visible = false
 
 	# wait for GPU to render frames
 	await get_tree().process_frame
@@ -234,10 +249,8 @@ func _toggle_ghost_overlay() -> void:
 	_ghosts_visible = not _ghosts_visible
 	if _ghosts_visible:
 		captured_image.texture = _reference_texture
-		toggle_hint.text = "[LMB] Hide ghosts  |  [E] Close"
 	else:
 		captured_image.texture = _captured_texture
-		toggle_hint.text = "[LMB] Show ghosts  |  [E] Close"
 
 func _on_interact(player : CharacterBody3D):
 	if not in_camera:

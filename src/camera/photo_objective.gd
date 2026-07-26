@@ -7,6 +7,7 @@ const POINTS_PER_ITEM = 1000.0
 const PENALTY_EXTRA_ITEM = 200.0
 
 const PERFECT_RADIUS = 1.0
+const POSE_BONUS_POINTS = 200
 # ------------------------
 
 # Helper function to calculate quadratic falloff score
@@ -36,9 +37,9 @@ func reset_required_items() -> void:
 				item.linear_velocity = Vector3.ZERO
 				item.angular_velocity = Vector3.ZERO
 
-func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array) -> Dictionary:
+func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array, posed: bool = false) -> Dictionary:
 	var total_score = 0.0
-	var max_possible_score = 0.0
+	var max_possible_score = 0
 	var used_items = []
 	var details = []
 	
@@ -112,8 +113,14 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 		var penalty = extra_items_count * PENALTY_EXTRA_ITEM
 		total_score -= penalty
 		details.append("Penalty (extra items %dx): -%d" % [extra_items_count, penalty])
-		
+
 	total_score = max(0.0, total_score)
+
+	# 5. POSE BONUS (not part of max, cannot exceed max)
+	if posed and total_score < max_possible_score:
+		var bonus = min(POSE_BONUS_POINTS, max_possible_score - total_score)
+		total_score += bonus
+		details.append("Pose bonus: +%d" % bonus)
 	
 	return {
 		"earned": total_score,

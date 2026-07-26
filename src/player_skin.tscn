@@ -433,10 +433,22 @@ animation = &"Running"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62nud"]
 advance_mode = 2
 
+[sub_resource type="Curve" id="Curve_r53ix"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7hk18"]
+xfade_time = 0.25
+xfade_curve = SubResource("Curve_r53ix")
 advance_mode = 2
 
+[sub_resource type="Curve" id="Curve_ig8t0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ta0g"]
+xfade_time = 0.25
+xfade_curve = SubResource("Curve_ig8t0")
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v5l7k"]

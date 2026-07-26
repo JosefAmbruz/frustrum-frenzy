@@ -1,147 +1,60 @@
-[gd_scene format=4 uid="uid://bci52glny63gb"]
+[gd_scene format=3 uid="uid://bci52glny63gb"]
 
-[ext_resource type="Texture2D" uid="uid://233vuwxrdwnd" path="res://assets/texture_green.png" id="1_7i26j"]
-[ext_resource type="Texture2D" uid="uid://bhphwu4735keq" path="res://icon.svg" id="1_ybxv7"]
-[ext_resource type="PackedScene" uid="uid://c5osj0o6tio6b" path="res://src/container_shaped_block.tscn" id="2_4q7qo"]
-[ext_resource type="PackedScene" uid="uid://bt6xk0xaas4kv" path="res://src/platform.tscn" id="3_68xyb"]
-[ext_resource type="PackedScene" uid="uid://cv5skg4d3oy0v" path="res://src/rotating_platform.tscn" id="4_feg4a"]
-[ext_resource type="PackedScene" uid="uid://yy8kk4gf0qn8" path="res://src/trampoline.tscn" id="5_dh7pt"]
-[ext_resource type="PackedScene" uid="uid://6fqa00bic2rv" path="res://src/kill_plane.tscn" id="6_jq0je"]
-[ext_resource type="PackedScene" uid="uid://jx1o12weknrv" path="res://src/items/pickupable_item.tscn" id="7_pothl"]
-[ext_resource type="Texture2D" uid="uid://dsa6is6e5irol" path="res://assets/texture_light.png" id="7_wc5yb"]
+[ext_resource type="PackedScene" uid="uid://b316ladivjlpp" path="res://src/player.tscn" id="1_jq0je"]
+[ext_resource type="Material" uid="uid://b85gic3ddilvj" path="res://src/grid_material.tres" id="6_pothl"]
 [ext_resource type="PackedScene" uid="uid://7gr6v5d1mt52" path="res://src/camera/camera_tripod.tscn" id="8_wc5yb"]
 [ext_resource type="PackedScene" uid="uid://cemjcrw6goelj" path="res://src/camera/photo_objective.tscn" id="11_cl2ww"]
 [ext_resource type="PackedScene" uid="uid://b4nkr8ckvw1y5" path="res://src/camera/target_player.tscn" id="12_8osof"]
 [ext_resource type="PackedScene" uid="uid://diact247a3miu" path="res://src/camera/target_item.tscn" id="13_8osof"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc5yb"]
-albedo_texture = ExtResource("1_7i26j")
+[node name="Level" type="Node3D" unique_id=1350949316]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kjmu"]
-albedo_texture = ExtResource("1_ybxv7")
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ktcc2"]
-data = PackedVector3Array(-14.496094, -0.5, 14.814575, -14.496094, -0.5, -14.814575, -14.496094, 0.5, -14.814575, 14.496094, -0.5, -14.814575, -14.496094, -0.5, -14.814575, -14.496094, -0.5, 14.814575, -14.496094, 0.5, -14.814575, -14.496094, -0.5, -14.814575, 14.496094, -0.5, -14.814575, -14.496094, 0.5, -14.814575, -14.496094, 0.5, 14.814575, -14.496094, -0.5, 14.814575, -14.496094, -0.5, 14.814575, -14.496094, 0.5, 14.814575, 14.496094, 0.5, 14.814575, 14.496094, 0.5, 14.814575, -14.496094, 0.5, 14.814575, -14.496094, 0.5, -14.814575, -14.496094, -0.5, 14.814575, 14.496094, -0.5, 14.814575, 14.496094, -0.5, -14.814575, 14.496094, 0.5, 14.814575, 14.496094, -0.5, 14.814575, -14.496094, -0.5, 14.814575, 14.496094, -0.5, -14.814575, 14.496094, -0.5, 14.814575, 14.496094, 0.5, 14.814575, 14.496094, -0.5, -14.814575, 14.496094, 0.5, -14.814575, -14.496094, 0.5, -14.814575, -14.496094, 0.5, -14.814575, 14.496094, 0.5, -14.814575, 14.496094, 0.5, 14.814575, 14.496094, 0.5, 14.814575, 14.496094, 0.5, -14.814575, 14.496094, -0.5, -14.814575)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ssy8p"]
-albedo_texture = ExtResource("1_7i26j")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmnmg"]
-albedo_texture = ExtResource("1_7i26j")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cl2ww"]
-albedo_texture = ExtResource("1_7i26j")
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_68xyb"]
-_surfaces = [{
-"aabb": AABB(-0.5, -0.775, -0.5, 1, 1.55, 1),
-"attribute_data": PackedByteArray("GPYVPgAAAAAAAAAAAAAAAAAAAD8AAAA/AAAAPwAAAAAAACA/AAAAAAAAID8AAIA/AAAAPwAAAAAY9hU+AAAAAAAAAD8AAAA/AAAgPwAAAAAAAEA/AAAAAAAAQD8AAIA/AAAAAAAAAAAa9hU+AAAAAAAAAD8AAAA/AADAPgAAAAAAAAA/AAAAAAAAAD8AAIA/GvYVPgAAAAD///8+AAAAAAAAAD8AAAA/AACAPgAAAAAAAMA+AAAAAAAAwD4AAIA/AAAgPwAAgD8AAAA/AACAPwAAAD8AAAAAGPYVPgAAAAAAAAAAAAAAAAAAAD8AAAA/AABAPwAAgD8AACA/AACAPwAAID8AAAAAAAAAPwAAAAAY9hU+AAAAAAAAAD8AAAA/AAAAPwAAgD8AAMA+AACAPwAAwD4AAAAAAAAAAAAAAAAa9hU+AAAAAAAAAD8AAAA/AADAPgAAgD8AAIA+AACAPwAAgD4AAAAAGvYVPgAAAAD///8+AAAAAAAAAD8AAAA/eIJaPwAAAAAAAAA/AAAAAAAAAD8AAAA/AABAPwAAAAAAAGA/AAAAAAAAYD8AAIA/AACAPwAAAAB4glo/AAAAAAAAAD8AAAA/AABgPwAAAAAAAAAAAAAAAAAAAAAAAIA/////PgAAAAB6glo/AAAAAAAAAD8AAAA/AAAAPgAAAAAAAIA+AAAAAAAAgD4AAIA/eoJaPwAAAAAAAIA/AAAAAAAAAD8AAAA/AAAAAAAAAAAAAAA+AAAAAAAAAD4AAIA/AABgPwAAgD8AAEA/AACAPwAAQD8AAAAAeIJaPwAAAAAAAAA/AAAAAAAAAD8AAAA/AAAAAAAAgD8AAGA/AACAPwAAYD8AAAAAAACAPwAAAAB4glo/AAAAAAAAAD8AAAA/AACAPgAAgD8AAAA+AACAPwAAAD4AAAAA////PgAAAAB6glo/AAAAAAAAAD8AAAA/AAAAPgAAgD8AAAAAAACAPwAAAAAAAAAAeoJaPwAAAAAAAIA/AAAAAAAAAD8AAAA/"),
-"format": 34359738391,
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 96,
-"vertex_data": PackedByteArray("9AS1vmZmRr/yBLW+AAAAv2ZmRr8uvTuzAAAAAGZmRr8AAAAAAAAAv2ZmRr8uvTuz9AS1vmZmRr/yBLW+9AS1vmZmRj/yBLW+Lt7MMWZmRr8AAAC/9AS1vmZmRr/yBLW+AAAAAGZmRr8AAAAA9AS1vmZmRr/yBLW+Lt7MMWZmRr8AAAC/Lt7MMWZmRj8AAAC/AAAAv2ZmRr8uvTuz8wS1vmZmRr/zBLU+AAAAAGZmRr8AAAAA8wS1vmZmRr/zBLU+AAAAv2ZmRr8uvTuzAAAAv2ZmRj8uvTuz8wS1vmZmRr/zBLU+Lr27smZmRr8AAAA/AAAAAGZmRr8AAAAALr27smZmRr8AAAA/8wS1vmZmRr/zBLU+8wS1vmZmRj/zBLU+9AS1vmZmRj/yBLW+AAAAv2ZmRj8uvTuzAAAAv2ZmRr8uvTuzAAAAv2ZmRj8uvTuz9AS1vmZmRj/yBLW+AAAAAGZmRj8AAAAALt7MMWZmRj8AAAC/9AS1vmZmRj/yBLW+9AS1vmZmRr/yBLW+9AS1vmZmRj/yBLW+Lt7MMWZmRj8AAAC/AAAAAGZmRj8AAAAAAAAAv2ZmRj8uvTuz8wS1vmZmRj/zBLU+8wS1vmZmRr/zBLU+8wS1vmZmRj/zBLU+AAAAv2ZmRj8uvTuzAAAAAGZmRj8AAAAA8wS1vmZmRj/zBLU+Lr27smZmRj8AAAA/Lr27smZmRr8AAAA/Lr27smZmRj8AAAA/8wS1vmZmRj/zBLU+AAAAAGZmRj8AAAAA8QS1PmZmRr/1BLW+Lt7MMWZmRr8AAAC/AAAAAGZmRr8AAAAALt7MMWZmRr8AAAC/8QS1PmZmRr/1BLW+8QS1PmZmRj/1BLW+AAAAP2ZmRr8AAAAA8QS1PmZmRr/1BLW+AAAAAGZmRr8AAAAA8QS1PmZmRr/1BLW+AAAAP2ZmRr8AAAAAAAAAP2ZmRj8AAAAALr27smZmRr8AAAA/8wS1PmZmRr/zBLU+AAAAAGZmRr8AAAAA8wS1PmZmRr/zBLU+Lr27smZmRr8AAAA/Lr27smZmRj8AAAA/8wS1PmZmRr/zBLU+AAAAP2ZmRr8AAAAAAAAAAGZmRr8AAAAAAAAAP2ZmRr8AAAAA8wS1PmZmRr/zBLU+8wS1PmZmRj/zBLU+8QS1PmZmRj/1BLW+Lt7MMWZmRj8AAAC/Lt7MMWZmRr8AAAC/Lt7MMWZmRj8AAAC/8QS1PmZmRj/1BLW+AAAAAGZmRj8AAAAAAAAAP2ZmRj8AAAAA8QS1PmZmRj/1BLW+8QS1PmZmRr/1BLW+8QS1PmZmRj/1BLW+AAAAP2ZmRj8AAAAAAAAAAGZmRj8AAAAALr27smZmRj8AAAA/8wS1PmZmRj/zBLU+8wS1PmZmRr/zBLU+8wS1PmZmRj/zBLU+Lr27smZmRj8AAAA/AAAAAGZmRj8AAAAA8wS1PmZmRj/zBLU+AAAAP2ZmRj8AAAAAAAAAP2ZmRr8AAAAAAAAAP2ZmRj8AAAAA8wS1PmZmRj/zBLU+AAAAAGZmRj8AAAAA/38AAP///x//fwAA//++Ev9/AAD///8/AACGj///O/gAANXI//+U2wAAKbf//2rk/38AAP///z//fwAA////H/9/AAD///8/AADVyP//lNv//3fwd/D/vwAAd/D//8LH/38AAHyl/7//fwAA/7//v/9/AAD///+/KTf/fwAAauQAAIaP//87+IcP/38AADv4/38AAP+//7//fwAA////v/9/AAD///+/eHD/fwAAwscpN/9/AABq5NVI/38AAJTbAAApt///auSHD/9/AAA7+AAAho///zv4/3///4Ja/z//f///glr/P/9///+CWv8/AAB38P//wscAACm3//9q5AAA1cj//5Tb/3///30l/z//f///fSX/P/9///99Jf8/hw//fwAAO/jVSP9/AACU2yk3/38AAGrk/3///wAAQO3/f///AABA7f9///8AAEDt1Uj/fwAAlNuGj/9/hw//v3hw/38AAMLH/3///wAAvdL/f///AAC90v9///8AAL3S/38AAP+//z//fwAA////P/9/AAD///8///938Hfw/7///ym3Kbf/v///1cjVyP+//38AAHyl/z//fwAA/7//P/9/AAD///8///8ptwAAlBt38P9////DB///ho8AAMMH/38AAP///7//fwAA////3/9/AAD///+/Kbf/fyk3/794cP9/AADCx4aP/3+HD/+//38AAP///9//fwAA//9A7f9/AAD///+/d/D/f3hw/78pt/9/KTf/v9XI/3/VSP+////VyNXI/78AAHfw///Cx///d/B38P+//3///wAAQS3/f///AABBLf9///8AAEEt//+GjwAAwwf//9XIAABqJP//KbcAAJQb/3///wAAvhL/f///AAC+Ev9///8AAL4Sho//f4cP/7/VyP9/1Uj/vym3/38pN/+//3///30l/7//f///fSX/v/9///99Jf+/1cj/f9VI/7///4aPho//v3fw/394cP+//3///4Ja/7//f///glr/v/9///+CWv+/")
-}]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_68xyb"]
-data = PackedVector3Array(-0.3536, -0.775, -0.3536, -0.5, -0.775, 0, 0, -0.775, 0, -0.5, -0.775, 0, -0.3536, -0.775, -0.3536, -0.3536, 0.775, -0.3536, 0, -0.775, -0.5, -0.3536, -0.775, -0.3536, 0, -0.775, 0, -0.3536, -0.775, -0.3536, 0, -0.775, -0.5, 0, 0.775, -0.5, -0.5, -0.775, 0, -0.3536, -0.775, 0.3536, 0, -0.775, 0, -0.3536, -0.775, 0.3536, -0.5, -0.775, 0, -0.5, 0.775, 0, -0.3536, -0.775, 0.3536, 0, -0.775, 0.5, 0, -0.775, 0, 0, -0.775, 0.5, -0.3536, -0.775, 0.3536, -0.3536, 0.775, 0.3536, -0.3536, 0.775, -0.3536, -0.5, 0.775, 0, -0.5, -0.775, 0, -0.5, 0.775, 0, -0.3536, 0.775, -0.3536, 0, 0.775, 0, 0, 0.775, -0.5, -0.3536, 0.775, -0.3536, -0.3536, -0.775, -0.3536, -0.3536, 0.775, -0.3536, 0, 0.775, -0.5, 0, 0.775, 0, -0.5, 0.775, 0, -0.3536, 0.775, 0.3536, -0.3536, -0.775, 0.3536, -0.3536, 0.775, 0.3536, -0.5, 0.775, 0, 0, 0.775, 0, -0.3536, 0.775, 0.3536, 0, 0.775, 0.5, 0, -0.775, 0.5, 0, 0.775, 0.5, -0.3536, 0.775, 0.3536, 0, 0.775, 0, 0.3536, -0.775, -0.3536, 0, -0.775, -0.5, 0, -0.775, 0, 0, -0.775, -0.5, 0.3536, -0.775, -0.3536, 0.3536, 0.775, -0.3536, 0.5, -0.775, 0, 0.3536, -0.775, -0.3536, 0, -0.775, 0, 0.3536, -0.775, -0.3536, 0.5, -0.775, 0, 0.5, 0.775, 0, 0, -0.775, 0.5, 0.3536, -0.775, 0.3536, 0, -0.775, 0, 0.3536, -0.775, 0.3536, 0, -0.775, 0.5, 0, 0.775, 0.5, 0.3536, -0.775, 0.3536, 0.5, -0.775, 0, 0, -0.775, 0, 0.5, -0.775, 0, 0.3536, -0.775, 0.3536, 0.3536, 0.775, 0.3536, 0.3536, 0.775, -0.3536, 0, 0.775, -0.5, 0, -0.775, -0.5, 0, 0.775, -0.5, 0.3536, 0.775, -0.3536, 0, 0.775, 0, 0.5, 0.775, 0, 0.3536, 0.775, -0.3536, 0.3536, -0.775, -0.3536, 0.3536, 0.775, -0.3536, 0.5, 0.775, 0, 0, 0.775, 0, 0, 0.775, 0.5, 0.3536, 0.775, 0.3536, 0.3536, -0.775, 0.3536, 0.3536, 0.775, 0.3536, 0, 0.775, 0.5, 0, 0.775, 0, 0.3536, 0.775, 0.3536, 0.5, 0.775, 0, 0.5, -0.775, 0, 0.5, 0.775, 0, 0.3536, 0.775, 0.3536, 0, 0.775, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8osof"]
-albedo_texture = ExtResource("7_wc5yb")
-
-[sub_resource type="BoxMesh" id="BoxMesh_idsc0"]
-size = Vector3(6, 16, 0.5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_msxom"]
-size = Vector3(6, 16, 0.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pothl"]
-albedo_color = Color(0.25540692, 0.7149689, 0.5710863, 1)
-
-[node name="Level2" type="Node3D" unique_id=1350949316]
-
-[node name="Ground" type="StaticBody3D" parent="." unique_id=485651671]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Ground" unique_id=1188712448]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.07138443, 0)
-material_override = SubResource("StandardMaterial3D_wc5yb")
-size = Vector3(28.992188, 1, 29.62915)
-material = SubResource("StandardMaterial3D_6kjmu")
-
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=13172177]
-shape = SubResource("ConcavePolygonShape3D_ktcc2")
-
-[node name="CSGBakedMeshInstance3D" parent="." unique_id=1852391849 instance=ExtResource("2_4q7qo")]
-transform = Transform3D(2.8211772, -0.38963395, -0.18794261, 0.93057615, 1.22962, 0.068043776, 0.36605737, -0.12300983, 1.2754818, 16.216623, 5.131362, -0.46406928)
-material_override = SubResource("StandardMaterial3D_ssy8p")
-
-[node name="CSGBakedMeshInstance3D" parent="CSGBakedMeshInstance3D" unique_id=662000645 instance=ExtResource("2_4q7qo")]
-transform = Transform3D(0.8964022, -1.2362276, -0.008177422, 2.7188466, 0.3668027, 0.3974145, -0.8736876, -0.12690556, 1.228332, -7.2175217, 7.295089, -8.263798)
-material_override = SubResource("StandardMaterial3D_lmnmg")
-
-[node name="CSGBakedMeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1882177812]
-transform = Transform3D(3.0570963e-15, -1.293857e-07, -1.5999999, -1.5999997, -1.2938568e-07, 0, -6.993821e-08, 2.96, -6.9938224e-08, 17.706001, 7.9999995, -9)
-material_override = SubResource("StandardMaterial3D_cl2ww")
-mesh = SubResource("ArrayMesh_68xyb")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="CSGBakedMeshInstance3D3" unique_id=1353235160]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBakedMeshInstance3D3/StaticBody3D" unique_id=797293800]
-shape = SubResource("ConcavePolygonShape3D_68xyb")
-
-[node name="platform" parent="." unique_id=494455518 instance=ExtResource("3_68xyb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2609863, 2.274061, 7.2000003)
-
-[node name="rotor" parent="." unique_id=2038079127 instance=ExtResource("4_feg4a")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 2.7, 0)
-
-[node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("5_dh7pt")]
-transform = Transform3D(-0.0665036, 0.049868375, 0.99653924, 0.5999282, 0.80005383, 0, -0.797285, 0.597852, -0.08312391, -0.32769418, 0.5904056, -3.5927339)
-
-[node name="ClimbableWall2" type="StaticBody3D" parent="." unique_id=984455118 groups=["climbable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.011003, 5.2057543, 13.477322)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall2" unique_id=1113521116]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15641, 0)
-material_override = SubResource("StandardMaterial3D_8osof")
-mesh = SubResource("BoxMesh_idsc0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall2" unique_id=1981453748]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.169798, 0)
-shape = SubResource("BoxShape3D_msxom")
-
-[node name="ClimbableWall" type="StaticBody3D" parent="." unique_id=563330007 groups=["climbable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 14)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ClimbableWall" unique_id=906173188]
-material_override = SubResource("StandardMaterial3D_pothl")
-mesh = SubResource("BoxMesh_idsc0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ClimbableWall" unique_id=1144311452]
-shape = SubResource("BoxShape3D_msxom")
-
-[node name="KillPlane" parent="." unique_id=1748378536 instance=ExtResource("6_jq0je")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.149264, -11.692973, 19.978575)
-collision_mask = 3
+[node name="w" parent="." unique_id=1178688999 instance=ExtResource("1_jq0je")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 5, -4)
 
 [node name="PickupableItems" type="Node3D" parent="." unique_id=864772700]
 
-[node name="PickupableItem" parent="PickupableItems" unique_id=1365369840 instance=ExtResource("7_pothl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.452864, 2.2959433, 0)
-boost_jump_power = 10.0
+[node name="Cameras" type="Node3D" parent="." unique_id=1285699452]
 
-[node name="CameraTripod" parent="." unique_id=126854732 instance=ExtResource("8_wc5yb")]
+[node name="CameraTripod" parent="Cameras" unique_id=126854732 instance=ExtResource("8_wc5yb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.134836, 0, 0)
 
-[node name="Objective_PhotoWithPumpkin" parent="CameraTripod/Objectives" parent_id_path=PackedInt32Array(126854732, 1146842973) index="0" unique_id=2135743080 instance=ExtResource("11_cl2ww")]
+[node name="Objective_PhotoWithPumpkin" parent="Cameras/CameraTripod/Objectives" parent_id_path=PackedInt32Array(126854732, 1146842973) index="0" unique_id=2135743080 instance=ExtResource("11_cl2ww")]
 
-[node name="TargetPlayer" parent="CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=2083384584 instance=ExtResource("12_8osof")]
+[node name="TargetPlayer" parent="Cameras/CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=2083384584 instance=ExtResource("12_8osof")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.355682, 7.0213637, -1.0940967)
 must_hold_item_id = "apple"
 position_tolerance = 5.0
 
-[node name="TargetItem" parent="CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=646093582 instance=ExtResource("13_8osof")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.149853, 3.0818822, -0.57852435)
+[node name="TargetItem" parent="Cameras/CameraTripod/Objectives/Objective_PhotoWithPumpkin" unique_id=646093582 instance=ExtResource("13_8osof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.423935, 3.0818822, -0.57852435)
 position_tolerance = 5.0
 
-[editable path="CameraTripod"]
+[node name="LevelBlockout" type="CSGCombiner3D" parent="." unique_id=1524144428]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LevelBlockout" unique_id=1844806452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 6.5, 8.5)
+size = Vector3(14, 14, 32)
+material = ExtResource("6_pothl")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="LevelBlockout" unique_id=1167408211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5, 6.5, 8.5)
+size = Vector3(14, 14, 32)
+material = ExtResource("6_pothl")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="LevelBlockout" unique_id=968631005]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5, 19.5, 8.5)
+size = Vector3(14, 12, 32)
+material = ExtResource("6_pothl")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="LevelBlockout" unique_id=1591029134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 6.5, -12)
+size = Vector3(13, 14, 9)
+material = ExtResource("6_pothl")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="LevelBlockout" unique_id=2084262234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0.5, 8.5)
+size = Vector3(13, 2, 32)
+material = ExtResource("6_pothl")
+
+[editable path="Cameras/CameraTripod"]

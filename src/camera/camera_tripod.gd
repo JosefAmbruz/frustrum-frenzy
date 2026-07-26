@@ -16,20 +16,20 @@ var _photo_taken := false
 
 @onready var view_camera = $Camera3D
 @onready var countdown_timer = $CountdownTimer
-@onready var countdown_label = $CanvasLayer/TimerUI/CountdownLabel
-@onready var camera_overlay = $CanvasLayer/CameraOverlay
-@onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
-@onready var photo_result_ui = $CanvasLayer/PhotoResultUI
-@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/CapturedImage
-@onready var toggle_hint: Label = $CanvasLayer/PhotoResultUI/ResultContainer/ToggleHint
-@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar/ScoreLabel
-@onready var details_label = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar/DetailsLabel
-@onready var fade_rect = $CanvasLayer/FadeRect
+@onready var countdown_label: Label = %CountdownLabel
+@onready var camera_overlay: Control = %CameraOverlay
+@onready var red_dot: Panel = %RedDot
+@onready var photo_result_ui: Control = %PhotoResultUI
+@onready var captured_image: TextureRect = %CapturedImage
+@onready var toggle_hint: Label = %ToggleHint
+@onready var score_label: Label = %ScoreLabel
+@onready var details_label: Label = %DetailsLabel
+@onready var fade_rect: ColorRect = %FadeRect
 @onready var interactable: Area3D = %Interactable
-@onready var timer_ui = $CanvasLayer/TimerUI
+@onready var timer_ui: PanelContainer = %TimerUI
 @onready var pose_timer: Timer = $PoseTimer
 @onready var pose_intro_timer: Timer = $PoseIntroTimer
-@onready var pose_prompt: Label = $CanvasLayer/PosePrompt
+@onready var pose_prompt: Label = %PosePrompt
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -6,7 +6,7 @@ class_name PickupableItem extends RigidBody3D
 # item properties
 @export_group("Item Properties")
 @export var boost_jump_power: float = 25.0
-@export var picked_up_label: String = "[E] Drop [LMB] Throw"
+@export var picked_up_label: String = "replaceme"
 @export var item_id: String = "unknown"
 
 var _held := false

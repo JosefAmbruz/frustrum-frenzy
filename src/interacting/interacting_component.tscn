@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cqrnsfitpcxhw" path="res://src/interacting/interacting_component.gd" id="1_tc6x1"]
 [ext_resource type="Shader" uid="uid://dkw5lyrhamoua" path="res://src/ui/outline.gdshader" id="2_c7vyj"]
 [ext_resource type="Texture2D" uid="uid://xdbnvdm1a6lk" path="res://assets/ui/inputs/keyboard_e.png" id="3_c7vyj"]
+[ext_resource type="Texture2D" uid="uid://cfgy1d2yweftm" path="res://assets/ui/inputs/mouse_left.png" id="4_f4c7q"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tc6x1"]
 radius = 0.73535156
@@ -40,7 +41,8 @@ texture = SubResource("ViewportTexture_c7vyj")
 region_rect = Rect2(100, 0, 0, 0)
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=350414564]
-size = Vector2i(197, 74)
+transparent_bg = true
+size = Vector2i(197, 140)
 
 [node name="Panel" type="PanelContainer" parent="SubViewport" unique_id=1850036240]
 offset_right = 200.0
@@ -53,14 +55,32 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport/Panel/MarginContainer" unique_id=633511186]
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/Panel/MarginContainer" unique_id=2049362197]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="SubViewport/Panel/MarginContainer/HBoxContainer" unique_id=241385845]
+[node name="SecondInput" type="HBoxContainer" parent="SubViewport/Panel/MarginContainer/VBoxContainer" unique_id=1615468620]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/Panel/MarginContainer/VBoxContainer/SecondInput" unique_id=930497168]
+layout_mode = 2
+texture = ExtResource("4_f4c7q")
+
+[node name="LabelSecondary" type="Label" parent="SubViewport/Panel/MarginContainer/VBoxContainer/SecondInput" unique_id=1517859191]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Interact"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport/Panel/MarginContainer/VBoxContainer" unique_id=633511186]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=241385845]
 layout_mode = 2
 texture = ExtResource("3_c7vyj")
 
-[node name="Label" type="Label" parent="SubViewport/Panel/MarginContainer/HBoxContainer" unique_id=969812471]
+[node name="Label" type="Label" parent="SubViewport/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=969812471]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 30

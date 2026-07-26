@@ -4,6 +4,8 @@ extends Node3D
 
 @onready var icon: Sprite3D = %Icon
 @onready var interaction_label: Label = %Label
+@onready var second_input: HBoxContainer = %SecondInput
+@onready var label_secondary: Label = %LabelSecondary
 
 var curr_interactions := []
 var can_interact := true
@@ -31,8 +33,14 @@ func _process(delta: float) -> void:
 	if curr_interactions and can_interact and not interaction_blocked:
 		curr_interactions.sort_custom(_sort_by_nearest)
 		if curr_interactions[0].is_interactable:
-			interaction_label.text = curr_interactions[0].interact_name
-			icon.show()
+			if curr_interactions[0].interact_name == "replaceme":
+				interaction_label.text = "Drop"
+				label_secondary.text = "Throw"
+				second_input.show()
+			else:
+				interaction_label.text = curr_interactions[0].interact_name
+				second_input.hide()
+				icon.show()
 	else:
 		icon.hide()
 	

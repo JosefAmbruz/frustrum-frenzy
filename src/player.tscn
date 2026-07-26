@@ -170,9 +170,10 @@ script = ExtResource("11_nic3v")
 movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
-[node name="Pose" type="Node" parent="StateMachine" unique_id=2014561316 node_paths=PackedStringArray("movement_component")]
+[node name="Pose" type="Node" parent="StateMachine" unique_id=2014561316 node_paths=PackedStringArray("movement_component", "skin")]
 script = ExtResource("12_pose")
 movement_component = NodePath("../../MovementComponent")
+skin = NodePath("../../PlayerSkin")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="DebugLabel" type="Label3D" parent="." unique_id=1876485247]

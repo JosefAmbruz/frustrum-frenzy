@@ -1,7 +1,147 @@
 [gd_scene format=4 uid="uid://dvhas6qwbp40l"]
 
 [ext_resource type="Script" uid="uid://d1ohoxtsk2v6a" path="res://src/player_skin.gd" id="1_ig8t0"]
-[ext_resource type="Material" uid="uid://bcd4jlecxaws6" path="res://assets/models/player/Hare_Material.tres" id="1_r53ix"]
+[ext_resource type="Material" uid="uid://bpde2y50k2xlb" path="res://assets/models/player/Exhausted.tres" id="2_7hk18"]
+[ext_resource type="Material" uid="uid://cqm0jsgfpkhcr" path="res://assets/models/player/Normal.tres" id="2_ig8t0"]
+[ext_resource type="Material" uid="uid://xqggq72bkj38" path="res://assets/models/player/Happy.tres" id="3_62nud"]
+
+[sub_resource type="Animation" id="Animation_rgsoj"]
+resource_name = "Exhausted"
+length = 6.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/Torso:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.1114119, 0), Vector3(0, 0.25238818, 0), Vector3(0, 0.1114119, 0), Vector3(0, 0.25238818, 0), Vector3(0, 0.1114119, 0), Vector3(0, 0.25238818, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base/Torso:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Base/Torso:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Base/Torso/Neck/LeftEar:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Base/Torso/Neck/RightEar:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Base/Torso/RightArm:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Base/LeftLeg:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Base/Torso/Neck/Head:material_override")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_7hk18")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Base/Torso:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Base/Torso/LeftArm:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Base/Torso/Neck:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.4938164, 0, 0), Vector3(-0.01399187, 0, 0), Vector3(0.47406292, 0, 0), Vector3(-0.08177756, 0, 0), Vector3(0.5286536, 0, 0), Vector3(-0.065934345, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_r53ix"]
 resource_name = "Idle"
@@ -95,14 +235,50 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Base/LeftLeg:position")
+tracks/7/path = NodePath("Base/Torso/Neck/Head:material_override")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ig8t0")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Base/Torso:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.111, 0)]
+"values": [Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Base/Torso/LeftArm:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Base/Torso/Neck:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_7hk18"]
@@ -179,6 +355,81 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.5967848, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Base/Torso/Neck/Head:material_override")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.06666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_ig8t0"), ExtResource("3_62nud")]
+}
+
+[sub_resource type="Animation" id="Animation_0ta0g"]
+resource_name = "Pose"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/Torso/Neck/Head:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_62nud")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base/Torso:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.11161654)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Base/Torso/LeftArm:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 1.7972811)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Base/Torso/Neck/RightEar:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.39594898)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Base/LeftLeg:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.7320429, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ig8t0"]
@@ -327,6 +578,18 @@ tracks/11/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Base/Torso/Neck/Head:material_override")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ig8t0")]
+}
 
 [sub_resource type="Animation" id="Animation_62nud"]
 resource_name = "Running"
@@ -417,11 +680,97 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector3(0, 0, -1.3541893), Vector3(0, 0, -0.7502672), Vector3(0, 0, -1.6246717), Vector3(-0.07433509, -0.21060733, -0.74287844)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Base/Torso:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Base/Torso/Neck/LeftEar:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Base/Torso/Neck/RightEar:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Base/Torso/RightArm:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Base/Torso/LeftArm:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Base/Torso/Neck:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Base/Torso/Neck/Head:material_override")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ig8t0")]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ig8t0"]
 _data = {
+&"Exhausted": SubResource("Animation_rgsoj"),
 &"Idle": SubResource("Animation_r53ix"),
 &"Jump": SubResource("Animation_7hk18"),
+&"Pose": SubResource("Animation_0ta0g"),
 &"RESET": SubResource("Animation_ig8t0"),
 &"Running": SubResource("Animation_62nud")
 }
@@ -489,7 +838,7 @@ _surfaces = [{
 "index_count": 960,
 "index_data": PackedByteArray("iQCKAIsAiQCMAIoAigBXAIsAiwBXADMAMwBWAIsAVgCNAIsAiwCNAIkAVgAxAI0AiQCNAI4AiQCOAIwAjQAxAI8AjQCPAI4AMQAAAI8AjwAAAJAAjwCQAFkAjgCPAFkAWQCQAJEAjgAfAIwAjgBZAB8AWQCRAJIAWQCSAB8AkQA0AJIAkgA0AFsAHwCSAFoAkgBbAFoAjAAfAJMAHwBaAJMAjACTADIAjAAyAIoAAwCUAFsAWwCUAJUAWgBbAJUAlABcAJUAlQBcADUAWgCVAJYAlgCVADUAkwBaAJYAlgA1AJcANQAgAJcAIAABAJcAlwABADYAlgCXAJgAkwCWAJgAmACXADYAkwCYADIAmAA2ABgAMgCYABgAGAA2AF0AMgAYAJkAmQAYAFgAigAyAJkAmQBYAJoAigCZAFcAmQCaAFcAVwCaAAIAmwCcAJ0AnQAuAJsALgCeAJsAFgAuAJ0AFgBPAC4ALwAWAJ0AUwAWAC8AnQCfAC8AnACfAJ0AnwBUAC8AmwCeAKAAmwCgAJwAngAUAKAAoAAUAFAAoABQAKEAoAChAJwAUABRAKEAnwBSAFQAnAAhAJ8AnAChACEAIQBSAJ8AUgAwAFQAoQBRAKIAoQCiACEAUQAVAKIAogAVAKMAIQCiAKQAogCjAKQAIQCkAFIApACjACIAUgClADAApAClAFIApAAiAKUAMAClABcApQAiAFUApQBVABcApgAtAHcAeACmAHcAeAB3AKcAeAB5AKYAHgB5AHgAeQCoAKYApgCoAC0ApwB3AHYApwB2AA8ALQCpAHcAdwCpAHYAqgCoAHkATQCqAHkADACqAE0ADAB/AKoAqQB1AHYAdgB1AE4AdQCrAE4AfwCsAKoAqgCsAKgAfwArAKwATAArAH8AqACsAK0AqACtAC0ArAArAK4ArACuAK0AKwB9AK4AKwB+AH0ALQCtAK8ALQCvAKkArQCuALAArQCwAK8ArgB9ALEArgCxALAAfQB8ALEASQB8AH0AfAB6ALEAfAANAHoADQB7AHoAegB7ACwAsQB6AEoAegAsAEoAsACxAEoASgAsALIAsgAsALMAsABKALQAtABKALIArwCwALQAdACyALMAtACyAHQAdACzAEsArwC0ALUAtAB0ALUArwC1AKkAqQC1AHUAtQB0ALYAtgB0AEsAtQC2AHUAtgBLAA4AdQC2AKsAqwC2AA4AtwC4ADgAuQC3ADgAuAAGADgAOAAGAF8AuAC6AAYAugA6AAYAugC7ADoAuQBeALcAvABeALkAtwA3ALgAXgA3ALcAuAC9ALoANwC9ALgAugC+ALsAvQC+ALoAvgC/ALsAvADAAF4ABwDAALwABwBgAMAAwADBAF4AwQA3AF4AYAAZAMAAGQDBAMAAYwAZAGAAIwBjAGAAIwDCAGMAwQDDADcANwDDAL0AGQDEAMEAxADDAMEAYwDFABkAxQDEABkAwgDGAGMAYwDGAMUAwgAEAMYABABkAMYAxgBkAMcAxgDHAMUAZADIAMcAxQA8AMQAxQDHADwAxwDIAMkAxwDJADwAyAA9AMkAPADKAMQAxADKAMMAPADJAMsAPADLAMoAPQDMAMkAyQDMAMsAPQA7AMwAGwA7AD0AywDMAM0AygDLAM0AzAA7AGEAzABhAM0AOwBiAGEAOwAFAGIAYQBiABoAYQAaADkAzQBhADkAOQAaAL8AvgA5AL8AzgDNADkAzgA5AL4AygDNAM4AvQDOAL4AwwDKAM4AwwDOAL0ASABlACkAZQBmACkAKQBmAM8AKQDPAAsAzwBpAAsAzwBGAGkAZgDQAM8AzwDQAEYAZQBnAGYA0QBnAGUARQBnANEACgBFANEAZwBHAGYAZgBHANAARQDSAGcAZwDSAEcA0wDSAEUA0wDUANIA0wDVANQA0gDWAEcA0gDUANYA1QBoANQA1ABoANYAHQBoANUARwDWANcARwDXANAAaAAoANYA1gAoANcAHQBwAGgAaABwACgAcQBwAB0A0ADXANgA0ADYAEYARgDYAGsARgBrACoA2ABEAGsAawBEAGwA1wBqANgAagBEANgAKABqANcAagBtAEQARABtAG4AbQAJAG4AKABvAGoAbwBtAGoAcABvACgAbQAnAAkAbwAnAG0AJwBDAAkAcAByAG8AcgAnAG8AcQByAHAAcgBzACcACAByAHEACABzAHIA2QCDANoA2wCDANkA3ADZANoA3QDbANkA3QDZANwA3ADaAIgAEwDcAIgAhwDcABMA3QDcAIcAiADaAN4AhgDdAIcA2gBBAN4AgwBBANoAQQBCAN4AQQAcAEIAhgCFAN0AhQDbAN0AEACFAIYAEABAAIUAQADfAIUAhQDfANsAQADgAN8A4QAcAEEAgwDhAEEAJQCDANsAJQDhAIMA3wAlANsA4ADiAN8A4gAlAN8AJgDiAOAAJgCEAOIA4gCCACUAggDhACUAhACCAOIAggCAAOEA4QCAABwAhAA/AIIAPwCAAIIAEQA/AIQAgAASABwAHAASAD4AgACBABIAPwCBAIAAJACBAD8A"),
 "lods": [0.07627147, PackedByteArray("LgAhABYAFgBPAC4ALgBQACEALgAUAFAAUABRACEAIQBRACIAUQAVACIAIQBSABYAIQAiAFIAUwAWAC8AFgBSAC8AUgBUAC8AUgAwAFQAUgAXADAAIgAXAFIAFwAiAFUAVgAyAFcAVgBXADMAVwBYAAIAVwAYAFgAMgAYAFcAVgAfADIAHwAYADIAVgBZAB8AVgAxAFkAMQAAAFkAWQAAADQAWQBaAB8AWQA0AFoAHwBaABgAWgA0AFsAAwBcAFsAWwBcADUAWgBbADUAWgA1ABgAGAA1ADYAGAA2AF0ANQABADYAIAABADUAXgAGADgAOAAGAF8ABwBeADgABwBgAF4AXgA3AAYANwA5AAYABgA5ADoAGQA3AF4AYAAZAF4APAA3ABkANwA8ADkAOQAaADoAYQAaADkAYQBiABoAYwAZAGAAYwA8ABkAIwBjAGAAIwAEAGMABABkAGMAYwBkADwAZAA9ADwAOwBiAGEAOwBhADkAPAA7ADkAPQA7ADwAOwAFAGIAGwA7AD0ASABlACkACgBFAGUAZQBmACkARQBnAGUAZQBnAGYARQBoAGcARQAdAGgAZwBHAGYAKQBmAEYAKQBGAAsARgBpAAsAZgBqAEYAZgBHAGoAZwAoAEcAZwBoACgAKABqAEcARgBrACoARgBqAGsAagBEAGsAawBEAGwAagBtAEQARABtAG4AbQAJAG4AbwBtAGoAKABvAGoAbQAnAAkAbwAnAG0AJwBDAAkAcABvACgAaABwACgAHQBwAGgAcQBwAB0AcAByAG8AcQByAHAAcgAnAG8ACAByAHEAcgBzACcACABzAHIAdAAsAEsAdABLAA4AdQB0AA4AdQAOAE4AdgB1AE4ALQB0AHUAdwB1AHYALQB1AHcAeAB3AHYAeAB2AA8AeAB5AHcAeQAtAHcAHgB5AHgALQBKAHQASgAsAHQAeQArAC0ALQArAEoAegAsAEoAKwB6AEoAegB7ACwADQB7AHoAfAANAHoAfQB8AHoAKwB9AHoASQB8AH0AKwB+AH0AfwArAHkATAArAH8ADAB/AHkADAB5AE0AgACBABIAJACBAD8APwCBAIAAgAASABwAHAASAD4APwCAAIIAgwCAABwAggCAAIMAhAA/AIIAEQA/AIQAhACCACUAggCDACUAJgCEAEAAQACEAIUAhAAlAIUAEABAAIUAEACFAIYAhgCFAIcAhQAlAIcAhwAlAIMAhwCDABMAEwCDAEEAgwAcAEEAEwBBAIgAQQAcAEIAQQBCAIgA"), 0.1367798, PackedByteArray("LgAhABYAFgAhAC8ALgAUACEAIQAwAC8AFAAVACEAIQAXADAAIQAVACIAIgAXACEAMQAyADMAMQAfADIAMQAAAB8AMgAYADMAMwAYAAIAHwAYADIAHwAAADQAHwA0AAMAHwADADUAHwA1ABgAGAA1ADYANQABADYAIAABADUANwAGADgABwA3ADgABwAjADcAIwAZADcAIwAEABkANwA5AAYABgA5ADoAOQAaADoAOQAFABoAOwAFADkAGQAEADwAPAA3ABkANwA8ADkAPAA7ADkABAA9ADwAPQA7ADwAGwA7AD0AHAAkABIAHAASAD4APwAkABwAEQA/ACYAJgA/ACUAPwAcACUAQAAmACUAEABAACUAEAAlABMAJQAcAEEAEwAlAEEAQQAcAEIAQQBCABMACAAnACgACAAoAB0AJwBDAAkARAAnAAkAJwBEACgAKABEACoARQAdACgARgAoACoAKQAoAEYAKQBGAAsAKQBHACgARQAoAEcASABHACkARQBHAEgACgBFAEgASQANAEoADQAsAEoASgAsAEsAKwBJAEoATAArAAwADAArAE0ALQArAEoATQArAC0ALQBKAEsAHgBNAC0ALQBLAE4AHgAtAE4ATgBLAA4AHgBOAA8A"), 0.24954624, PackedByteArray("AAAfAAIAHwAAAAMAHwAYAAIAHwADACAAHwAgABgAGAAgAAEAFgAUACEAFAAVACEAIQAXABYAIQAVACIAIgAXACEAGQAFABoAGwAFABkAGQAaAAYABAAbABkABwAZAAYAIwAEABkABwAjABkAHAAkABIAEQAkABwAEQAcACUAEwAlABwAJgARACUAEAAlABMAEAAmACUACAAnACgACAAoAB0ACgAdACgACgAoACkAJwAqACgAKQAoACoAKgAnAAkAKQAqAAsAKwANACwALQArACwADAArAC0ALQAsAA4AHgAMAC0ALQAOAA8AHgAtAA8A"), 0.691418, PackedByteArray("AAAYAAIAGAAAAAMAGAADAAEAGQAFABoAGwAFABkAGQAaAAYABAAbABkABwAZAAYABwAEABkAHAARABIAEAARABwAEAAcABMACAAJAB0ACQALAB0ACgAdAAsADAANAA4ADwAMAA4AHgAMAA8AFAAVABYAFgAVABcA"), 1.0371269, PackedByteArray("AAABAAIAAQAAAAMABAAFAAYABwAEAAYACAAJAAoACQALAAoADAANAA4ADwAMAA4AEAARABIAEAASABMAFAAVABYAFgAVABcA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -525,7 +874,7 @@ _surfaces = [{
 "index_count": 60,
 "index_data": PackedByteArray("FAACAAAAAAABABQAFAABAAMAFQAWAA4AFQAMABYAFgANAA4ADAAPABYAFgAPAA0ADwAXAA0ABAAFAAYABAAYAAUAGAAZAAUABwAZABgABQAZABoAGgAZAAgACQAbAAsACQAKABsAEAAcABIAEgAcABMAEAARABwA"),
 "lods": [1.2405422, PackedByteArray("AAABAAIAAgABAAMABAAFAAYABAAHAAUABQAHAAgACQAKAAsADAANAA4ADAAPAA0AEAARABIAEgARABMA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -561,7 +910,7 @@ _surfaces = [{
 "index_count": 60,
 "index_data": PackedByteArray("FAACAAAAAAABABQAFAABAAMAFQAWAA4AFQAMABYAFgANAA4ADAAPABYAFgAPAA0ADwAXAA0ABAAFAAYABAAYAAUAGAAZAAUABwAZABgABQAZABoAGgAZAAgACQAbAAsACQAKABsAEAAcABIAEgAcABMAEAARABwA"),
 "lods": [1.2405422, PackedByteArray("AAABAAIAAgABAAMABAAFAAYABAAHAAUABQAHAAgACQAKAAsADAANAA4ADAAPAA0AEAARABIAEgARABMA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -597,7 +946,7 @@ _surfaces = [{
 "index_count": 102,
 "index_data": PackedByteArray("GQABAAIAGQASAAEAAgAaABkAGwASABkAGwAAABIAGQADABsAGQAaAAMAGgATAAMABAAcABQABAAFABwAFAAcAAYAFAAGAB0AHQAeABQAFAAeAB8AHQAHAB4ACAAgACEACAAJACAAIQAgAAsAIQALAAoAIgAjAA4ADgAjACQADAAjACIAIwAVACQADAAlACMAJQAVACMAFgAlAAwAJgAVACUADQAVACYAFwAnAA8AFwARACcAFwAYABEAFwAQABgADwAQABcADwAoABAA"),
 "lods": [0.8279367, PackedByteArray("EgABAAIAAgATABIAEgATAAMAEgADAAAABAAFABQAFAAFAAYABgAHABQACAAJAAoACgAJAAsADAAVAA4ADAAWABUADQAVABYADwAQABcAFwAQABgAFwARAA8AFwAYABEA"), 1.4926574, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgAJAAsADAANAA4ADwAQABEA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(1.7477654, 1.5767117, 0, 0),
@@ -633,7 +982,7 @@ _surfaces = [{
 "index_count": 102,
 "index_data": PackedByteArray("GQABAAIAGQASAAEAAgAaABkAGwASABkAGwAAABIAGQADABsAGQAaAAMAGgATAAMABAAcABQABAAFABwAFAAcAAYAFAAGAB0AHQAeABQAFAAeAB8AHQAHAB4ACAAgACEACAAJACAAIQAgAAsAIQALAAoAIgAjAA4ADgAjACQADAAjACIAIwAVACQADAAlACMAJQAVACMAFgAlAAwAJgAVACUADQAVACYAFwAnAA8AFwARACcAFwAYABEAFwAQABgADwAQABcADwAoABAA"),
 "lods": [0.8279367, PackedByteArray("EgABAAIAAgATABIAEgATAAMAEgADAAAABAAFABQAFAAFAAYABgAHABQACAAJAAoACgAJAAsADAAVAA4ADAAWABUADQAVABYADwAQABcAFwAQABgAFwARAA8AFwAYABEA"), 1.4926574, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQACAAJAAoACgAJAAsADAANAA4ADwAQABEA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(1.81816, 2, 0, 0),
@@ -669,7 +1018,7 @@ _surfaces = [{
 "index_count": 60,
 "index_data": PackedByteArray("GAABAAIAGAAZAAEAAgADABgAGAADAAAAGgAMABsADAANABsAGwANAA8AGwAPAA4ABAAcAAYABgAcAAUABAAdABwAHQAHABwACAAeAAoACAALAB4ACwAJAB4AEAARABIAEgARABMAFAAVABYAFwAVABQAHwAVABcA"),
 "lods": [0.993684, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFwAVABQA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -705,7 +1054,7 @@ _surfaces = [{
 "index_count": 60,
 "index_data": PackedByteArray("GAABAAIAGAAZAAEAAgADABgAGAADAAAAGgAMABsADAANABsAGwANAA8AGwAPAA4ABAAcAAYABgAcAAUABAAdABwAHQAHABwACAAeAAoACAALAB4ACwAJAB4AEAARABIAEgARABMAFAAVABYAFwAVABQAHwAVABcA"),
 "lods": [0.993684, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFwAVABQA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -741,7 +1090,7 @@ _surfaces = [{
 "index_count": 492,
 "index_data": PackedByteArray("VAA1AFUAVAABADUAVgBUAFUAVgBVAFcAAgBWAFcAAgBXACwANgBWAAIANgA0AFYANABUAFYAAAA0ADYAWAABAFQANABYAFQAWABZAAEAAABaADQAWgBYADQABQBaAAAANwBZAFgAWgA3AFgANwA4AFkABQA5AFoAOQA3AFoABAA5AAUABABbADkAOQArADcAKwA4ADcAWwArADkAKwAtADgAWwAuACsALgAtACsALgADAC0AXABdAF4AXAAgAF0AIgBcAF4AIgBeADoAXgBfADoAXgBgAF8AXQBgAF4AYABhAF8AIABiAF0AXQBiAGAAIABjAGIAYABkAGEAYgBkAGAAZAAzAGEAYwBlAGIAYgBlAGQAYwA8AGUAPAA7AGUAPAAjADsAZQBmAGQAZQA7AGYAIwBmADsAZABmADMAIwA9AGYAPQAzAGYAPQAhADMAZwBoAD4APgBoABUAPgAVAD8AZwBpAGgAagBpAGcAagAvAGkAawBnAD4ALwBqAEIALwBCAGwAbABCAG0AbABtABcAQgAwAG0AQgBuADAAagBuAEIAbgAUADAAbwBqAGcAagBvAG4AbwBnAGsAbgBwABQAbwBwAG4AcABxABQAQQBvAGsAbwBBAHAAcAByAHEAQQByAHAAcgAWAHEAQQBrAHMAQQBzAHIAcgB0ABYAcwB0AHIAdAAxABYAcwB1AHQAdAB2ADEAdQB2AHQAdgBAADEAdgA/AEAAdQB3AHYAdwA/AHYAcwB3AHUAcwBrAHcAdwA+AD8AawA+AHcAeAAdAEMAeAAfAB0AHAB4AEMAHABDAB4ARAAQAHkAeQAQAEUARAAPABAARgAPAEQARgBHAA8ASABHAEYASAAOAEcAJwBGAEQAJwBEACQAJABEAHkAEQAnACQAEQAkACYAJgAkACUAJAB5ACUAJgAlAEkAeQBFAEoAJQB5AEoASgBFABMASgATAEsAJQBKAHoASQAlAHoAegBKAEsASQB6AHsAegBLAHwAewB6AHwAewB8ABIAfQBMAH4AfgBMAH8AfQAqAEwAgAAqAH0AgAAHACoACQCAAH0ACQB9ACkAKQB9AH4AKQB+AE0AfgB/ACgATQB+ACgAKAB/AAgATQAoAIEAKAAIAIIAgQAoAIIAgQCCAAYAgwALAE8AgwBQAAsATgCDAE8ATgBPAAwADQCDAE4ADQBRAIMAUQBQAIMAUQAKAFAAhAAbAFIAUgAbABkAUgAZAIUAhACGABsAUwBSAIUAUwCFABoAGABSAFMAGACEAFIAhwCEABgAhwCIAIQAiACGAIQAiAAyAIYA"),
 "lods": [0.25243688, PackedByteArray("NAABADUANAA1ACwAAgA0ACwANgA0AAIAAAA0ADYANwABADQAAAA3ADQANwA4AAEABQA3AAAAKwA4ADcAKwAtADgABQA5ADcAOQArADcABAA5AAUABAAuADkALgArADkALgAtACsALgADAC0AIgAgADoAIAA7ADoAPAA7ACAAPAAjADsAOgA7ADMAIwA9ADsAPQAzADsAPQAhADMAPgAvABUAPgAVAD8APwBAADEAFgA/ADEAQQA+AD8AQQA/ABYAQQAvAD4AQQAWABQALwBBABQALwAUAEIAQgAUADAALwBCADAALwAwABcAHwAdAEMAHAAfAEMAHABDAB4ARAAQACUARAAPABAAJQAQAEUARgAPAEQARgBHAA8ASABHAEYASAAOAEcAJwBGAEQAJwBEACQAJABEACUAEQAnACQAEQAkACYAJgAkACUAJgAlAEkASQAlAEoAJQBFAEoASQBKABIASgBFABMAEgBKAEsASgATAEsAKgBMACgAKABMAAgAKAAIAAYATQAoAAYAKQAoAE0AKQAqACgACQAqACkACQAHACoATgALAE8ATgBPAAwATgBQAAsAUQBQAE4AUQAKAFAADQBRAE4AUgAyABsAGAAyAFIAUgAbABkAGABSAFMAUwBSABkAUwAZABoA"), 0.52423924, PackedByteArray("JAAQACUAJQAQABMAEgAlABMAJgAlABIAJgAkACUAEQAkACYAJAAPABAAEQAnACQAJwAPACQAJwAOAA8AKAAIAAYAKQAoAAYAKAAqAAgAKQAqACgACQAqACkACQAHACoAKwABAAIAAgABACwAAAArAAIABQArAAAABAArAAUAKwAtAAEABAAuACsALgAtACsALgADAC0ACgALAAwADQAKAAwALwAUADAALwAwABcAFAAvABUAFAAVABYAFgAVADEAGAAyABsAGAAbABkAGAAZABoAHAAdAB4AHAAfAB0AIwAhADMAIwAzACAAIAAzACIA"), 1.1446557, PackedByteArray("AAABAAIAAAADAAEABAADAAAABAAAAAUABgAHAAgACQAHAAYACgALAAwADQAKAAwADgAPABAAEQAOABAAEQAQABIAEgAQABMAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIwAhACAA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -777,7 +1126,7 @@ _surfaces = [{
 "index_count": 60,
 "index_data": PackedByteArray("AgAAABgAGAAZAAIAAgAZAAMAGAABABkABAAFAAYABQAaAAYABgAaAAcACAAJAAoACQAbAAoACQALABsAEAARABwAHAARABIAEQATABIAHQANAA4AHQAMAA0ADAAPAA0AFAAeAB8AHgAVAB8AHwAVABYAFwAVAB4A"),
 "lods": [1.0936744, PackedByteArray("AAABAAIAAgABAAMABAAFAAYABQAHAAYACAAJAAoACQALAAoADAANAA4ADAAPAA0AEAARABIAEQATABIAFAAVABYAFwAVABQA")],
-"material": ExtResource("1_r53ix"),
+"material": ExtResource("2_ig8t0"),
 "name": "Material",
 "primitive": 3,
 "uv_scale": Vector4(1.9118005, 1.5735945, 0, 0),
@@ -797,6 +1146,7 @@ autoplay = &"Running"
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=435901448]
 unique_name_in_owner = true
+active = false
 root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_i3kvd")
 anim_player = NodePath("../AnimationPlayer")
@@ -809,11 +1159,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32181108, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1114119, 0)
 
 [node name="Neck" type="Marker3D" parent="Base/Torso" unique_id=1523058872]
-transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 1, 0, 1.0963612, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999999, 0, 1.0963612, 0)
 metadata/_edit_group_ = true
 
 [node name="Head" type="MeshInstance3D" parent="Base/Torso/Neck" unique_id=1341000627]
 transform = Transform3D(0.44932652, 0, 0, 0, 0.44932652, 0, 0, 0, 0.44932652, 0, 0.5422112, 0)
+material_override = ExtResource("2_ig8t0")
 mesh = SubResource("ArrayMesh_n63q0")
 metadata/_edit_lock_ = true
 
@@ -826,7 +1177,7 @@ mesh = SubResource("ArrayMesh_0epun")
 metadata/_edit_group_ = true
 
 [node name="RightEar" type="Marker3D" parent="Base/Torso/Neck" unique_id=865560002]
-transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999994, -0.26295212, 0.85859334, 0)
+transform = Transform3D(0.9999997, 0, 0, 0, 0.99999964, 0, 0, 0, 0.99999994, -0.26295218, 0.85859346, 0)
 
 [node name="EarR" type="MeshInstance3D" parent="Base/Torso/Neck/RightEar" unique_id=1646767850]
 transform = Transform3D(-0.3935417, 0, -3.4404508e-08, 0, 0.3935417, 0, 3.4404508e-08, 0, -0.3935417, -0.18472806, -0.122134924, -0.09755931)
@@ -834,7 +1185,7 @@ mesh = SubResource("ArrayMesh_2e7ud")
 metadata/_edit_group_ = true
 
 [node name="LeftArm" type="Marker3D" parent="Base/Torso" unique_id=2103100970]
-transform = Transform3D(0.9999998, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999997, 0.29564178, 0.9688924, 0)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.99999964, 0, 0, 0, 0.9999997, 0.29564178, 0.96889234, 0)
 metadata/_edit_group_ = true
 
 [node name="HandL" type="MeshInstance3D" parent="Base/Torso/LeftArm" unique_id=296165714]
@@ -863,7 +1214,7 @@ mesh = SubResource("ArrayMesh_yg31f")
 metadata/_edit_lock_ = true
 
 [node name="LeftLeg" type="Marker3D" parent="Base" unique_id=86059182]
-transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999999, 0, 0.111, 0)
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1.0000001, 0, 0.111, 0)
 metadata/_edit_group_ = true
 
 [node name="FootL" type="MeshInstance3D" parent="Base/LeftLeg" unique_id=1268730411]

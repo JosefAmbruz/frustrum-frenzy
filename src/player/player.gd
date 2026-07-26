@@ -19,6 +19,8 @@ extends CharacterBody3D
 @onready var _captured_state: State = %StateMachine.get_node("Captured")
 @onready var _pose_state: State = %StateMachine.get_node("Pose")
 
+@onready var footstep_player: AudioStreamPlayer3D = %FootstepPlayer
+
 #Camera
 var _camera_input_direction := Vector2.ZERO
 
@@ -35,6 +37,10 @@ var _target_camera_length: float = 8.0
 #Pose
 var _required_pose_key: String = ""
 var _has_attempted_pose := false
+
+func play_footstep() -> void:
+	if not footstep_player.playing:
+		footstep_player.play()
 
 func _ready() -> void:
 	current_checkpoint = global_position

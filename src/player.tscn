@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cx7dkghpe0efc" path="res://src/player/states/captured.gd" id="11_nic3v"]
 [ext_resource type="Script" uid="uid://lc570wlytc8" path="res://src/player/states/pose.gd" id="12_pose"]
 [ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="13_nic3v"]
+[ext_resource type="AudioStream" uid="uid://ckwudc16m2tqj" path="res://src/player/footsteps_randomized.tres" id="18_qntp5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5l7k"]
 radius = 0.28076172
@@ -182,6 +183,10 @@ fixed_size = true
 text = "None"
 font = ExtResource("13_nic3v")
 font_size = 24
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1834633286]
+unique_name_in_owner = true
+stream = ExtResource("18_qntp5")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

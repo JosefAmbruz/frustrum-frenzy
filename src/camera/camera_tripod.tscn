@@ -62,7 +62,7 @@ corner_radius_bottom_left = 30
 [node name="CameraTripod" type="StaticBody3D" unique_id=126854732]
 script = ExtResource("1_v4y2o")
 
-[node name="Camera stand by Jason Oudshoorn - 5CHQvf_emuN" parent="." unique_id=1594297456 instance=ExtResource("3_ndy2e")]
+[node name="Model" parent="." unique_id=1594297456 instance=ExtResource("3_ndy2e")]
 transform = Transform3D(5.9624403e-09, 0, -0.5, 0, 0.49715245, 0, 0.5, 0, 5.9624403e-09, -0.0439145, 1.4806964, -0.03250137)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1731509233]
@@ -71,7 +71,7 @@ shape = SubResource("CylinderShape3D_hwyno")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=907995485]
 transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.140793, 1.9778359, -0.0032069646)
-fov = 38.147804
+fov = 27.681015
 
 [node name="CountdownTimer" type="Timer" parent="." unique_id=1828718521]
 one_shot = true
@@ -91,9 +91,10 @@ interact_name = "[E] View "
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0758667, 1.4042969, 0)
 shape = SubResource("BoxShape3D_nym6r")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=591166412]
+[node name="UI" type="CanvasLayer" parent="." unique_id=591166412]
 
-[node name="CameraOverlay" type="Control" parent="CanvasLayer" unique_id=563050393]
+[node name="CameraOverlay" type="Control" parent="UI" unique_id=563050393]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -102,7 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Frame" type="Panel" parent="CanvasLayer/CameraOverlay" unique_id=762922807]
+[node name="Frame" type="Panel" parent="UI/CameraOverlay" unique_id=762922807]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +117,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yfxto")
 
-[node name="RedDot" type="Panel" parent="CanvasLayer/CameraOverlay" unique_id=1469969901]
+[node name="RedDot" type="Panel" parent="UI/CameraOverlay" unique_id=1469969901]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 48.0
 offset_top = 48.0
@@ -125,7 +127,7 @@ offset_bottom = 68.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hwyno")
 
-[node name="HintExit" type="Label" parent="CanvasLayer/CameraOverlay" unique_id=607124152]
+[node name="HintExit" type="Label" parent="UI/CameraOverlay" unique_id=607124152]
 layout_mode = 0
 offset_left = 48.0
 offset_top = 832.0
@@ -135,7 +137,7 @@ theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "[E] Leave"
 
-[node name="HintShoot" type="Label" parent="CanvasLayer/CameraOverlay" unique_id=2106574791]
+[node name="HintShoot" type="Label" parent="UI/CameraOverlay" unique_id=2106574791]
 layout_mode = 0
 offset_left = 1416.0
 offset_top = 832.0
@@ -145,7 +147,8 @@ theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "[LMB] Shoot"
 
-[node name="PhotoResultUI" type="Control" parent="CanvasLayer" unique_id=1348612492]
+[node name="PhotoResultUI" type="Control" parent="UI" unique_id=1348612492]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -155,7 +158,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PhotoResultUI" unique_id=1462726920]
+[node name="ColorRect" type="ColorRect" parent="UI/PhotoResultUI" unique_id=1462726920]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,7 +168,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.5882353)
 
-[node name="ResultContainer" type="VBoxContainer" parent="CanvasLayer/PhotoResultUI" unique_id=1930038234]
+[node name="ResultContainer" type="VBoxContainer" parent="UI/PhotoResultUI" unique_id=1930038234]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,18 +182,19 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="CapturedFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1160635967]
+[node name="CapturedFrame" type="PanelContainer" parent="UI/PhotoResultUI/ResultContainer" unique_id=1160635967]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_08vw2")
 
-[node name="PhotoLayout" type="VBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame" unique_id=1545145293]
+[node name="PhotoLayout" type="VBoxContainer" parent="UI/PhotoResultUI/ResultContainer/CapturedFrame" unique_id=1545145293]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout" unique_id=1406486013]
+[node name="CapturedImage" type="TextureRect" parent="UI/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout" unique_id=1406486013]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_5y8sc")
 custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
@@ -200,13 +204,14 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4
 
-[node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout" unique_id=1843215279]
+[node name="BottomBar" type="HBoxContainer" parent="UI/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout" unique_id=1843215279]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar" unique_id=1077149923]
+[node name="ScoreLabel" type="Label" parent="UI/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar" unique_id=1077149923]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -214,7 +219,8 @@ theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 54
 vertical_alignment = 1
 
-[node name="DetailsLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar" unique_id=1916489103]
+[node name="DetailsLabel" type="Label" parent="UI/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar" unique_id=1916489103]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -222,7 +228,8 @@ theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 20
 vertical_alignment = 1
 
-[node name="ToggleHint" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1789489493]
+[node name="ToggleHint" type="Label" parent="UI/PhotoResultUI/ResultContainer" unique_id=1789489493]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
@@ -232,7 +239,8 @@ text = "[LMB] Toggle ghosts  |  [E] Close"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1685703220]
+[node name="FadeRect" type="ColorRect" parent="UI" unique_id=1685703220]
+unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -241,7 +249,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TimerUI" type="PanelContainer" parent="CanvasLayer" unique_id=334476303]
+[node name="TimerUI" type="PanelContainer" parent="UI" unique_id=334476303]
+unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -252,13 +261,15 @@ offset_bottom = 85.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e5o58")
 
-[node name="CountdownLabel" type="Label" parent="CanvasLayer/TimerUI" unique_id=39188668]
+[node name="CountdownLabel" type="Label" parent="UI/TimerUI" unique_id=39188668]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 
-[node name="PosePrompt" type="Label" parent="CanvasLayer" unique_id=2014561317]
+[node name="PosePrompt" type="Label" parent="UI" unique_id=2014561317]
+unique_name_in_owner = true
 visible = false
 anchors_preset = 15
 anchor_right = 1.0

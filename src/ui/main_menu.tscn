@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://ve7fk11lt2cm"]
+
+[ext_resource type="Script" uid="uid://bxpe20a2k5ok7" path="res://src/ui/main_menu.gd" id="1_h03rr"]
+[ext_resource type="Texture2D" uid="uid://4gl3e5fxeekf" path="res://assets/sprites/character/character.png" id="1_qkuje"]
+[ext_resource type="Shader" uid="uid://bg2a1ankc71d1" path="res://src/ui/fractal.gdshader" id="1_qoywa"]
+[ext_resource type="Texture2D" uid="uid://b564ytmwqoy3l" path="res://assets/sprites/blob_shadow.png" id="2_f0s2b"]
+[ext_resource type="PackedScene" uid="uid://beom1xo1yuypr" path="res://src/world.tscn" id="2_ljhhu"]
+[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="4_5mgu5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5l7k"]
+shader = ExtResource("1_qoywa")
+shader_parameter/u_speed = 1.0
+shader_parameter/u_color_low = Color(0.01, 0.41, 0.51, 1)
+shader_parameter/u_color_mid_red = Color(0.5, 0.1, 0.3, 1)
+shader_parameter/u_color_high = Color(1, 1, 1, 1)
+
+[node name="MainMenu" type="Control" unique_id=2080455168]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h03rr")
+next_scene = ExtResource("2_ljhhu")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1070499897]
+material = SubResource("ShaderMaterial_v5l7k")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlobShadow" type="Sprite2D" parent="." unique_id=1154190075]
+modulate = Color(1, 1, 1, 0.4)
+position = Vector2(1260, 847)
+scale = Vector2(2.5234375, 1)
+texture = ExtResource("2_f0s2b")
+
+[node name="Character" type="TextureRect" parent="." unique_id=1979667886]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1044.0
+offset_top = 144.0
+offset_right = -80.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qkuje")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=1911362588]
+layout_mode = 0
+offset_left = -37.000004
+offset_top = -72.0
+offset_right = 783.97485
+offset_bottom = 1368.532
+rotation = -0.18048593
+color = Color(0.6014035, 0.4819023, 0.7696603, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1706030612]
+layout_mode = 0
+offset_left = -89.99999
+offset_top = -25.0
+offset_right = 672.0
+offset_bottom = 1415.532
+rotation = -0.32668245
+color = Color(0.98616284, 0.97078735, 0.9771628, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=220634897]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 403.0
+offset_right = 695.0
+offset_bottom = 775.0
+
+[node name="StartGameButton" type="Button" parent="VBoxContainer" unique_id=608372103]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5mgu5")
+theme_override_font_sizes/font_size = 55
+text = "Start Game"
+
+[connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]

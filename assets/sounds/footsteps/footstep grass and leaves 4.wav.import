@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://js5lo7wxq21v"
+path="res://.godot/imported/footstep grass and leaves 4.wav-81c0a95e1367aa2631e680055e0bef19.sample"
+
+[deps]
+
+source_file="res://assets/sounds/footsteps/footstep grass and leaves 4.wav"
+dest_files=["res://.godot/imported/footstep grass and leaves 4.wav-81c0a95e1367aa2631e680055e0bef19.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

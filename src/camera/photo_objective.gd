@@ -2,11 +2,14 @@ extends Node3D
 
 # --- SCORING SETTINGS ---
 const POINTS_PLAYER_POSITION = 1000.0
+const POINTS_PLAYER_ROTATION = 300.0
 const POINTS_PLAYER_HOLD = 500.0
 const POINTS_PER_ITEM = 1000.0
 const PENALTY_EXTRA_ITEM = 200.0
 
 const PERFECT_RADIUS = 1.0
+const POSE_BONUS_POINTS = 200
+const ROTATION_PERFECT_DOT = 0.99
 # ------------------------
 
 # Helper function to calculate quadratic falloff score
@@ -24,11 +27,34 @@ func calculate_distance_score(max_points: float, distance: float, max_tolerance:
 		var multiplier = 1.0 - pow(ratio, 2)
 		return int(max_points * multiplier)
 
-func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array) -> Dictionary:
+func calculate_rotation_score(max_points: float, dot_product: float) -> int:
+	if dot_product >= ROTATION_PERFECT_DOT:
+		return int(max_points)
+	# perfect dot = 0.95 (-18°), below zero means looking opposite direction
+	elif dot_product <= 0.0:
+		return 0
+	else:
+		var ratio = dot_product / ROTATION_PERFECT_DOT
+		return int(max_points * ratio * ratio * ratio)
+
+func reset_required_items() -> void:
+	for child in get_children():
+		if "linked_item" in child and child.linked_item:
+			var item = child.get_node_or_null(child.linked_item)
+			if item and item is PickupableItem:
+				if item.has_method("force_drop"):
+					item.force_drop()
+				item.global_position = item.origin_position
+				item.global_rotation = item.origin_rotation
+				item.linear_velocity = Vector3.ZERO
+				item.angular_velocity = Vector3.ZERO
+
+func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array, posed: bool = false, camera: Camera3D = null) -> Dictionary:
 	var total_score = 0.0
-	var max_possible_score = 0.0 # FIX: We calculate this automatically!
+	var max_possible_score = 0
 	var used_items = []
 	var details = []
+	var player_in_view := true
 	
 	# 1. FIND TARGETS
 	var player_target = null
@@ -42,23 +68,44 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 			
 # 2. PLAYER EVALUATION
 	if player_target:
+		if camera:
+			player_in_view = not camera.is_position_behind(actual_player.global_position)
+			if player_in_view:
+				var unprojected = camera.unproject_position(actual_player.global_position)
+				player_in_view = camera.get_viewport().get_visible_rect().has_point(unprojected)
+
 		max_possible_score += POINTS_PLAYER_POSITION
 		
 		var dist_to_player = actual_player.global_position.distance_to(player_target.global_position)
 		
-		# Calculate smooth score for player position
 		var pos_score = calculate_distance_score(POINTS_PLAYER_POSITION, dist_to_player, player_target.position_tolerance)
 		total_score += pos_score
 		
 		if pos_score == int(POINTS_PLAYER_POSITION):
-			details.append("Perfect player position: +%d" % pos_score + " / %d" % POINTS_PLAYER_POSITION)
+			details.append("Player nailed the spot! [+%d]" % pos_score)
 		elif pos_score > 0:
-			details.append("Good player position: +%d" % pos_score + " / %d" % POINTS_PLAYER_POSITION)
+			details.append("Player close enough [+%d]" % pos_score)
 		else:
-			details.append("Wrong player position: 0" + " / %d" % POINTS_PLAYER_POSITION)
-			
-		# Check holding (This remains binary - you either hold it or you don't)
-		if player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
+			details.append("Player way off!")
+		
+		# 2a. ROTATION SCORING (only if player is visible in frame)
+		if player_in_view:
+			max_possible_score += POINTS_PLAYER_ROTATION
+			var player_forward = actual_player.skin.global_transform.basis.z.normalized()
+			var target_forward = player_target.global_transform.basis.z.normalized()
+			var dot = player_forward.dot(target_forward)
+			var rot_score = calculate_rotation_score(POINTS_PLAYER_ROTATION, dot)
+			total_score += rot_score
+
+			if rot_score == int(POINTS_PLAYER_ROTATION):
+				details.append("Perfect rotation! [+%d]" % rot_score)
+			elif rot_score > 0:
+				details.append("Rotation close enough [+%d]" % rot_score)
+			else:
+				details.append("Wrong rotation!")
+
+		# 2b. HOLD SCORING (only if player is visible in frame)
+		if player_in_view and player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
 			max_possible_score += POINTS_PLAYER_HOLD
 			var hold_id = ""
 			if actual_player.held_item and "item_id" in actual_player.held_item:
@@ -66,48 +113,50 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array)
 				
 			if hold_id == player_target.must_hold_item_id:
 				total_score += POINTS_PLAYER_HOLD
-				details.append("Correct item in hand (%s): +%d" % [hold_id, POINTS_PLAYER_HOLD] + " / %d" % POINTS_PLAYER_HOLD)
+				details.append("Holding %s [+%d]" % [hold_id, POINTS_PLAYER_HOLD])
 				if actual_player.held_item not in used_items:
 					used_items.append(actual_player.held_item)
 			else:
-				details.append("Wrong/missing item in hand: 0" + " / %d" % POINTS_PLAYER_HOLD)
+				details.append("Wrong item in hand!")
 				
 	# 3. ITEMS EVALUATION
 	for target in item_targets:
-		max_possible_score += POINTS_PER_ITEM 
-		
-		var best_match = null
-		var best_dist = 999.0
-		
-		# Find the closest matching item in the camera view
-		for actual_item in items_in_camera_view:
-			if "item_id" in actual_item and actual_item.item_id == target.required_item_id and not actual_item in used_items:
-				var dist = actual_item.global_position.distance_to(target.global_position)
-				if dist < best_dist:
-					best_dist = dist
-					best_match = actual_item
-		
-		# Evaluate the closest item we found
-		if best_match and best_dist < target.position_tolerance:
-			var item_score = calculate_distance_score(POINTS_PER_ITEM, best_dist, target.position_tolerance)
-			total_score += item_score
-			used_items.append(best_match)
-			
-			if item_score == int(POINTS_PER_ITEM):
-				details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+		max_possible_score += POINTS_PER_ITEM
+
+		var linked_item = null
+		if target.linked_item:
+			linked_item = target.get_node_or_null(target.linked_item)
+
+		if linked_item and linked_item in items_in_camera_view and not linked_item in used_items:
+			var dist = linked_item.global_position.distance_to(target.global_position)
+			if dist < target.position_tolerance:
+				var item_score = calculate_distance_score(POINTS_PER_ITEM, dist, target.position_tolerance)
+				total_score += item_score
+				used_items.append(linked_item)
+
+				if item_score == int(POINTS_PER_ITEM):
+					details.append("%s right where it belongs! [+%d]" % [target.required_item_id, item_score])
+				else:
+					details.append("%s almost there [+%d]" % [target.required_item_id, item_score])
 			else:
-				details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+				details.append("%s too far away!" % target.required_item_id)
 		else:
-			details.append("Missing/far item (%s): 0" % target.required_item_id + " / %d" % POINTS_PER_ITEM)
+			details.append("%s not found!" % target.required_item_id)
 			
 	# 4. PENALTY FOR EXTRA ITEMS IN VIEW
 	var extra_items_count = items_in_camera_view.size() - used_items.size()
 	if extra_items_count > 0:
 		var penalty = extra_items_count * PENALTY_EXTRA_ITEM
 		total_score -= penalty
-		details.append("Penalty (extra items %dx): -%d" % [extra_items_count, penalty])
-		
-	total_score = max(0.0, total_score) # No negative scores
+		details.append("Clutter penalty x%d: -%d" % [extra_items_count, penalty])
+
+	total_score = max(0.0, total_score)
+
+	# 5. POSE BONUS (only if player is visible in frame)
+	if posed and player_in_view and total_score < max_possible_score:
+		var bonus = min(POSE_BONUS_POINTS, max_possible_score - total_score)
+		total_score += bonus
+		details.append("Strike a pose! [+%d]" % bonus)
 	
 	return {
 		"earned": total_score,

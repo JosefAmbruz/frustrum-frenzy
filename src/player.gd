@@ -57,7 +57,7 @@ var original_hold_pos: Vector3
 
 @onready var _camera_pivot : Node3D = %CameraPivot
 @onready var _camera : Camera3D = %Camera3D
-@onready var _skin : Node3D = %PlayerSkin
+@onready var _skin : PlayerSkin = %PlayerSkin
 @onready var _particle_trail : GPUParticles3D = %ParticleTrail
 @onready var _sound_footsteps = %SoundFootsteps
 @onready var _hold_position := %HoldPosition
@@ -287,17 +287,10 @@ func _physics_process(delta: float) -> void:
 	var target_angle := Vector3.BACK.signed_angle_to(_last_movement_direction, Vector3.UP)
 	_skin.global_rotation.y = lerp_angle(_skin.rotation.y, target_angle, rotation_speed * delta)
 
-	# TODO animation state switches
-	if is_starting_jump:
-		pass
-	elif not is_on_floor() and velocity.y < 0:
-		pass
-	elif is_on_floor():
-		var ground_speed := Vector2(velocity.x, velocity.z).length()
-		if ground_speed > 0.0:
-			pass
-		else:
-			pass
+	# Update blend position based on normalized velocity (standing vs walking vs running)
+	var ground_speed := Vector2(velocity.x, velocity.z).length()
+	var blend_position : float = clamp(ground_speed / sprint_speed, 0.0, 1.0)
+	_skin.set_moving_blend_position(blend_position)
 
 func handle_effects(_delta: float) -> void:
 	var is_sprinting := Input.is_action_pressed("sprint")

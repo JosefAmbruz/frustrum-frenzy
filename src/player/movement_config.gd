@@ -18,10 +18,11 @@ class_name MovementConfig extends Resource
 @export var climb_speed_down := 2.0
 @export var climb_slide_idle := 2.5
 @export var climb_accel := 18.0
-@export var climb_detach_push := 1.2
 @export var min_into_wall_dot := 0.08
 @export var wall_stick_force := 0.4
 @export var climb_strafe_speed := 2.5
+@export var climb_top_pop_velocity := 8.0
+@export var climb_detach_push := 4.0
 
 @export_category("Wall Jump")
 @export var wall_jump_push := 14.0

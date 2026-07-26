@@ -13,6 +13,12 @@ const MESH_DICT = {
 
 # INCREASED TOLERANCE: 2.0 meters gives the player a fair chance to place the item
 @export var position_tolerance: float = 4.0 
+@export var linked_item: NodePath
+
+func set_highlight(state: bool) -> void:
+	var item = get_node_or_null(linked_item) if linked_item else null
+	if item and item is PickupableItem:
+		item.highlight(state)
 
 func _ready() -> void:
 	# 1. ALWAYS load the correct 3D model (both in editor and in game)

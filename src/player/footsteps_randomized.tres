@@ -1,0 +1,21 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://ckwudc16m2tqj"]
+
+[ext_resource type="AudioStream" uid="uid://dyrhsbxnxplh7" path="res://assets/sounds/footsteps/footstep grass and leaves 2.wav" id="1_hhfb7"]
+[ext_resource type="AudioStream" uid="uid://7653gxkyl3er" path="res://assets/sounds/footsteps/footstep grass and leaves 3.wav" id="2_w6vwv"]
+[ext_resource type="AudioStream" uid="uid://js5lo7wxq21v" path="res://assets/sounds/footsteps/footstep grass and leaves 4.wav" id="3_6v5dg"]
+[ext_resource type="AudioStream" uid="uid://yng6nlrj8n6g" path="res://assets/sounds/footsteps/footstep grass and leaves 5.wav" id="4_2si3k"]
+[ext_resource type="AudioStream" uid="uid://dwvbkfh2u844v" path="res://assets/sounds/footsteps/footstep grass and leaves 6.wav" id="5_kandk"]
+[ext_resource type="AudioStream" uid="uid://cwdowd2m4p0kl" path="res://assets/sounds/footsteps/footstep grass and leaves 7.wav" id="6_pl8li"]
+[ext_resource type="AudioStream" uid="uid://cilbqmsgk8asx" path="res://assets/sounds/footsteps/footstep grass and leaves 8.wav" id="7_pro7u"]
+[ext_resource type="AudioStream" uid="uid://d3x210iynj2he" path="res://assets/sounds/footsteps/footstep grass and leaves 9.wav" id="8_rsuaf"]
+
+[resource]
+streams_count = 8
+stream_0/stream = ExtResource("1_hhfb7")
+stream_1/stream = ExtResource("2_w6vwv")
+stream_2/stream = ExtResource("3_6v5dg")
+stream_3/stream = ExtResource("4_2si3k")
+stream_4/stream = ExtResource("5_kandk")
+stream_5/stream = ExtResource("6_pl8li")
+stream_6/stream = ExtResource("7_pro7u")
+stream_7/stream = ExtResource("8_rsuaf")

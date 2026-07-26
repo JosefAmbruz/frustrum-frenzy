@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Frustrum Frenzy"
-run/main_scene="uid://beom1xo1yuypr"
+run/main_scene="uid://ve7fk11lt2cm"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 EventBus="*uid://buxus5sq6w424"
+SoundManager="*uid://bblmo0b0dltri"
 
 [display]
 

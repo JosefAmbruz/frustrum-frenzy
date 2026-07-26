@@ -2,7 +2,11 @@ extends Node3D
 
 @export var player: NodePath
 
-@onready var interaction_label: Label3D = %Label
+@onready var icon: Sprite3D = %Icon
+@onready var interaction_label: Label = %Label
+@onready var second_input: HBoxContainer = %SecondInput
+@onready var label_secondary: Label = %LabelSecondary
+
 var curr_interactions := []
 var can_interact := true
 var interaction_blocked := false
@@ -16,10 +20,10 @@ func _ready() -> void:
 	EventBus.interaction_text_toggled.connect(_on_interaction_text_toggled)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and can_interact:
+	if event.is_action_pressed("interact") and can_interact and not interaction_blocked:
 		if curr_interactions:
 			can_interact = false
-			interaction_label.hide()
+			icon.hide()
 			
 			await curr_interactions[0].interact.call(_get_player_node())
 			
@@ -29,16 +33,22 @@ func _process(delta: float) -> void:
 	if curr_interactions and can_interact and not interaction_blocked:
 		curr_interactions.sort_custom(_sort_by_nearest)
 		if curr_interactions[0].is_interactable:
-			interaction_label.text = curr_interactions[0].interact_name
-			interaction_label.show()
+			if curr_interactions[0].interact_name == "replaceme":
+				interaction_label.text = "Drop"
+				label_secondary.text = "Throw"
+				second_input.show()
+			else:
+				interaction_label.text = curr_interactions[0].interact_name
+				second_input.hide()
+				icon.show()
 	else:
-		interaction_label.hide()
+		icon.hide()
 	
 
 func _on_interaction_text_toggled(visible: bool) -> void:
 	interaction_blocked = not visible
 	if interaction_blocked:
-		interaction_label.hide()
+		icon.hide()
 
 func _sort_by_nearest(area1, area2):
 	var area1_dist = global_position.distance_to(area1.global_position)

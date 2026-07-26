@@ -1,24 +1,43 @@
 extends StaticBody3D
 
-@export var target_photo: Texture2D
+@export var countdown_time: int = 15
+@export var respawn_offset: Vector3 = Vector3(0, 1, 2)
 
 var in_camera: bool = false
 var _interact_lock := false
 var dot_tween: Tween
+var _has_posed := false
+var _required_pose_key: String = ""
+
+const _KEY_E_TEXTURE := preload("res://assets/ui/inputs/keyboard_e.png")
+const _KEY_LMB_TEXTURE := preload("res://assets/ui/inputs/mouse_left.png")
+const _KEY_SPACE_TEXTURE := preload("res://assets/ui/inputs/keyboard_space.png")
+
+var _key_textures := {}
+var _reference_texture: Texture2D
+var _captured_texture: Texture2D
+var _ghosts_visible := true
+var _photo_taken := false
 
 @onready var view_camera = $Camera3D
 @onready var countdown_timer = $CountdownTimer
-@onready var countdown_label = $CanvasLayer/TimerUI/CountdownLabel
-@onready var camera_overlay = $CanvasLayer/CameraOverlay
-@onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
-@onready var photo_result_ui = $CanvasLayer/PhotoResultUI
-@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/CapturedFrame/CapturedImage
-@onready var reference_image = $CanvasLayer/PhotoResultUI/ResultContainer/PhotoContainer/ReferenceFrame/ReferenceImage
-@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/ScoreLabel
-@onready var details_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/DetailsLabel
-@onready var fade_rect = $CanvasLayer/FadeRect
+@onready var countdown_label: Label = %CountdownLabel
+@onready var camera_overlay: Control = %CameraOverlay
+@onready var red_dot: Panel = %RedDot
+@onready var photo_result_ui: Control = %PhotoResultUI
+@onready var captured_image: TextureRect = %CapturedImage
+@onready var toggle_hint: HBoxContainer = %ToggleHint
+@onready var score_label: Label = %ScoreLabel
+@onready var details_label: Label = %DetailsLabel
+@onready var fade_rect: ColorRect = %FadeRect
 @onready var interactable: Area3D = %Interactable
-@onready var timer_ui = $CanvasLayer/TimerUI
+@onready var timer_ui: Control = %TimerUI
+@onready var pose_timer: Timer = $PoseTimer
+@onready var pose_intro_timer: Timer = $PoseIntroTimer
+@onready var pose_prompt: Label = %PosePrompt
+@onready var pose_key_icon: TextureRect = %PoseKeyIcon
+@onready var reference_viewport: SubViewport = $ReferenceViewport
+@onready var reference_camera: Camera3D = $ReferenceViewport/Camera3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,7 +45,16 @@ func _ready() -> void:
 	if timer_ui:
 		timer_ui.visible = false
 	camera_overlay.visible = false
+	EventBus.pose_performed.connect(_on_pose_performed)
+	_key_textures = {
+		"interact": _KEY_E_TEXTURE,
+		"left_click": _KEY_LMB_TEXTURE,
+		"jump": _KEY_SPACE_TEXTURE,
+	}
 	print("debug: Camera start")
+
+func _on_pose_performed() -> void:
+	_has_posed = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -42,11 +70,18 @@ func _process(delta: float) -> void:
 
 # Switch and leave camera view
 func _unhandled_input(event: InputEvent) -> void:
-	# throw away photo
+	# toggle ghosts on photo result
 	if photo_result_ui.visible and event.is_action_pressed("left_click"):
+		_toggle_ghost_overlay()
+		get_viewport().set_input_as_handled()
+		return
+
+	if photo_result_ui.visible and event.is_action_pressed("interact"):
 		photo_result_ui.visible = false
-		get_viewport().set_input_as_handled() # consume the input so the player doesnt throw the item
-		EventBus.player_released.emit() # back to player interaction
+		_photo_taken = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		EventBus.player_released.emit.call_deferred()
+		EventBus.interaction_text_toggled.emit.call_deferred(true)
 		return
 
 	if event.is_action_released("interact"):
@@ -59,6 +94,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		view_camera.clear_current()
 		in_camera = false
 		toggle_hologram(false)
+		disable_highlights()
 		camera_overlay.visible = false
 		interactable.is_interactable = true
 		print("debug: Cleared camera view")
@@ -80,7 +116,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			dot_tween.kill()
 		red_dot.modulate.a = 1.0
 		
-		countdown_timer.start(10)
+		reset_objective_items()
+		countdown_timer.start(countdown_time)
 		timer_ui.visible = true
 		camera_overlay.visible = false
 		
@@ -88,52 +125,137 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		EventBus.player_released.emit()
 		print("debug: Start timer")
+		
+		# play camera countdown music
+		SoundManager.play_camera_music()
 
 
 # Timer ended
-func _on_countdown_timer_timeout() -> void:    
+func _on_countdown_timer_timeout() -> void:
 	EventBus.player_captured.emit() # lock player movement
 	timer_ui.visible = false
 	EventBus.interaction_text_toggled.emit(false) # turn off text like "Drop [E]"
 
-	# fade to black (or white)
-	var flash_tween = create_tween()
-	flash_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.15)
-	await flash_tween.finished # wait for tweet to finish
-	
-	# work in dark
-	camera_overlay.visible = false
 	view_camera.make_current() # switch to tripod
-	
-	# wait for GPU to render frames
-	fade_rect.visible = false
-	await get_tree().process_frame
-	await get_tree().process_frame
-	
-	# make a picture and create texture
-	var viewport_img = get_viewport().get_texture().get_image()
-	var final_texture = ImageTexture.create_from_image(viewport_img)
-	fade_rect.visible = true
-	
-	# show picture
-	captured_image.texture = final_texture
-	photo_result_ui.visible = true
-	EventBus.interaction_text_toggled.emit(true) # turn on text like "Drop [E]"
 
-	# show picture
+	# POSING WINDOW - Phase 1: "POSE!" intro
+	_has_posed = false
+
+	var keys := ["interact", "left_click", "jump"]
+	_required_pose_key = keys[randi() % keys.size()]
+
+	pose_prompt.text = "POSE!"
+	pose_prompt.modulate.a = 0.0
+	pose_prompt.visible = true
+	pose_key_icon.visible = false
+
+	var intro_tween = create_tween()
+	intro_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_interval(0.4)
+	intro_tween.tween_property(pose_prompt, "modulate:a", 0.0, 0.3).set_ease(Tween.EASE_IN)
+
+	pose_intro_timer.start()
+
+
+func _on_pose_intro_timer_timeout() -> void:
+	pose_prompt.visible = false
+	pose_key_icon.texture = _key_textures.get(_required_pose_key)
+	pose_key_icon.modulate.a = 0.0
+	pose_key_icon.visible = true
+	var key_tween = create_tween().set_ease(Tween.EASE_OUT)
+	key_tween.tween_property(pose_key_icon, "modulate:a", 1.0, 0.2)
+
+	EventBus.pose_window_started.emit(1.0, _required_pose_key)
+	pose_timer.start(1.0)
+
+func _on_pose_timer_timeout() -> void:
+	EventBus.pose_window_ended.emit()
+	EventBus.interaction_text_toggled.emit(false)
+	pose_prompt.visible = false
+	pose_key_icon.visible = false
+
+	# wait for GPU to render frames
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	# turn off highlights so they don't appear in the photo
+	disable_highlights()
+
+	# hide viewfinder UI before final capture
+	camera_overlay.visible = false
+
+	# --- FINAL PHOTO WITHOUT GHOSTS (no overlay) ---
+	await get_tree().process_frame
+	var final_img = get_viewport().get_texture().get_image()
+	_captured_texture = ImageTexture.create_from_image(final_img)
+
+	# play camera click sound
+	SoundManager.play_sound("camera_click_sound")
+
+	# restore background music
+	SoundManager.restore_background_music()
+
+	# --- FLASH covers ghost toggle ---
+	fade_rect.modulate.a = 1.0
+	fade_rect.visible = true
+	await get_tree().process_frame
+
+	# enable ghosts (covered by white flash)
+	_ghosts_visible = true
+	toggle_hologram(true)
+
+	# sync reference camera and render one frame
+	reference_viewport.world_3d = get_viewport().world_3d
+	reference_viewport.size = Vector2i(get_viewport().get_visible_rect().size)
+	reference_camera.global_transform = view_camera.global_transform
+	reference_camera.fov = view_camera.fov
+	reference_camera.make_current()
+	reference_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await get_tree().process_frame
+
+	# capture reference from SubViewport (clean, no overlay)
+	var ref_img = reference_viewport.get_texture().get_image()
+	_reference_texture = ImageTexture.create_from_image(ref_img)
+
+	# disable ghosts
+	toggle_hologram(false)
+	_ghosts_visible = false
+
+	# show reference photo (with ghosts)
+	_ghosts_visible = true
+	captured_image.texture = _reference_texture
+	photo_result_ui.visible = true
+	_photo_taken = true
+	toggle_hint.show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	EventBus.interaction_text_toggled.emit(false)
+
+	# reveal with fade from white
 	var reveal_tween = create_tween()
 	reveal_tween.tween_property(fade_rect, "modulate:a", 0.0, 0.2)
 
-	# Call the new evaluation system
+	# evaluate
 	evaluate_new_objectives()
 
 	view_camera.clear_current()
 	interactable.is_interactable = true
-	
+
 	print("debug: Camera shoot")
 
-func _on_interact(_player : CharacterBody3D):
+
+func _toggle_ghost_overlay() -> void:
+	if not _photo_taken:
+		return
+	_ghosts_visible = not _ghosts_visible
+	if _ghosts_visible:
+		captured_image.texture = _reference_texture
+	else:
+		captured_image.texture = _captured_texture
+
+func _on_interact(player : CharacterBody3D):
 	if not in_camera:
+		player.current_checkpoint = global_position + global_transform.basis * respawn_offset
+
 		# Capture players' movement
 		EventBus.player_captured.emit()
 		
@@ -155,14 +277,10 @@ func _on_interact(_player : CharacterBody3D):
 		
 		in_camera = true
 		toggle_hologram(true)
+		enable_highlights()
 
 # --- NEW EVALUATION SYSTEM INTEGRATION ---
 func evaluate_new_objectives() -> void:
-	if target_photo != null:
-		reference_image.texture = target_photo
-	else:
-		print("ERROR: Missing target photo in inspector!")
-		
 	var player_node = get_tree().get_first_node_in_group("player")
 	
 	# Find the Objectives folder
@@ -187,7 +305,7 @@ func evaluate_new_objectives() -> void:
 	var visible_items = get_items_in_camera_view()
 	
 # Evaluate! returns a Dictionary now
-	var score_result = active_objective.evaluate_photo(player_node, visible_items)
+	var score_result = active_objective.evaluate_photo(player_node, visible_items, _has_posed, view_camera)
 	
 	var final_score = score_result["earned"]
 	var max_score = score_result["max"]
@@ -198,22 +316,34 @@ func evaluate_new_objectives() -> void:
 	if max_score > 0:
 		percentage = (final_score / max_score) * 100.0
 	
-	# Update UI to show format: 2500 / 3500
-	score_label.text = "Score: %d / %d\n" % [final_score, max_score]
-	
-	if percentage >= 80.0:
-		score_label.add_theme_color_override("font_color", Color.GREEN)
+	# Update UI to show format: 2500 / 3500 with grade
+	var grade_text = ""
+	if percentage >= 90.0:
+		grade_text = "STAR PHOTO!"
+		score_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0))
+	elif percentage >= 80.0:
+		grade_text = "Great shot!"
+		score_label.add_theme_color_override("font_color", Color(0.2, 0.9, 0.6))
 	elif percentage >= 50.0:
-		score_label.add_theme_color_override("font_color", Color.YELLOW)
+		grade_text = "Nice try!"
+		score_label.add_theme_color_override("font_color", Color(0.0, 0.8, 1.0))
 	else:
-		score_label.add_theme_color_override("font_color", Color.RED)
-	
-	# details
+		grade_text = "Try again!"
+		score_label.add_theme_color_override("font_color", Color(1.0, 0.4, 0.4))
+
+	score_label.text = "%d / %d\n%s" % [final_score, max_score, grade_text]
+
+	# details with playful prefixes
 	if details_label != null:
 		var details_text = ""
 		for detail in details_array:
-			details_text += detail + "\n"
-			
+			var prefix = "> "
+			if "wrong" in detail or "not found" in detail or "too far" in detail or "Clutter" in detail:
+				prefix = "x "
+			elif "nailed" in detail or "belongs" in detail or "Pose" in detail:
+				prefix = "* "
+			details_text += prefix + detail + "\n"
+
 		details_label.text = details_text
 
 # Helper function to find all items the camera can see
@@ -249,6 +379,26 @@ func toggle_hologram(show_hologram: bool) -> void:
 			# if the target has a GhostMesh, change its visibility
 			if target.has_node("GhostMesh"):
 				target.get_node("GhostMesh").visible = show_hologram
-	
-	
-	
+
+func reset_objective_items() -> void:
+	if not has_node("Objectives"):
+		return
+	for objective in $Objectives.get_children():
+		if objective.has_method("reset_required_items"):
+			objective.reset_required_items()
+
+func enable_highlights() -> void:
+	if not has_node("Objectives"):
+		return
+	for objective in $Objectives.get_children():
+		for target in objective.get_children():
+			if target.has_method("set_highlight"):
+				target.set_highlight(true)
+
+func disable_highlights() -> void:
+	if not has_node("Objectives"):
+		return
+	for objective in $Objectives.get_children():
+		for target in objective.get_children():
+			if target.has_method("set_highlight"):
+				target.set_highlight(false)

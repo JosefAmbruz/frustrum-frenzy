@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bpde2y50k2xlb"]
+
+[ext_resource type="Texture2D" uid="uid://co4iimpgtjc5t" path="res://assets/models/player/bunny_exhausted_texture.png" id="1_ivma7"]
+
+[resource]
+resource_name = "Material"
+cull_mode = 2
+shading_mode = 0
+diffuse_mode = 2
+albedo_texture = ExtResource("1_ivma7")

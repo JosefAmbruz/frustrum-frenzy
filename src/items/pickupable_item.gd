@@ -6,7 +6,7 @@ class_name PickupableItem extends RigidBody3D
 # item properties
 @export_group("Item Properties")
 @export var boost_jump_power: float = 25.0
-@export var picked_up_label: String = "[E] Drop [LMB] Throw"
+@export var picked_up_label: String = "replaceme"
 @export var item_id: String = "unknown"
 
 var _held := false
@@ -17,6 +17,8 @@ var _saved_collision_mask := 0
 var _saved_linear_velocity := Vector3.ZERO
 var _saved_angular_velocity := Vector3.ZERO
 var _default_interact_name := ""
+var _highlight_material: Material = null
+var _highlighted_meshes: Array[MeshInstance3D] = []
 
 var origin_position: Vector3
 var origin_rotation: Vector3
@@ -95,4 +97,49 @@ func drop(player: CharacterBody3D) -> void:
 func throw(player: CharacterBody3D, aim_direction: Vector3, force: float) -> void:
 	drop(player)
 	apply_central_impulse(aim_direction * force)
+
+func force_drop() -> void:
+	if not _held:
+		return
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		drop(player)
+
+func highlight(state: bool) -> void:
+	if state:
+		_add_outlines()
+	else:
+		_remove_outlines()
+
+func _add_outlines() -> void:
+	_remove_outlines()
+	_add_outline_recursive(self)
+
+func _add_outline_recursive(node: Node) -> void:
+	if node is MeshInstance3D:
+		node.material_overlay = _get_outline_material()
+		_highlighted_meshes.append(node)
+		
+	for child in node.get_children():
+		_add_outline_recursive(child)
+
+func _remove_outlines() -> void:
+	for mesh in _highlighted_meshes:
+		if is_instance_valid(mesh):
+			mesh.material_overlay = null
+	_highlighted_meshes.clear()
+
+func _get_outline_material() -> Material:
+	if _highlight_material == null:
+		_highlight_material = StandardMaterial3D.new()
+		
+		_highlight_material.cull_mode = BaseMaterial3D.CULL_FRONT
+		_highlight_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED 
+		
+		_highlight_material.albedo_color = Color(0.0, 0.0, 0.0, 1.0)
+		
+		_highlight_material.grow = true
+		_highlight_material.grow_amount = 0.015 
+		
+	return _highlight_material
 	

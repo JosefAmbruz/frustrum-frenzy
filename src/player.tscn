@@ -15,7 +15,9 @@
 [ext_resource type="Script" uid="uid://c5twdpjlf7iim" path="res://src/player/states/jump.gd" id="9_nic3v"]
 [ext_resource type="Script" uid="uid://ce7l43lhdcrd0" path="res://src/player/states/climbing.gd" id="10_dxtnc"]
 [ext_resource type="Script" uid="uid://cx7dkghpe0efc" path="res://src/player/states/captured.gd" id="11_nic3v"]
+[ext_resource type="Script" uid="uid://lc570wlytc8" path="res://src/player/states/pose.gd" id="12_pose"]
 [ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="13_nic3v"]
+[ext_resource type="AudioStream" uid="uid://ckwudc16m2tqj" path="res://src/player/footsteps_randomized.tres" id="18_qntp5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5l7k"]
 radius = 0.28076172
@@ -74,7 +76,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8064624, 0.094560385)
 player = NodePath("../..")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="PlayerSkin" unique_id=1303701385]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6783708, -0.69625014)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6783708, -0.5687095)
 shape = SubResource("SphereShape3D_pg28d")
 spring_length = 1.65
 
@@ -109,47 +111,47 @@ fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_ehvfd")
 draw_pass_1 = ExtResource("4_bktlc")
 
-[node name="SoundFootsteps" type="AudioStreamPlayer" parent="." unique_id=235858510]
-unique_name_in_owner = true
-
 [node name="StateMachine" type="Node" parent="." unique_id=1170832295 node_paths=PackedStringArray("initial_state", "_debug_label")]
 unique_name_in_owner = true
 script = ExtResource("5_21lrq")
 initial_state = NodePath("Idle")
-debug_mode = true
 _debug_label = NodePath("../DebugLabel")
 metadata/_custom_type_script = "uid://cqjvw1qlq1t8y"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=2136070807 node_paths=PackedStringArray("move_state", "jump_state", "climb_state", "movement_component")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2136070807 node_paths=PackedStringArray("move_state", "jump_state", "climb_state", "movement_component", "skin")]
 script = ExtResource("7_rq7o7")
 move_state = NodePath("../Move")
 jump_state = NodePath("../Jump")
 climb_state = NodePath("../Climbing")
 movement_component = NodePath("../../MovementComponent")
 movement_config = ExtResource("2_nc72e")
+skin = NodePath("../../PlayerSkin")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
-[node name="Move" type="Node" parent="StateMachine" unique_id=1639418335 node_paths=PackedStringArray("idle_state", "jump_state", "climb_state", "movement_component")]
+[node name="Move" type="Node" parent="StateMachine" unique_id=1639418335 node_paths=PackedStringArray("idle_state", "jump_state", "climb_state", "movement_component", "skin")]
 script = ExtResource("8_dxtnc")
 idle_state = NodePath("../Idle")
 jump_state = NodePath("../Jump")
 climb_state = NodePath("../Climbing")
 movement_component = NodePath("../../MovementComponent")
+skin = NodePath("../../PlayerSkin")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=1649362700 node_paths=PackedStringArray("move_state", "climb_state", "wall_jump_state", "movement_component")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1649362700 node_paths=PackedStringArray("move_state", "climb_state", "wall_jump_state", "movement_component", "skin")]
 script = ExtResource("9_nic3v")
 move_state = NodePath("../Move")
 climb_state = NodePath("../Climbing")
-movement_component = NodePath("../../MovementComponent")
 wall_jump_state = NodePath("../WallJump")
+movement_component = NodePath("../../MovementComponent")
+skin = NodePath("../../PlayerSkin")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
-[node name="WallJump" type="Node" parent="StateMachine" unique_id=127669017 node_paths=PackedStringArray("move_state", "climb_state", "movement_component")]
+[node name="WallJump" type="Node" parent="StateMachine" unique_id=127669017 node_paths=PackedStringArray("move_state", "climb_state", "movement_component", "skin")]
 script = ExtResource("9_ndfpv")
 move_state = NodePath("../Move")
 climb_state = NodePath("../Climbing")
 movement_component = NodePath("../../MovementComponent")
+skin = NodePath("../../PlayerSkin")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="Climbing" type="Node" parent="StateMachine" unique_id=1283772333 node_paths=PackedStringArray("idle_state", "move_state", "jump_state", "wall_jump_state", "movement_component")]
@@ -167,6 +169,12 @@ script = ExtResource("11_nic3v")
 movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
+[node name="Pose" type="Node" parent="StateMachine" unique_id=2014561316 node_paths=PackedStringArray("movement_component", "skin")]
+script = ExtResource("12_pose")
+movement_component = NodePath("../../MovementComponent")
+skin = NodePath("../../PlayerSkin")
+metadata/_custom_type_script = "uid://cxcvvroinb6nx"
+
 [node name="DebugLabel" type="Label3D" parent="." unique_id=1876485247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4288237, 0)
 pixel_size = 0.0015
@@ -175,6 +183,10 @@ fixed_size = true
 text = "None"
 font = ExtResource("13_nic3v")
 font_size = 24
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1834633286]
+unique_name_in_owner = true
+stream = ExtResource("18_qntp5")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

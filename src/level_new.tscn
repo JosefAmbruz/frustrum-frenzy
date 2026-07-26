@@ -255,6 +255,26 @@ transform = Transform3D(0.21163619, 0, 0.11399328, 0, 4.407518, 0, -0.10786995, 
 [node name="Area3D" parent="CSGCombiner3D/block-grass-low-large2/trap-spikes-large3" unique_id=2063637545 instance=ExtResource("9_jf0pr")]
 transform = Transform3D(0.0010000002, 0, 0, 0, 0.001, 0, 0, 0, 0.0010000002, 0.01032424, 0.08438134, -0.005984314)
 
+[node name="ladder-long4" parent="CSGCombiner3D/block-grass-low-large2" unique_id=1452702242 instance=ExtResource("9_2onrh")]
+transform = Transform3D(0.052255716, 0, 0.073131844, 0, 3.3923197, 0, -0.060274918, 0, 0.06340211, -0.6745157, 3.4376218, 0.032332152)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long4" unique_id=914840903 groups=["climbable"]]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long4/StaticBody3D" unique_id=170554335]
+transform = Transform3D(1, 0, 0, 0, 1.0000534, 0, 0, 0, 1, -0.00034713745, 1.1007993, -0.0016622543)
+shape = SubResource("BoxShape3D_hwyno")
+
+[node name="ladder-long5" parent="CSGCombiner3D/block-grass-low-large2" unique_id=783219164 instance=ExtResource("9_2onrh")]
+transform = Transform3D(0.052473977, 0, 0.07290141, 0, 3.0622456, 0, -0.060085002, 0, 0.063666925, -0.584146, 8.07753, 0.10878943)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long5" unique_id=1941969593 groups=["climbable"]]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long5/StaticBody3D" unique_id=448127362]
+transform = Transform3D(1, 0, 0, 0, 1.0000534, 0, 0, 0, 1, -0.00034713745, 1.1007993, -0.0016622543)
+shape = SubResource("BoxShape3D_hwyno")
+
 [node name="block-grass-overhang-large-tall2" parent="CSGCombiner3D" unique_id=1419239092 instance=ExtResource("9_ma8n1")]
 transform = Transform3D(5.1518874, 0, 0, 0, 4.834405, 0, 0, 0, 6.235884, 28.5651, -0.11447978, 5.886306)
 
@@ -1332,6 +1352,12 @@ transform = Transform3D(0.6395004, 0, -0.85646695, 0, 0.6936518, 0, 1.06104, 0, 
 [node name="tree-snow2" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=572846827 instance=ExtResource("25_wjguc")]
 transform = Transform3D(2.1177466, 0, 0, 0, 0.83225405, 0, 0, 0, 1.7687039, 10.435934, 3.020699, 3.4599724)
 
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D/block-grass-large-tall2/tree-snow2" unique_id=1192868298]
+transform = Transform3D(0.46192273, 0, 0, 0, 1.1946268, 0, 5.506548e-08, 0, 0.60938144, 0, 0.3794458, 0)
+visible = false
+use_collision = true
+height = 2.635254
+
 [node name="block-snow-overhang-edge3" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=1360747439 instance=ExtResource("23_q78mr")]
 transform = Transform3D(0.010725021, 0, -1.3001938, 0, 1, 0, 1.4420658, 0, 0.0096699, 8.592006, 0.6084175, 3.9874105)
 
@@ -1345,13 +1371,46 @@ use_collision = true
 size = Vector3(1, 0.5234375, 1)
 
 [node name="block-moving-large4" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=533588904 instance=ExtResource("21_jiasx")]
-transform = Transform3D(1.8479464, 0, 1.5277613, 0, 0.7706896, 0, -1.6022243, 0, 1.7620634, -8.746642, 3.441377, 8.060102)
+transform = Transform3D(2.7404304, 0, 2.41419, 0, 0.7706896, 0, -2.3760345, 0, 2.7844374, -8.492182, 3.441377, 8.970986)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/block-grass-large-tall2/block-moving-large4" unique_id=2100621311]
 transform = Transform3D(0.99998826, 0, -1.1920929e-07, 0, 0.99999213, 0, -8.940697e-08, 0, 0.99999976, 0, 0.23828113, 0)
 visible = false
 use_collision = true
 size = Vector3(1, 0.5234375, 1)
+
+[node name="block-moving-large5" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=1747904573 instance=ExtResource("21_jiasx")]
+transform = Transform3D(1.1356874, 0, 2.065487, 0, 0.7706896, 0, -2.1661587, 0, 1.0829065, -10.151077, 3.0966096, 20.992346)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/block-grass-large-tall2/block-moving-large5" unique_id=1244895953]
+transform = Transform3D(0.99998826, 0, -1.1920929e-07, 0, 0.99999213, 0, -8.940697e-08, 0, 0.99999976, 0, 0.23828113, 0)
+visible = false
+use_collision = true
+size = Vector3(1, 0.5234375, 1)
+
+[node name="saw3" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=376491878 instance=ExtResource("21_5n7th")]
+transform = Transform3D(1.5743425, 0, 1.8236839, 0, 1.2561206, 0, -2.6911163, 0, 1.0668819, -4.2737565, 4.234946, 24.364126)
+
+[node name="Area3D" parent="CSGCombiner3D/block-grass-large-tall2/saw3" unique_id=692248316 instance=ExtResource("9_jf0pr")]
+transform = Transform3D(0.0010000002, 0, 0, 0, 6.1340266e-05, 0.000998117, 0, -0.0009981169, 6.134028e-05, 0.01032424, -0.075663134, -0.015820006)
+
+[node name="block-moving-large6" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=220843912 instance=ExtResource("21_jiasx")]
+transform = Transform3D(1.1356874, 0, 2.065487, 0, 0.7706896, 0, -2.1661587, 0, 1.0829065, -2.710156, 3.663133, 25.138458)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/block-grass-large-tall2/block-moving-large6" unique_id=1702085620]
+transform = Transform3D(0.99998826, 0, -1.1920929e-07, 0, 0.99999213, 0, -8.940697e-08, 0, 0.99999976, 0, 0.23828113, 0)
+visible = false
+use_collision = true
+size = Vector3(1, 0.5234375, 1)
+
+[node name="fence-rope3" parent="CSGCombiner3D/block-grass-large-tall2" unique_id=117466807 instance=ExtResource("24_2d3vv")]
+transform = Transform3D(1.6041371, 0, 0.60059285, 0, 0.90387756, 0, -1.2049615, 0, 0.7995552, 10.896324, 3.0519183, 5.2418323)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/block-grass-large-tall2/fence-rope3" unique_id=790956199]
+transform = Transform3D(1.0154846, 0, -9.086197e-09, 0, 1.0000002, 0, 0, 0, 0.30488217, 0, -0.05120802, 0)
+visible = false
+use_collision = true
+size = Vector3(1, 0.897583, 1)
 
 [node name="block-grass-long3" parent="CSGCombiner3D" unique_id=1130514223 instance=ExtResource("2_uihir")]
 transform = Transform3D(-0.003599217, 0, -2.7778354, 0, 1.5331066, 0, 1.294566, 0, -0.007723077, -0.41917795, -0.1580739, -36.04658)
@@ -1393,6 +1452,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8130536, -0.06685853, -43.1
 
 [node name="PumpkinItem3" parent="PickupableItems" unique_id=387585981 instance=ExtResource("4_uihir")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.742265, 1.5491588, -50.27749)
+
+[node name="AppleItem3" parent="PickupableItems" unique_id=1463082205 instance=ExtResource("3_423ok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.220543, 14.456848, -37.840065)
 
 [node name="CameraTripod" parent="." unique_id=126854732 instance=ExtResource("7_wa755")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13646638, -22.670008)
@@ -1441,6 +1503,27 @@ transform = Transform3D(-0.020340774, -0.17791893, -0.9838348, -0.0036776876, 0.
 [node name="TargetPlayer" parent="CameraTripod4/Objectives/PhotoObjective" unique_id=1016171899 instance=ExtResource("26_2onrh")]
 transform = Transform3D(-0.056268454, 0.06470749, -0.9963167, 0.0036486275, 0.9979045, 0.06460453, 0.99840915, -9.313226e-10, -0.05638665, 16.968246, 5.547598, 0.6875191)
 
+[node name="Trampoline3" parent="." unique_id=1669815966 instance=ExtResource("29_5m3ql")]
+transform = Transform3D(1.5604695, 0.7041166, 1.4767059, 5.9604645e-08, 1.4946313, -1.3124583, -1.6572585, 0.6629941, 1.390462, -16.156096, 12.532501, -17.906347)
+force_mult = 15.0
+
+[node name="CameraTripod5" parent="." unique_id=156710524 instance=ExtResource("7_wa755")]
+transform = Transform3D(0.18432596, 0, -0.9828652, 0, 1, 0, 0.9828652, 0, 0.18432596, -10.518841, 14.284862, -36.389217)
+countdown_time = 20
+
+[node name="Camera3D" parent="CameraTripod5" index="2" unique_id=907995485]
+transform = Transform3D(-0.29602313, 0, -0.95518076, 0, 1, 0, 0.95518076, 0, -0.29602313, 0.140793, 1.9778359, -0.0032069646)
+
+[node name="PhotoObjective" parent="CameraTripod5/Objectives" parent_id_path=PackedInt32Array(156710524, 1146842973) index="0" unique_id=1944953143 instance=ExtResource("26_0y8il")]
+
+[node name="TargetPlayer" parent="CameraTripod5/Objectives/PhotoObjective" unique_id=1058451674 instance=ExtResource("26_2onrh")]
+transform = Transform3D(-0.22283496, 0, -0.9748562, 0, 1, 0, 0.9748562, 0, -0.22283496, 24.991428, 0.924139, 1.9227102)
+
+[node name="TargetItem" parent="CameraTripod5/Objectives/PhotoObjective" unique_id=1198569044 instance=ExtResource("27_0y8il")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.016851, -1.2447557, 9.145639)
+required_item_id = "apple"
+
 [editable path="CameraTripod"]
 [editable path="CameraTripod3"]
 [editable path="CameraTripod4"]
+[editable path="CameraTripod5"]

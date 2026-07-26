@@ -1146,7 +1146,6 @@ autoplay = &"Running"
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=435901448]
 unique_name_in_owner = true
-active = false
 root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_i3kvd")
 anim_player = NodePath("../AnimationPlayer")

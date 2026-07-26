@@ -3,7 +3,8 @@ extends Node3D
 var sounds := {
 	"camera_click_sound": preload("res://assets/sounds/camera_click_sound.mp3"),
 	"player_jump_sound": preload("res://assets/sounds/jump.wav"),
-	"player_running_sound": preload("res://assets/sounds/player_running_sound.mp3")
+	"player_running_sound": preload("res://assets/sounds/player_running_sound.mp3"),
+	"throw_sound": preload("res://assets/sounds/throw.wav")
 }
 
 var sound_player: AudioStreamPlayer

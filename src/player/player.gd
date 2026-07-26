@@ -12,7 +12,7 @@ extends CharacterBody3D
 @onready var camera : Camera3D = %Camera3D
 @onready var camera_spring_arm: SpringArm3D = %CameraPivot.get_node("SpringArm3D")
 @onready var particle_trail: GPUParticles3D = %ParticleTrail
-@onready var skin: Node3D = %PlayerSkin
+@onready var skin: PlayerSkin = %PlayerSkin
 @onready var hold_position: Marker3D = %HoldPosition
 
 @onready var _idle_state: State = %StateMachine.get_node("Idle")
@@ -75,7 +75,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if is_camera_motion:
 		_camera_input_direction = event.screen_relative * mouse_sensitivity
-		
+	
+	# Throwing
 	if held_item != null and held_item.has_method("throw"):
 		if event.is_action_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			var is_air_boost_throw := (not is_on_floor()) and Input.is_action_pressed("jump")
@@ -97,7 +98,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			held_item.throw(self, aim_dir, force)
 
 			if is_air_boost_throw:
-				force = 25
+				SoundManager.play_sound("throw_sound")
+				skin.transition("Jump", true)
 				movement_component.apply_impulse(Vector3(0, boost_jump_power, 0))
 
 func _physics_process(delta: float) -> void:

@@ -13,7 +13,7 @@ var _can_wall_jump := false
 
 func enter_state() -> void:
 	SoundManager.play_sound("player_jump_sound")
-	skin.transition("Jump")
+	skin.transition("Jump", true)
 	movement_component.movement_type = movement_component.MovementTypes.WALKING
 	movement_component.jump()
 	_can_wall_jump = false

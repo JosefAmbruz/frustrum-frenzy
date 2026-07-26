@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://beom1xo1yuypr"]
 
-[ext_resource type="PackedScene" uid="uid://bci52glny63gb" path="res://src/level.tscn" id="1_xlegt"]
 [ext_resource type="Environment" uid="uid://bx3wlrfbbvdu" path="res://src/resources/global_environment.tres" id="2_t101k"]
+[ext_resource type="PackedScene" uid="uid://26aodhfudj8i" path="res://src/level_new.tscn" id="2_usxdn"]
 
 [sub_resource type="VoxelGIData" id="VoxelGIData_v5l7k"]
 _data = {
@@ -19,9 +19,6 @@ _data = {
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1647634644]
 environment = ExtResource("2_t101k")
 
-[node name="Level" parent="." unique_id=1350949316 instance=ExtResource("1_xlegt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015031338, 11.999802, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=392420581]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 9.563047, 0)
 shadow_enabled = true
@@ -32,3 +29,5 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.194733, 0, 29.676422)
 size = Vector3(123.0224, 20, 143.8692)
 data = SubResource("VoxelGIData_v5l7k")
+
+[node name="Level" parent="." unique_id=878389163 instance=ExtResource("2_usxdn")]

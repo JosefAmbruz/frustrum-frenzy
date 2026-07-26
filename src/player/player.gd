@@ -31,6 +31,9 @@ var current_checkpoint: Vector3
 var _is_sprinting: bool = false
 var _target_camera_length: float = 8.0
 
+#Pose
+var _can_pose := false
+
 func _ready() -> void:
 	current_checkpoint = global_position
 
@@ -45,6 +48,12 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Pose input during camera pose window (before Captured check)
+	if _can_pose and event.is_action_pressed("interact"):
+		_can_pose = false
+		EventBus.pose_performed.emit()
+		return
+
 	if state_machine.active_state.name == "Captured":
 		return
 	
@@ -123,10 +132,12 @@ func apply_external_impulse(impulse: Vector3) -> void:
 func _on_tree_entered() -> void:
 	EventBus.player_captured.connect(_on_player_captured)
 	EventBus.player_released.connect(_on_player_released)
+	EventBus.pose_window_started.connect(_on_pose_window_started)
 
 func _on_tree_exited() -> void:
 	EventBus.player_captured.disconnect(_on_player_captured)
 	EventBus.player_released.disconnect(_on_player_released)
+	EventBus.pose_window_started.disconnect(_on_pose_window_started)
 
 func _on_player_captured() -> void:
 	_camera_input_direction = Vector2.ZERO
@@ -134,3 +145,6 @@ func _on_player_captured() -> void:
 
 func _on_player_released() -> void:
 	state_machine.change_state(_idle_state)
+
+func _on_pose_window_started(duration: float) -> void:
+	_can_pose = true

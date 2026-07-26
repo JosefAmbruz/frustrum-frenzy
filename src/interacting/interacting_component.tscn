@@ -1,11 +1,20 @@
 [gd_scene format=3 uid="uid://d0jneonb8m7vu"]
 
 [ext_resource type="Script" uid="uid://cqrnsfitpcxhw" path="res://src/interacting/interacting_component.gd" id="1_tc6x1"]
-[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="2_wuup4"]
+[ext_resource type="Shader" uid="uid://dkw5lyrhamoua" path="res://src/ui/outline.gdshader" id="2_c7vyj"]
+[ext_resource type="Texture2D" uid="uid://xdbnvdm1a6lk" path="res://assets/ui/inputs/keyboard_e.png" id="3_c7vyj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tc6x1"]
 radius = 0.73535156
 height = 2.0390625
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f4c7q"]
+shader = ExtResource("2_c7vyj")
+shader_parameter/outline_width = 4.0
+shader_parameter/outline_tint = Color(0, 0, 0, 1)
+shader_parameter/atlas_region_pos = Vector2(0, 0)
+shader_parameter/atlas_region_size = Vector2(1, 1)
+shader_parameter/draw_size = Vector2(1, 1)
 
 [node name="InteractingComponent" type="Node3D" unique_id=1637550885]
 script = ExtResource("1_tc6x1")
@@ -18,15 +27,13 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04901123, 0.2991333, -0.006323576)
 shape = SubResource("CapsuleShape3D_tc6x1")
 
-[node name="Label" type="Label3D" parent="." unique_id=2106708935]
+[node name="Icon" type="Sprite3D" parent="." unique_id=2099750232]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4254851, 0)
-pixel_size = 0.0015
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.4037032, 0)
+material_overlay = SubResource("ShaderMaterial_f4c7q")
 billboard = 1
 fixed_size = true
-text = "Press [E] to interact"
-font = ExtResource("2_wuup4")
-font_size = 24
+texture = ExtResource("3_c7vyj")
 
 [connection signal="area_entered" from="InteractRange" to="." method="_on_interact_range_area_entered"]
 [connection signal="area_exited" from="InteractRange" to="." method="_on_interact_range_area_exited"]

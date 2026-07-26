@@ -14,5 +14,5 @@ func transition(state: String, restart: bool = false) -> void:
 		playback.travel(state)
 
 func set_moving_blend_position(value: float) -> void:
-	print_debug(value)
+	#print_debug(value)
 	_animation_tree.set("parameters/Moving/blend_position", value)

@@ -112,6 +112,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		EventBus.player_released.emit()
 		print("debug: Start timer")
+		
+		# play camera countdown music
+		SoundManager.play_camera_music()
 
 
 # Timer ended
@@ -184,6 +187,9 @@ func _on_pose_timer_timeout() -> void:
 
 	# play camera click sound
 	SoundManager.play_sound("camera_click_sound")
+	
+	# restore background music
+	SoundManager.restore_background_music()
 
 	# --- FINAL PHOTO WITHOUT GHOSTS ---
 	var viewport_img = get_viewport().get_texture().get_image()

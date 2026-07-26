@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cs5ovh3r0h1kd"
+path="res://.godot/imported/land in grass 6.wav-96014928f5b31cc64dbc22ef2e97b51f.sample"
+
+[deps]
+
+source_file="res://assets/sounds/land in grass 6.wav"
+dest_files=["res://.godot/imported/land in grass 6.wav-96014928f5b31cc64dbc22ef2e97b51f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

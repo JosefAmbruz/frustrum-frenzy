@@ -67,6 +67,117 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Base/Torso/RightArm:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Base/LeftLeg:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Base/LeftLeg:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.111, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7hk18"]
+resource_name = "Jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/Torso:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector3(0.949, 0.8, 0.949), Vector3(0.949, 0.94, 0.949)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Base/Torso/RightArm:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.6701884, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Base/Torso/LeftArm:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.6056563, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Base/Torso/Neck:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.23333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.37159526, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Base/LeftLeg:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Base/RightLeg:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ig8t0"]
 length = 0.001
@@ -178,10 +289,46 @@ tracks/8/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Base/Torso/RightArm:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Base/Torso/LeftArm:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Base/Torso/Neck:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_62nud"]
 resource_name = "Running"
-length = 0.39999999999999997
+length = 0.4
 loop_mode = 1
 step = 0.01
 tracks/0/type = "value"
@@ -272,6 +419,7 @@ tracks/6/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ig8t0"]
 _data = {
 &"Idle": SubResource("Animation_r53ix"),
+&"Jump": SubResource("Animation_7hk18"),
 &"RESET": SubResource("Animation_ig8t0"),
 &"Running": SubResource("Animation_62nud")
 }
@@ -639,7 +787,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32181108, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1114119, 0)
 
 [node name="Neck" type="Marker3D" parent="Base/Torso" unique_id=1523058872]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0963613, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 1, 0, 1.0963612, 0)
 metadata/_edit_group_ = true
 
 [node name="Head" type="MeshInstance3D" parent="Base/Torso/Neck" unique_id=1341000627]
@@ -664,7 +812,7 @@ mesh = SubResource("ArrayMesh_2e7ud")
 metadata/_edit_group_ = true
 
 [node name="LeftArm" type="Marker3D" parent="Base/Torso" unique_id=2103100970]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.29564178, 0.9688927, 0)
+transform = Transform3D(0.9999998, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999997, 0.29564178, 0.9688924, 0)
 metadata/_edit_group_ = true
 
 [node name="HandL" type="MeshInstance3D" parent="Base/Torso/LeftArm" unique_id=296165714]
@@ -672,7 +820,7 @@ transform = Transform3D(0.31753296, 0, 0, 0, 0.31753296, 0, 0, 0, 0.31753296, 0.
 mesh = SubResource("ArrayMesh_u6o2x")
 
 [node name="RightArm" type="Marker3D" parent="Base/Torso" unique_id=1288549907]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30718473, 0.9688927, 0)
+transform = Transform3D(0.9999997, 0, 0, 0, 0.9999999, 0, 0, 0, 0.99999934, -0.30718473, 0.9688924, 0)
 metadata/_edit_group_ = true
 
 [node name="HandR" type="MeshInstance3D" parent="Base/Torso/RightArm" unique_id=225790502]
@@ -693,7 +841,7 @@ mesh = SubResource("ArrayMesh_yg31f")
 metadata/_edit_lock_ = true
 
 [node name="LeftLeg" type="Marker3D" parent="Base" unique_id=86059182]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.3, 0.3)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999998, 0, 0.3, 0.3)
 metadata/_edit_group_ = true
 
 [node name="FootL" type="MeshInstance3D" parent="Base/LeftLeg" unique_id=1268730411]

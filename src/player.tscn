@@ -13,9 +13,17 @@
 [ext_resource type="Script" uid="uid://dbnaa3ks2ro5i" path="res://src/player/states/move.gd" id="8_dxtnc"]
 [ext_resource type="Script" uid="uid://dvjr0n0jdxido" path="res://src/player/states/wall_jump.gd" id="9_ndfpv"]
 [ext_resource type="Script" uid="uid://c5twdpjlf7iim" path="res://src/player/states/jump.gd" id="9_nic3v"]
+[ext_resource type="AudioStream" uid="uid://dyrhsbxnxplh7" path="res://assets/sounds/footsteps/footstep grass and leaves 2.wav" id="9_wwu71"]
+[ext_resource type="AudioStream" uid="uid://7653gxkyl3er" path="res://assets/sounds/footsteps/footstep grass and leaves 3.wav" id="10_856a1"]
 [ext_resource type="Script" uid="uid://ce7l43lhdcrd0" path="res://src/player/states/climbing.gd" id="10_dxtnc"]
+[ext_resource type="AudioStream" uid="uid://js5lo7wxq21v" path="res://assets/sounds/footsteps/footstep grass and leaves 4.wav" id="11_jo1vc"]
 [ext_resource type="Script" uid="uid://cx7dkghpe0efc" path="res://src/player/states/captured.gd" id="11_nic3v"]
+[ext_resource type="AudioStream" uid="uid://yng6nlrj8n6g" path="res://assets/sounds/footsteps/footstep grass and leaves 5.wav" id="12_wihxi"]
+[ext_resource type="AudioStream" uid="uid://dwvbkfh2u844v" path="res://assets/sounds/footsteps/footstep grass and leaves 6.wav" id="13_4huw0"]
 [ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="13_nic3v"]
+[ext_resource type="AudioStream" uid="uid://cwdowd2m4p0kl" path="res://assets/sounds/footsteps/footstep grass and leaves 7.wav" id="14_atx3q"]
+[ext_resource type="AudioStream" uid="uid://cilbqmsgk8asx" path="res://assets/sounds/footsteps/footstep grass and leaves 8.wav" id="15_d28pn"]
+[ext_resource type="AudioStream" uid="uid://d3x210iynj2he" path="res://assets/sounds/footsteps/footstep grass and leaves 9.wav" id="16_2hj6y"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5l7k"]
 radius = 0.28076172
@@ -45,6 +53,17 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0.1, 0)
 scale_min = 0.75
 scale_curve = SubResource("CurveTexture_bktlc")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mlfxl"]
+streams_count = 8
+stream_0/stream = ExtResource("9_wwu71")
+stream_1/stream = ExtResource("10_856a1")
+stream_2/stream = ExtResource("11_jo1vc")
+stream_3/stream = ExtResource("12_wihxi")
+stream_4/stream = ExtResource("13_4huw0")
+stream_5/stream = ExtResource("14_atx3q")
+stream_6/stream = ExtResource("15_d28pn")
+stream_7/stream = ExtResource("16_2hj6y")
 
 [node name="Player" type="CharacterBody3D" unique_id=1178688999 groups=["player"]]
 script = ExtResource("1_fxwnc")
@@ -109,8 +128,9 @@ fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_ehvfd")
 draw_pass_1 = ExtResource("4_bktlc")
 
-[node name="SoundFootsteps" type="AudioStreamPlayer" parent="." unique_id=235858510]
+[node name="SoundFootsteps" type="AudioStreamPlayer3D" parent="." unique_id=1439955162]
 unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_mlfxl")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1170832295 node_paths=PackedStringArray("initial_state", "_debug_label")]
 unique_name_in_owner = true
@@ -141,8 +161,8 @@ metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 script = ExtResource("9_nic3v")
 move_state = NodePath("../Move")
 climb_state = NodePath("../Climbing")
-movement_component = NodePath("../../MovementComponent")
 wall_jump_state = NodePath("../WallJump")
+movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="WallJump" type="Node" parent="StateMachine" unique_id=127669017 node_paths=PackedStringArray("move_state", "climb_state", "movement_component")]

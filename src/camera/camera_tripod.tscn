@@ -3,16 +3,11 @@
 [ext_resource type="Script" uid="uid://brng0aww7xg66" path="res://src/camera/camera_tripod.gd" id="1_v4y2o"]
 [ext_resource type="Texture2D" uid="uid://1h7uo5axi24t" path="res://assets/scenes/testing_camera_scene_1.png" id="2_01m8a"]
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
+[ext_resource type="PackedScene" uid="uid://eqb0c8dqcys6" path="res://src/resources/GLB format/Camera stand by Jason Oudshoorn - 5CHQvf_emuN.glb" id="3_ndy2e"]
 [ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_hwyno"]
+[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="6_pl626"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hwyno"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_08vw2"]
-top_radius = 0.15576172
-bottom_radius = 0.15576172
-height = 0.44607544
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nym6r"]
 size = Vector3(0.68322754, 1.3616333, 1)
@@ -88,23 +83,24 @@ corner_radius_bottom_left = 30
 script = ExtResource("1_v4y2o")
 target_photo = ExtResource("2_01m8a")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=880157601]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
-mesh = SubResource("CylinderMesh_hwyno")
+[node name="Camera stand by Jason Oudshoorn - 5CHQvf_emuN" parent="." unique_id=1594297456 instance=ExtResource("3_ndy2e")]
+transform = Transform3D(5.9624403e-09, 0, -0.5, 0, 0.49715245, 0, 0.5, 0, 5.9624403e-09, -0.0439145, 1.4806964, -0.03250137)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1731509233]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3713965, -0.00994575)
 shape = SubResource("CylinderShape3D_hwyno")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=907995485]
-transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.38785064, 1.9406892, 0.026506633)
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.140793, 1.9778359, -0.0032069646)
 fov = 38.147804
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=844778109]
-transform = Transform3D(-0.0034112334, 0.99999315, -0.0013386253, -0.9751212, -0.0034963987, 0.0013768049, 0.0013379876, 0.001343432, 0.99999815, 0.65238214, 1.9342393, 0.02126661)
-mesh = SubResource("CylinderMesh_08vw2")
-
 [node name="CountdownTimer" type="Timer" parent="." unique_id=1828718521]
+one_shot = true
+
+[node name="PoseTimer" type="Timer" parent="." unique_id=2014561316]
+one_shot = true
+
+[node name="PoseIntroTimer" type="Timer" parent="." unique_id=1314569670]
 one_shot = true
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_nym6r")]
@@ -270,6 +266,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 
+[node name="PosePrompt" type="Label" parent="CanvasLayer" unique_id=2014561317]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 92
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Objectives" type="Node3D" parent="." unique_id=1146842973]
 
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]
+[connection signal="timeout" from="PoseTimer" to="." method="_on_pose_timer_timeout"]
+[connection signal="timeout" from="PoseIntroTimer" to="." method="_on_pose_intro_timer_timeout"]

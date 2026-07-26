@@ -16,7 +16,7 @@ func _ready() -> void:
 	EventBus.interaction_text_toggled.connect(_on_interaction_text_toggled)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and can_interact:
+	if event.is_action_pressed("interact") and can_interact and not interaction_blocked:
 		if curr_interactions:
 			can_interact = false
 			interaction_label.hide()

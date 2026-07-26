@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://c5twdpjlf7iim" path="res://src/player/states/jump.gd" id="9_nic3v"]
 [ext_resource type="Script" uid="uid://ce7l43lhdcrd0" path="res://src/player/states/climbing.gd" id="10_dxtnc"]
 [ext_resource type="Script" uid="uid://cx7dkghpe0efc" path="res://src/player/states/captured.gd" id="11_nic3v"]
+[ext_resource type="Script" uid="uid://lc570wlytc8" path="res://src/player/states/pose.gd" id="12_pose"]
 [ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="13_nic3v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v5l7k"]
@@ -141,8 +142,8 @@ metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 script = ExtResource("9_nic3v")
 move_state = NodePath("../Move")
 climb_state = NodePath("../Climbing")
-movement_component = NodePath("../../MovementComponent")
 wall_jump_state = NodePath("../WallJump")
+movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="WallJump" type="Node" parent="StateMachine" unique_id=127669017 node_paths=PackedStringArray("move_state", "climb_state", "movement_component")]
@@ -164,6 +165,11 @@ metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 
 [node name="Captured" type="Node" parent="StateMachine" unique_id=1187528930 node_paths=PackedStringArray("movement_component")]
 script = ExtResource("11_nic3v")
+movement_component = NodePath("../../MovementComponent")
+metadata/_custom_type_script = "uid://cxcvvroinb6nx"
+
+[node name="Pose" type="Node" parent="StateMachine" unique_id=2014561316 node_paths=PackedStringArray("movement_component")]
+script = ExtResource("12_pose")
 movement_component = NodePath("../../MovementComponent")
 metadata/_custom_type_script = "uid://cxcvvroinb6nx"
 

@@ -2,10 +2,14 @@ extends StaticBody3D
 
 @export var target_photo: Texture2D
 @export var countdown_time: int = 15
+@export var respawn_offset: Vector3 = Vector3(0, 1, 2)
 
 var in_camera: bool = false
 var _interact_lock := false
 var dot_tween: Tween
+var _has_posed := false
+var _required_pose_key: String = ""
+var _key_labels := {"interact": "[E]", "left_click": "LMB", "jump": "SPACE"}
 
 @onready var view_camera = $Camera3D
 @onready var countdown_timer = $CountdownTimer
@@ -20,6 +24,9 @@ var dot_tween: Tween
 @onready var fade_rect = $CanvasLayer/FadeRect
 @onready var interactable: Area3D = %Interactable
 @onready var timer_ui = $CanvasLayer/TimerUI
+@onready var pose_timer: Timer = $PoseTimer
+@onready var pose_intro_timer: Timer = $PoseIntroTimer
+@onready var pose_prompt: Label = $CanvasLayer/PosePrompt
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +34,11 @@ func _ready() -> void:
 	if timer_ui:
 		timer_ui.visible = false
 	camera_overlay.visible = false
+	EventBus.pose_performed.connect(_on_pose_performed)
 	print("debug: Camera start")
+
+func _on_pose_performed() -> void:
+	_has_posed = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -94,33 +105,69 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # Timer ended
-func _on_countdown_timer_timeout() -> void:    
+func _on_countdown_timer_timeout() -> void:
 	EventBus.player_captured.emit() # lock player movement
 	timer_ui.visible = false
 	EventBus.interaction_text_toggled.emit(false) # turn off text like "Drop [E]"
+
+	view_camera.make_current() # switch to tripod
+
+	# POSING WINDOW - Phase 1: "POSE!" intro
+	_has_posed = false
+
+	var keys := ["interact", "left_click", "jump"]
+	_required_pose_key = keys[randi() % keys.size()]
+
+	pose_prompt.text = "POSE!"
+	pose_prompt.modulate.a = 0.0
+	pose_prompt.visible = true
+
+	var intro_tween = create_tween()
+	intro_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_interval(0.4)
+	intro_tween.tween_property(pose_prompt, "modulate:a", 0.0, 0.3).set_ease(Tween.EASE_IN)
+
+	pose_intro_timer.start()
+
+
+func _on_pose_intro_timer_timeout() -> void:
+	pose_prompt.text = _key_labels[_required_pose_key]
+	pose_prompt.modulate.a = 0.0
+	var key_tween = create_tween().set_ease(Tween.EASE_OUT)
+	key_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2)
+
+	EventBus.pose_window_started.emit(1.0, _required_pose_key)
+	pose_timer.start(1.0)
+
+func _on_pose_timer_timeout() -> void:
+	EventBus.pose_window_ended.emit()
+	EventBus.interaction_text_toggled.emit(false)
+	pose_prompt.visible = false
+
+	# wait for GPU to render frames
+	fade_rect.visible = false
+	await get_tree().process_frame
+	await get_tree().process_frame
+
+	# turn off highlights so they don't appear in the photo
+	disable_highlights()
 
 	# fade to black (or white)
 	var flash_tween = create_tween()
 	flash_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.15)
 	await flash_tween.finished # wait for tweet to finish
-	
+
 	# work in dark
 	camera_overlay.visible = false
-	view_camera.make_current() # switch to tripod
-	
-	# wait for GPU to render frames
-	fade_rect.visible = false
-	await get_tree().process_frame
-	await get_tree().process_frame
-	
-	# turn off highlights so they don't appear in the photo
-	disable_highlights()
+
+	# play camera click sound
+	SoundManager.play_sound("camera_click_sound")
 
 	# make a picture and create texture
 	var viewport_img = get_viewport().get_texture().get_image()
 	var final_texture = ImageTexture.create_from_image(viewport_img)
 	fade_rect.visible = true
-	
+
 	# show picture
 	captured_image.texture = final_texture
 	photo_result_ui.visible = true
@@ -135,11 +182,13 @@ func _on_countdown_timer_timeout() -> void:
 
 	view_camera.clear_current()
 	interactable.is_interactable = true
-	
+
 	print("debug: Camera shoot")
 
-func _on_interact(_player : CharacterBody3D):
+func _on_interact(player : CharacterBody3D):
 	if not in_camera:
+		player.current_checkpoint = global_position + global_transform.basis * respawn_offset
+
 		# Capture players' movement
 		EventBus.player_captured.emit()
 		
@@ -194,7 +243,7 @@ func evaluate_new_objectives() -> void:
 	var visible_items = get_items_in_camera_view()
 	
 # Evaluate! returns a Dictionary now
-	var score_result = active_objective.evaluate_photo(player_node, visible_items)
+	var score_result = active_objective.evaluate_photo(player_node, visible_items, _has_posed)
 	
 	var final_score = score_result["earned"]
 	var max_score = score_result["max"]

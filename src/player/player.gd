@@ -17,6 +17,7 @@ extends CharacterBody3D
 
 @onready var _idle_state: State = %StateMachine.get_node("Idle")
 @onready var _captured_state: State = %StateMachine.get_node("Captured")
+@onready var _pose_state: State = %StateMachine.get_node("Pose")
 
 #Camera
 var _camera_input_direction := Vector2.ZERO
@@ -32,7 +33,8 @@ var _is_sprinting: bool = false
 var _target_camera_length: float = 8.0
 
 #Pose
-var _can_pose := false
+var _required_pose_key: String = ""
+var _has_attempted_pose := false
 
 func _ready() -> void:
 	current_checkpoint = global_position
@@ -48,10 +50,19 @@ func _input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Pose input during camera pose window (before Captured check)
-	if _can_pose and event.is_action_pressed("interact"):
-		_can_pose = false
-		EventBus.pose_performed.emit()
+	# Pose input during camera pose window
+	if state_machine.active_state == _pose_state:
+		if not _has_attempted_pose:
+			var input_actions := ["interact", "left_click", "jump"]
+			var pressed_action := ""
+			for action in input_actions:
+				if event.is_action_pressed(action):
+					pressed_action = action
+					break
+			if pressed_action != "":
+				_has_attempted_pose = true
+				if pressed_action == _required_pose_key:
+					EventBus.pose_performed.emit()
 		return
 
 	if state_machine.active_state.name == "Captured":
@@ -146,5 +157,7 @@ func _on_player_captured() -> void:
 func _on_player_released() -> void:
 	state_machine.change_state(_idle_state)
 
-func _on_pose_window_started(duration: float) -> void:
-	_can_pose = true
+func _on_pose_window_started(duration: float, required_key: String) -> void:
+	_required_pose_key = required_key
+	_has_attempted_pose = false
+	state_machine.change_state(_pose_state)

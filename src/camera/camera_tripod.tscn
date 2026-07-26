@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
 [ext_resource type="PackedScene" uid="uid://eqb0c8dqcys6" path="res://src/resources/GLB format/Camera stand by Jason Oudshoorn - 5CHQvf_emuN.glb" id="3_ndy2e"]
 [ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
+[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="6_pl626"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hwyno"]
 
@@ -97,7 +98,9 @@ fov = 38.147804
 one_shot = true
 
 [node name="PoseTimer" type="Timer" parent="." unique_id=2014561316]
-wait_time = 1.0
+one_shot = true
+
+[node name="PoseIntroTimer" type="Timer" parent="." unique_id=1314569670]
 one_shot = true
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_nym6r")]
@@ -263,7 +266,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
 
+[node name="PosePrompt" type="Label" parent="CanvasLayer" unique_id=2014561317]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 92
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Objectives" type="Node3D" parent="." unique_id=1146842973]
 
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]
 [connection signal="timeout" from="PoseTimer" to="." method="_on_pose_timer_timeout"]
+[connection signal="timeout" from="PoseIntroTimer" to="." method="_on_pose_intro_timer_timeout"]

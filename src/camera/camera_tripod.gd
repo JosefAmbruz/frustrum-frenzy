@@ -8,6 +8,8 @@ var in_camera: bool = false
 var _interact_lock := false
 var dot_tween: Tween
 var _has_posed := false
+var _required_pose_key: String = ""
+var _key_labels := {"interact": "[E]", "left_click": "LMB", "jump": "SPACE"}
 
 @onready var view_camera = $Camera3D
 @onready var countdown_timer = $CountdownTimer
@@ -23,6 +25,8 @@ var _has_posed := false
 @onready var interactable: Area3D = %Interactable
 @onready var timer_ui = $CanvasLayer/TimerUI
 @onready var pose_timer: Timer = $PoseTimer
+@onready var pose_intro_timer: Timer = $PoseIntroTimer
+@onready var pose_prompt: Label = $CanvasLayer/PosePrompt
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -108,14 +112,37 @@ func _on_countdown_timer_timeout() -> void:
 
 	view_camera.make_current() # switch to tripod
 
-	# POSING WINDOW
+	# POSING WINDOW - Phase 1: "POSE!" intro
 	_has_posed = false
-	EventBus.pose_window_started.emit(1.0)
+
+	var keys := ["interact", "left_click", "jump"]
+	_required_pose_key = keys[randi() % keys.size()]
+
+	pose_prompt.text = "POSE!"
+	pose_prompt.modulate.a = 0.0
+	pose_prompt.visible = true
+
+	var intro_tween = create_tween()
+	intro_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2).set_ease(Tween.EASE_OUT)
+	intro_tween.tween_interval(0.4)
+	intro_tween.tween_property(pose_prompt, "modulate:a", 0.0, 0.3).set_ease(Tween.EASE_IN)
+
+	pose_intro_timer.start()
+
+
+func _on_pose_intro_timer_timeout() -> void:
+	pose_prompt.text = _key_labels[_required_pose_key]
+	pose_prompt.modulate.a = 0.0
+	var key_tween = create_tween().set_ease(Tween.EASE_OUT)
+	key_tween.tween_property(pose_prompt, "modulate:a", 1.0, 0.2)
+
+	EventBus.pose_window_started.emit(1.0, _required_pose_key)
 	pose_timer.start(1.0)
 
 func _on_pose_timer_timeout() -> void:
 	EventBus.pose_window_ended.emit()
 	EventBus.interaction_text_toggled.emit(false)
+	pose_prompt.visible = false
 
 	# wait for GPU to render frames
 	fade_rect.visible = false

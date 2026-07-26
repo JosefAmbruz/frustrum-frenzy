@@ -50,18 +50,26 @@ func _update_ghost() -> void:
 		# 3. Pokud má něco držet, přidáme to do ruky
 		if must_hold_item_id in ITEM_MODELS and ITEM_MODELS[must_hold_item_id] != null:
 			var item_instance = ITEM_MODELS[must_hold_item_id].instantiate()
-			
+
 			# Pokusíme se najít HoldPosition uzel (pokud je přímo ve skinu)
 			var hold_pos = _find_node_by_name(skin_instance, "HoldPosition")
-			
+
 			if hold_pos:
 				hold_pos.add_child(item_instance)
 			else:
-				# Fallback: Pokud je HoldPosition v hlavní Player scéně a ne ve skinu,
-				# dáme to jen od oka na místo, kde má panáček ruku
-				skin_instance.add_child(item_instance)
-				item_instance.position = Vector3(0.35, 1.1, -0.5) 
-			
+				# HoldPosition je v player.tscn na PlayerSkin/SpringArm3D/HoldPosition,
+				# vytvoříme stejnou strukturu i pro ghosta
+				var spring_arm = SpringArm3D.new()
+				spring_arm.position = Vector3(0, 0.6783708, -0.69625014)
+				spring_arm.spring_length = 1.65
+				skin_instance.add_child(spring_arm)
+
+				hold_pos = Marker3D.new()
+				hold_pos.name = "HoldPosition"
+				spring_arm.add_child(hold_pos)
+
+				hold_pos.add_child(item_instance)
+
 			# Předmět lehce zprůhledníme, aby to pořád vypadalo jako duch (ale zachová si své barvy)
 			_make_item_ghostly(item_instance)
 

@@ -63,11 +63,11 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 		total_score += pos_score
 		
 		if pos_score == int(POINTS_PLAYER_POSITION):
-			details.append("Perfect player position: +%d" % pos_score + " / %d" % POINTS_PLAYER_POSITION)
+			details.append("Player nailed the spot! [+%d]" % pos_score)
 		elif pos_score > 0:
-			details.append("Good player position: +%d" % pos_score + " / %d" % POINTS_PLAYER_POSITION)
+			details.append("Player close enough [+%d]" % pos_score)
 		else:
-			details.append("Wrong player position: 0" + " / %d" % POINTS_PLAYER_POSITION)
+			details.append("Player way off!")
 			
 		if player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
 			max_possible_score += POINTS_PLAYER_HOLD
@@ -77,11 +77,11 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 				
 			if hold_id == player_target.must_hold_item_id:
 				total_score += POINTS_PLAYER_HOLD
-				details.append("Correct item in hand (%s): +%d" % [hold_id, POINTS_PLAYER_HOLD] + " / %d" % POINTS_PLAYER_HOLD)
+				details.append("Holding %s [+%d]" % [hold_id, POINTS_PLAYER_HOLD])
 				if actual_player.held_item not in used_items:
 					used_items.append(actual_player.held_item)
 			else:
-				details.append("Wrong/missing item in hand: 0" + " / %d" % POINTS_PLAYER_HOLD)
+				details.append("Wrong item in hand!")
 				
 	# 3. ITEMS EVALUATION
 	for target in item_targets:
@@ -99,20 +99,20 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 				used_items.append(linked_item)
 
 				if item_score == int(POINTS_PER_ITEM):
-					details.append("Perfect item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+					details.append("%s right where it belongs! [+%d]" % [target.required_item_id, item_score])
 				else:
-					details.append("Good item placement (%s): +%d" % [target.required_item_id, item_score] + " / %d" % POINTS_PER_ITEM)
+					details.append("%s almost there [+%d]" % [target.required_item_id, item_score])
 			else:
-				details.append("Item too far (%s): 0 / %d" % [target.required_item_id, POINTS_PER_ITEM])
+				details.append("%s too far away!" % target.required_item_id)
 		else:
-			details.append("Missing/far item (%s): 0 / %d" % [target.required_item_id, POINTS_PER_ITEM])
+			details.append("%s not found!" % target.required_item_id)
 			
 	# 4. PENALTY FOR EXTRA ITEMS IN VIEW
 	var extra_items_count = items_in_camera_view.size() - used_items.size()
 	if extra_items_count > 0:
 		var penalty = extra_items_count * PENALTY_EXTRA_ITEM
 		total_score -= penalty
-		details.append("Penalty (extra items %dx): -%d" % [extra_items_count, penalty])
+		details.append("Clutter penalty x%d: -%d" % [extra_items_count, penalty])
 
 	total_score = max(0.0, total_score)
 
@@ -120,7 +120,7 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 	if posed and total_score < max_possible_score:
 		var bonus = min(POSE_BONUS_POINTS, max_possible_score - total_score)
 		total_score += bonus
-		details.append("Pose bonus: +%d" % bonus)
+		details.append("Strike a pose! [+%d]" % bonus)
 	
 	return {
 		"earned": total_score,

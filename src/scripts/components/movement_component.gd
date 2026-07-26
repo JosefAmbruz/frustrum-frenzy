@@ -25,6 +25,8 @@ var any_wall_normal := Vector3.ZERO
 
 var _last_wall_jump_normal := Vector3.ZERO
 var _wall_jump_lock_left := 0.0
+var _climb_prevent_timer := 0.0
+var last_climb_normal := Vector3.ZERO
 
 func _ready() -> void:
 	pass
@@ -36,6 +38,7 @@ func _physics_process(delta: float) -> void:
 	_gravity = (2.0 * movement_config.jump_height) / (movement_config.jump_time_to_apex * movement_config.jump_time_to_apex)
 	_jump_impulse = _gravity * movement_config.jump_time_to_apex
 	_wall_jump_lock_left = maxf(_wall_jump_lock_left - delta, 0.0)
+	_climb_prevent_timer = maxf(_climb_prevent_timer - delta, 0.0)
 
 	# Camera relative movement
 	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -161,7 +164,12 @@ func do_wall_jump() -> void:
 	coyote_time.stop()
 
 func can_climb() -> bool:
+	if _climb_prevent_timer > 0.0:
+		return false
 	return is_near_climbable_wall
+
+func prevent_climb_for(duration: float) -> void:
+	_climb_prevent_timer = duration
 
 func get_gravity() -> float:
 	return (2.0 * movement_config.jump_height) / (movement_config.jump_time_to_apex * movement_config.jump_time_to_apex)
@@ -193,6 +201,8 @@ func deccelerate() -> void:
 	accelerate_to_velocity(Vector3.ZERO)
 
 func _detect_climbing() -> void:
+	if is_near_climbable_wall:
+		last_climb_normal = climb_normal
 	is_near_climbable_wall = false
 	climb_normal = Vector3.ZERO
 	is_near_any_wall = false

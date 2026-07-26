@@ -49,11 +49,12 @@ func reset_required_items() -> void:
 				item.linear_velocity = Vector3.ZERO
 				item.angular_velocity = Vector3.ZERO
 
-func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array, posed: bool = false) -> Dictionary:
+func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array, posed: bool = false, camera: Camera3D = null) -> Dictionary:
 	var total_score = 0.0
 	var max_possible_score = 0
 	var used_items = []
 	var details = []
+	var player_in_view := true
 	
 	# 1. FIND TARGETS
 	var player_target = null
@@ -67,6 +68,12 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 			
 # 2. PLAYER EVALUATION
 	if player_target:
+		if camera:
+			player_in_view = not camera.is_position_behind(actual_player.global_position)
+			if player_in_view:
+				var unprojected = camera.unproject_position(actual_player.global_position)
+				player_in_view = camera.get_viewport().get_visible_rect().has_point(unprojected)
+
 		max_possible_score += POINTS_PLAYER_POSITION
 		
 		var dist_to_player = actual_player.global_position.distance_to(player_target.global_position)
@@ -81,22 +88,24 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 		else:
 			details.append("Player way off!")
 		
-		# 2a. ROTATION SCORING
-		max_possible_score += POINTS_PLAYER_ROTATION
-		var player_forward = actual_player.skin.global_transform.basis.z.normalized()
-		var target_forward = player_target.global_transform.basis.z.normalized()
-		var dot = player_forward.dot(target_forward)
-		var rot_score = calculate_rotation_score(POINTS_PLAYER_ROTATION, dot)
-		total_score += rot_score
-		
-		if rot_score == int(POINTS_PLAYER_ROTATION):
-			details.append("Perfect rotation! [+%d]" % rot_score)
-		elif rot_score > 0:
-			details.append("Rotation close enough [+%d]" % rot_score)
-		else:
-			details.append("Wrong rotation!")
+		# 2a. ROTATION SCORING (only if player is visible in frame)
+		if player_in_view:
+			max_possible_score += POINTS_PLAYER_ROTATION
+			var player_forward = actual_player.skin.global_transform.basis.z.normalized()
+			var target_forward = player_target.global_transform.basis.z.normalized()
+			var dot = player_forward.dot(target_forward)
+			var rot_score = calculate_rotation_score(POINTS_PLAYER_ROTATION, dot)
+			total_score += rot_score
 
-		if player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
+			if rot_score == int(POINTS_PLAYER_ROTATION):
+				details.append("Perfect rotation! [+%d]" % rot_score)
+			elif rot_score > 0:
+				details.append("Rotation close enough [+%d]" % rot_score)
+			else:
+				details.append("Wrong rotation!")
+
+		# 2b. HOLD SCORING (only if player is visible in frame)
+		if player_in_view and player_target.must_hold_item_id != "none" and player_target.must_hold_item_id != "":
 			max_possible_score += POINTS_PLAYER_HOLD
 			var hold_id = ""
 			if actual_player.held_item and "item_id" in actual_player.held_item:
@@ -143,8 +152,8 @@ func evaluate_photo(actual_player: CharacterBody3D, items_in_camera_view: Array,
 
 	total_score = max(0.0, total_score)
 
-	# 5. POSE BONUS (not part of max, cannot exceed max)
-	if posed and total_score < max_possible_score:
+	# 5. POSE BONUS (only if player is visible in frame)
+	if posed and player_in_view and total_score < max_possible_score:
 		var bonus = min(POSE_BONUS_POINTS, max_possible_score - total_score)
 		total_score += bonus
 		details.append("Strike a pose! [+%d]" % bonus)

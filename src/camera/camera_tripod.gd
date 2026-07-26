@@ -292,7 +292,7 @@ func evaluate_new_objectives() -> void:
 	var visible_items = get_items_in_camera_view()
 	
 # Evaluate! returns a Dictionary now
-	var score_result = active_objective.evaluate_photo(player_node, visible_items, _has_posed)
+	var score_result = active_objective.evaluate_photo(player_node, visible_items, _has_posed, view_camera)
 	
 	var final_score = score_result["earned"]
 	var max_score = score_result["max"]

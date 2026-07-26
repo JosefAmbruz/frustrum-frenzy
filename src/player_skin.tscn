@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://dvhas6qwbp40l"]
 
+[ext_resource type="Script" uid="uid://d1ohoxtsk2v6a" path="res://src/player_skin.gd" id="1_ig8t0"]
 [ext_resource type="Material" uid="uid://bcd4jlecxaws6" path="res://assets/models/player/Hare_Material.tres" id="1_r53ix"]
 
 [sub_resource type="Animation" id="Animation_r53ix"]
@@ -106,6 +107,7 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_7hk18"]
 resource_name = "Jump"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -125,7 +127,7 @@ tracks/1/path = NodePath("Base/Torso/RightArm:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.26666668),
+"times": PackedFloat32Array(0, 0.23333333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-1.6701884, 0, 0)]
@@ -137,7 +139,7 @@ tracks/2/path = NodePath("Base/Torso/LeftArm:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.26666668),
+"times": PackedFloat32Array(0, 0.23333333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-1.6056563, 0, 0)]
@@ -161,10 +163,10 @@ tracks/4/path = NodePath("Base/LeftLeg:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.23333335),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0.69902056, 0, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -173,10 +175,10 @@ tracks/5/path = NodePath("Base/RightLeg:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.23333335),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0.5967848, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ig8t0"]
@@ -239,7 +241,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.3, 0.3)]
+"values": [Vector3(0, 0.111, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -424,39 +426,44 @@ _data = {
 &"Running": SubResource("Animation_62nud")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r53ix"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ig8t0"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7hk18"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ig8t0"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ta0g"]
 animation = &"Running"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62nud"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rgsoj"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_rgsoj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_7hk18")
+blend_point_0/pos = 0.0
+blend_point_0/name = &"Idle"
+blend_point_1/node = SubResource("AnimationNodeAnimation_0ta0g")
+blend_point_1/pos = 1.0
+blend_point_1/name = &"Running"
+blend_point_2/node = SubResource("AnimationNodeAnimation_rgsoj")
+blend_point_2/pos = 0.1
+blend_point_2/name = &"RESET"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ig8t0"]
 advance_mode = 2
 
-[sub_resource type="Curve" id="Curve_r53ix"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62nud"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7hk18"]
-xfade_time = 0.25
-xfade_curve = SubResource("Curve_r53ix")
-advance_mode = 2
 
-[sub_resource type="Curve" id="Curve_ig8t0"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ta0g"]
-xfade_time = 0.25
-xfade_curve = SubResource("Curve_ig8t0")
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v5l7k"]
-states/Idle/node = SubResource("AnimationNodeAnimation_r53ix")
-states/Idle/position = Vector2(391, 100)
-states/Running/node = SubResource("AnimationNodeAnimation_ig8t0")
-states/Running/position = Vector2(635, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_62nud"), "Idle", "Running", SubResource("AnimationNodeStateMachineTransition_7hk18"), "Running", "End", SubResource("AnimationNodeStateMachineTransition_0ta0g")]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_i3kvd"]
+states/Jump/node = SubResource("AnimationNodeAnimation_ig8t0")
+states/Jump/position = Vector2(587, 35)
+states/Moving/node = SubResource("AnimationNodeBlendSpace1D_rgsoj")
+states/Moving/position = Vector2(587, 118)
+states/Start/position = Vector2(282, 118)
+transitions = ["Start", "Moving", SubResource("AnimationNodeStateMachineTransition_ig8t0"), "Moving", "Jump", SubResource("AnimationNodeStateMachineTransition_62nud"), "Jump", "Moving", SubResource("AnimationNodeStateMachineTransition_7hk18")]
+graph_offset = Vector2(-1, -63)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_jvbru"]
 _surfaces = [{
@@ -782,15 +789,18 @@ shadow_mesh = SubResource("ArrayMesh_boh62")
 
 [node name="Hare" type="Node3D" unique_id=685421737]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
+script = ExtResource("1_ig8t0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=70628751]
 libraries/ = SubResource("AnimationLibrary_ig8t0")
 autoplay = &"Running"
 
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1224320658]
-active = false
-tree_root = SubResource("AnimationNodeStateMachine_v5l7k")
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=435901448]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeStateMachine_i3kvd")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Moving/blend_position = 1.0377073
 
 [node name="Base" type="Marker3D" parent="." unique_id=2019024372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32181108, 0)
@@ -853,7 +863,7 @@ mesh = SubResource("ArrayMesh_yg31f")
 metadata/_edit_lock_ = true
 
 [node name="LeftLeg" type="Marker3D" parent="Base" unique_id=86059182]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999998, 0, 0.3, 0.3)
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999999, 0, 0.111, 0)
 metadata/_edit_group_ = true
 
 [node name="FootL" type="MeshInstance3D" parent="Base/LeftLeg" unique_id=1268730411]
@@ -861,7 +871,7 @@ transform = Transform3D(0.00030895337, 0, -0.35407987, 0, 0.35408, 0, 0.35407987
 mesh = SubResource("ArrayMesh_3j3br")
 
 [node name="RightLeg" type="Marker3D" parent="Base" unique_id=1476065590]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 0.9999997, 0, 0.111, 0)
 metadata/_edit_group_ = true
 
 [node name="FootR" type="MeshInstance3D" parent="Base/RightLeg" unique_id=739980374]

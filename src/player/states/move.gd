@@ -7,8 +7,10 @@ extends State
 
 @export_category("Components")
 @export var movement_component: MovementComponent
+@export var skin: PlayerSkin
 
 func enter_state() -> void:
+	skin.transition("Moving")
 	movement_component.movement_type = movement_component.MovementTypes.WALKING
 
 func update(delta: float) -> void:

@@ -119,7 +119,11 @@ func _physics_process(delta: float) -> void:
 	
 	var target_angle := Vector3.BACK.signed_angle_to(movement_component.get_last_movement_direction(), Vector3.UP)
 	skin.global_rotation.y = lerp_angle(skin.rotation.y, target_angle, rotation_speed * delta)
-	
+
+	# Update blend position based on normalized velocity (standing vs walking vs running)
+	var ground_speed := Vector2(velocity.x, velocity.z).length()
+	var blend_position :float = clamp(ground_speed / movement_component.movement_config.sprint_speed, 0.0, 1.0)
+	skin.set_moving_blend_position(blend_position)
 
 func handle_effects(_delta: float) -> void:
 	var is_sprinting := Input.is_action_pressed("sprint")

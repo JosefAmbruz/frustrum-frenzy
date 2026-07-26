@@ -8,9 +8,11 @@ extends State
 @export_category("Components")
 @export var movement_component: MovementComponent
 @export var movement_config: MovementConfig
+@export var skin: PlayerSkin
 
 func enter_state() -> void:
 	SoundManager.stop()
+	skin.transition("Moving")
 	movement_component.movement_type = movement_component.MovementTypes.DISABLED
 
 func update(delta: float) -> void:	

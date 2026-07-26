@@ -7,11 +7,13 @@ extends State
 
 @export_category("Components")
 @export var movement_component: MovementComponent
+@export var skin: PlayerSkin
 
 var _can_wall_jump := false
 
 func enter_state() -> void:
-	#SoundManager.play_sound("player_jump_sound")
+	SoundManager.play_sound("player_jump_sound")
+	skin.transition("Jump")
 	movement_component.movement_type = movement_component.MovementTypes.WALKING
 	movement_component.jump()
 	_can_wall_jump = false

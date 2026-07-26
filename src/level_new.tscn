@@ -223,12 +223,6 @@ visible = false
 use_collision = true
 size = Vector3(1, 6.782715, 1)
 
-[node name="ladder-long2" parent="CSGCombiner3D/block-grass-low-large2" unique_id=348235511 instance=ExtResource("9_2onrh")]
-transform = Transform3D(0.079772964, 0, 0, 0, 2.3747034, 0, 0, 0, 0.09678891, 0.39215538, 0, 0.83196723)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long2" unique_id=1778139198 groups=["climbable"]]
-transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
-
 [node name="ladder-long3" parent="CSGCombiner3D/block-grass-low-large2" unique_id=1017036844 instance=ExtResource("9_2onrh")]
 transform = Transform3D(0.076303124, 0, -0.028235324, 0, 2.672293, 0, 0.023271421, 0, 0.09257895, 0.16444385, 2.9965596, -0.6237172)
 
@@ -1456,9 +1450,6 @@ linked_item = NodePath("../../../../PickupableItems/PhotoPumpkinItem2")
 [node name="TargetPlayer" parent="CameraTripod/Objectives/PhotoObjective" unique_id=2083384584 instance=ExtResource("26_2onrh")]
 transform = Transform3D(0.026012661, 0, -0.9996616, 0, 1, 0, 0.9996616, 0, 0.026012661, 29.434368, 0.064483166, -0.2574449)
 must_hold_item_id = "apple"
-
-[node name="CameraTripod2" parent="." unique_id=1389881091 instance=ExtResource("7_wa755")]
-transform = Transform3D(0.15279543, 0, 0.9882578, 0, 1, 0, -0.9882578, 0, 0.15279543, 15.476142, 0, 2.3002539)
 
 [node name="CameraTripod3" parent="." unique_id=1647974356 instance=ExtResource("7_wa755")]
 transform = Transform3D(0.99075174, -0.13047521, -0.03724368, 0.12890528, 0.9907737, -0.041841555, 0.04235937, 0.036653683, 0.99842983, -0.67362756, 1.1925359, -35.762577)

@@ -223,21 +223,11 @@ visible = false
 use_collision = true
 size = Vector3(1, 6.782715, 1)
 
-[node name="trap-spikes-large2" parent="CSGCombiner3D/block-grass-low-large2" unique_id=1832991959 instance=ExtResource("8_50g3t")]
-transform = Transform3D(0.07242931, 0, 0, 0, 1, 0, 0, 0, 0.071231365, 0.22937897, 0.51101863, 0.9003762)
-
-[node name="Area3D" parent="CSGCombiner3D/block-grass-low-large2/trap-spikes-large2" unique_id=1748378536 instance=ExtResource("9_jf0pr")]
-transform = Transform3D(0.0010000002, 0, 0, 0, 0.001, 0, 0, 0, 0.0010000002, 0.01032424, 0.08438134, -0.005984314)
-
 [node name="ladder-long2" parent="CSGCombiner3D/block-grass-low-large2" unique_id=348235511 instance=ExtResource("9_2onrh")]
 transform = Transform3D(0.079772964, 0, 0, 0, 2.3747034, 0, 0, 0, 0.09678891, 0.39215538, 0, 0.83196723)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long2" unique_id=1778139198 groups=["climbable"]]
 transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/block-grass-low-large2/ladder-long2/StaticBody3D" unique_id=1857061575]
-transform = Transform3D(1, 0, 0, 0, 1.0000534, 0, 0, 0, 1, -0.00034713745, 1.1007993, -0.0016622543)
-shape = SubResource("BoxShape3D_hwyno")
 
 [node name="ladder-long3" parent="CSGCombiner3D/block-grass-low-large2" unique_id=1017036844 instance=ExtResource("9_2onrh")]
 transform = Transform3D(0.076303124, 0, -0.028235324, 0, 2.672293, 0, 0.023271421, 0, 0.09257895, 0.16444385, 2.9965596, -0.6237172)
@@ -1438,9 +1428,6 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -3.8039584,
 [node name="AppleItem" parent="PickupableItems" unique_id=1365369840 instance=ExtResource("3_423ok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -0.012248039, -19.651546)
 
-[node name="PumpkinItem" parent="PickupableItems" unique_id=1878705686 instance=ExtResource("4_uihir")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.313755, 0.2823012, 0)
-
 [node name="PhotoPumpkinItem2" parent="PickupableItems" unique_id=2042262188 instance=ExtResource("4_uihir")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.736881, 0, -23.991827)
 
@@ -1472,9 +1459,6 @@ must_hold_item_id = "apple"
 
 [node name="CameraTripod2" parent="." unique_id=1389881091 instance=ExtResource("7_wa755")]
 transform = Transform3D(0.15279543, 0, 0.9882578, 0, 1, 0, -0.9882578, 0, 0.15279543, 15.476142, 0, 2.3002539)
-
-[node name="Trampoline" parent="." unique_id=964749366 instance=ExtResource("29_5m3ql")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.870108, -0.1422869, 3.2727928)
 
 [node name="CameraTripod3" parent="." unique_id=1647974356 instance=ExtResource("7_wa755")]
 transform = Transform3D(0.99075174, -0.13047521, -0.03724368, 0.12890528, 0.9907737, -0.041841555, 0.04235937, 0.036653683, 0.99842983, -0.67362756, 1.1925359, -35.762577)

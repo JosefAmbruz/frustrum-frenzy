@@ -253,7 +253,7 @@ shape = SubResource("BoxShape3D_hwyno")
 transform = Transform3D(0.21163619, 0, 0.11399328, 0, 4.407518, 0, -0.10786995, 0, 0.22364987, -0.32574138, 0.51101863, -0.7213397)
 
 [node name="Area3D" parent="CSGCombiner3D/block-grass-low-large2/trap-spikes-large3" unique_id=2063637545 instance=ExtResource("9_jf0pr")]
-transform = Transform3D(0.0010000002, 0, 0, 0, 0.001, 0, 0, 0, 0.0010000002, 0.01032424, 0.08438134, -0.005984314)
+transform = Transform3D(0.00070569763, 0, -1.4551915e-10, 0, 0.0010000004, 0, -5.820766e-11, 0, 0.00072828983, 0.010323763, 0.08438139, -0.0059843063)
 
 [node name="ladder-long4" parent="CSGCombiner3D/block-grass-low-large2" unique_id=1452702242 instance=ExtResource("9_2onrh")]
 transform = Transform3D(0.052255716, 0, 0.073131844, 0, 3.3923197, 0, -0.060274918, 0, 0.06340211, -0.6745157, 3.4376218, 0.032332152)

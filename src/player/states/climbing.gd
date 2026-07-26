@@ -35,7 +35,7 @@ func physics_update(delta: float) -> void:
 		movement_component.movement_type = movement_component.MovementTypes.WALKING
 		if lost_at_top:
 			var body = movement_component.character_body
-			body.velocity = movement_component.last_climb_normal * movement_config.climb_detach_push
+			body.velocity = -movement_component.last_climb_normal * movement_config.climb_detach_push
 			body.velocity.y = movement_config.climb_top_pop_velocity
 			movement_component.prevent_climb_for(0.3)
 		switch_state.emit(move_state if has_input else idle_state)

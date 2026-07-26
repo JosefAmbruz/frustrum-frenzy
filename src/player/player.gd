@@ -144,6 +144,7 @@ func set_hand_item(item: RigidBody3D) -> void:
 	held_item = item
 
 func apply_external_impulse(impulse: Vector3) -> void:
+	
 	movement_component.apply_impulse(impulse)
 
 func _on_tree_entered() -> void:

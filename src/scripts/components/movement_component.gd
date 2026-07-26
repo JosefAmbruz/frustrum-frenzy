@@ -56,6 +56,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_direction = Vector3.ZERO
 	
+	if is_grounded():
+		coyote_time.start()
+	
 	# --- DISABLED MODE ---
 	if movement_type == MovementTypes.DISABLED:
 		var y_velocity := character_body.velocity.y

@@ -5,7 +5,6 @@ extends Area3D
 @onready var trampoline_raycast := %TrampolineDirection
 
 func _on_spring_body_entered(body: Node3D) -> void:
-	print_debug("Hellnoi")
 	if body.has_method("apply_external_impulse"):
 		body.apply_external_impulse(get_aim_direction() * force_mult)
 

@@ -798,6 +798,9 @@ blend_point_2/node = SubResource("AnimationNodeAnimation_rgsoj")
 blend_point_2/pos = 0.1
 blend_point_2/name = &"RESET"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wlu08"]
+animation = &"Pose"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ig8t0"]
 advance_mode = 2
 
@@ -805,14 +808,19 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7hk18"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uvpnm"]
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_i3kvd"]
 states/Jump/node = SubResource("AnimationNodeAnimation_ig8t0")
 states/Jump/position = Vector2(587, 35)
 states/Moving/node = SubResource("AnimationNodeBlendSpace1D_rgsoj")
 states/Moving/position = Vector2(587, 118)
+states/Pose/node = SubResource("AnimationNodeAnimation_wlu08")
+states/Pose/position = Vector2(587, 216)
 states/Start/position = Vector2(282, 118)
-transitions = ["Start", "Moving", SubResource("AnimationNodeStateMachineTransition_ig8t0"), "Moving", "Jump", SubResource("AnimationNodeStateMachineTransition_62nud"), "Jump", "Moving", SubResource("AnimationNodeStateMachineTransition_7hk18")]
-graph_offset = Vector2(-1, -63)
+transitions = ["Start", "Moving", SubResource("AnimationNodeStateMachineTransition_ig8t0"), "Moving", "Jump", SubResource("AnimationNodeStateMachineTransition_62nud"), "Jump", "Moving", SubResource("AnimationNodeStateMachineTransition_7hk18"), "Moving", "Pose", SubResource("AnimationNodeStateMachineTransition_uvpnm")]
+graph_offset = Vector2(1, -20)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_jvbru"]
 _surfaces = [{

@@ -1,32 +1,27 @@
-[gd_scene format=4 uid="uid://ve7fk11lt2cm"]
+[gd_scene format=4 uid="uid://cldft1rvhdkco"]
 
-[ext_resource type="Script" uid="uid://bxpe20a2k5ok7" path="res://src/ui/main_menu.gd" id="1_h03rr"]
-[ext_resource type="Texture2D" uid="uid://4gl3e5fxeekf" path="res://assets/sprites/character/character.png" id="1_qkuje"]
-[ext_resource type="Shader" uid="uid://bg2a1ankc71d1" path="res://src/ui/fractal.gdshader" id="1_qoywa"]
-[ext_resource type="Texture2D" uid="uid://b564ytmwqoy3l" path="res://assets/sprites/blob_shadow.png" id="2_f0s2b"]
-[ext_resource type="PackedScene" uid="uid://beom1xo1yuypr" path="res://src/world.tscn" id="2_ljhhu"]
-[ext_resource type="PackedScene" uid="uid://cldft1rvhdkco" path="res://src/ui/credits.tscn" id="3_wdmux"]
-[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="4_5mgu5"]
-[ext_resource type="Shader" uid="uid://dkw5lyrhamoua" path="res://src/ui/outline.gdshader" id="5_0prml"]
-[ext_resource type="Texture2D" uid="uid://pv20yw25no1g" path="res://assets/textures/paper/Paper Texture1.jpg" id="6_o1bnh"]
-[ext_resource type="Texture2D" uid="uid://rkc8re4lgd66" path="res://assets/ui/buttonLong_brown.png" id="6_tmx6h"]
-[ext_resource type="Texture2D" uid="uid://celjmme4k33h8" path="res://assets/textures/paper/Paper Texture7.jpg" id="6_vob5f"]
-[ext_resource type="Texture2D" uid="uid://vkss4ww7wy37" path="res://assets/ui/buttonLong_brown_pressed.png" id="7_o1bnh"]
-[ext_resource type="Texture2D" uid="uid://o5x3y4m0ktof" path="res://assets/sprites/title.png" id="12_yipxn"]
-[ext_resource type="Texture2D" uid="uid://c757nglbb4igl" path="res://assets/sprites/camera.png" id="13_mxqo5"]
-[ext_resource type="Texture2D" uid="uid://xdbnvdm1a6lk" path="res://assets/ui/inputs/keyboard_e.png" id="14_wdmux"]
-[ext_resource type="Texture2D" uid="uid://cfgy1d2yweftm" path="res://assets/ui/inputs/mouse_left.png" id="15_4fdh4"]
-[ext_resource type="Texture2D" uid="uid://dim55oopv1drp" path="res://assets/ui/inputs/keyboard_space.png" id="16_kabri"]
+[ext_resource type="Script" uid="uid://bambe0bfi05bm" path="res://src/ui/credits.gd" id="1_wxe8p"]
+[ext_resource type="Shader" uid="uid://bg2a1ankc71d1" path="res://src/ui/fractal.gdshader" id="3_7ntmy"]
+[ext_resource type="Texture2D" uid="uid://b564ytmwqoy3l" path="res://assets/sprites/blob_shadow.png" id="4_oqbrf"]
+[ext_resource type="Texture2D" uid="uid://celjmme4k33h8" path="res://assets/textures/paper/Paper Texture7.jpg" id="5_uje3r"]
+[ext_resource type="Texture2D" uid="uid://pv20yw25no1g" path="res://assets/textures/paper/Paper Texture1.jpg" id="6_wjhs5"]
+[ext_resource type="Shader" uid="uid://dkw5lyrhamoua" path="res://src/ui/outline.gdshader" id="7_irvk8"]
+[ext_resource type="Texture2D" uid="uid://4gl3e5fxeekf" path="res://assets/sprites/character/character.png" id="8_ga2io"]
+[ext_resource type="Texture2D" uid="uid://rkc8re4lgd66" path="res://assets/ui/buttonLong_brown.png" id="9_oismu"]
+[ext_resource type="Texture2D" uid="uid://vkss4ww7wy37" path="res://assets/ui/buttonLong_brown_pressed.png" id="10_lchyp"]
+[ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="11_7jw87"]
+[ext_resource type="Texture2D" uid="uid://o5x3y4m0ktof" path="res://assets/sprites/title.png" id="12_a8gjy"]
+[ext_resource type="Texture2D" uid="uid://c757nglbb4igl" path="res://assets/sprites/camera.png" id="13_o6rmj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v5l7k"]
-shader = ExtResource("1_qoywa")
+shader = ExtResource("3_7ntmy")
 shader_parameter/u_speed = 1.0
 shader_parameter/u_color_low = Color(0.01, 0.41, 0.51, 1)
 shader_parameter/u_color_mid_red = Color(0.5, 0.1, 0.3, 1)
 shader_parameter/u_color_high = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vob5f"]
-shader = ExtResource("5_0prml")
+shader = ExtResource("7_irvk8")
 shader_parameter/outline_width = 0.010000000475
 shader_parameter/outline_tint = Color(1, 1, 1, 1)
 shader_parameter/atlas_region_pos = Vector2(0, 0)
@@ -979,7 +974,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vob5f"]
-texture = ExtResource("6_tmx6h")
+texture = ExtResource("9_oismu")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
@@ -987,18 +982,18 @@ texture_margin_bottom = 10.0
 modulate_color = Color(0.7764706, 0.7764706, 0.7764706, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o1bnh"]
-texture = ExtResource("6_tmx6h")
+texture = ExtResource("9_oismu")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_35tjg"]
-texture = ExtResource("7_o1bnh")
+texture = ExtResource("10_lchyp")
 modulate_color = Color(0.7764706, 0.7764706, 0.7764706, 1)
 
 [sub_resource type="Theme" id="Theme_ljhhu"]
-default_font = ExtResource("4_5mgu5")
+default_font = ExtResource("11_7jw87")
 default_font_size = 20
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
@@ -1026,7 +1021,7 @@ Button/styles/normal = SubResource("StyleBoxTexture_o1bnh")
 Button/styles/pressed = SubResource("StyleBoxTexture_35tjg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0prml"]
-shader = ExtResource("5_0prml")
+shader = ExtResource("7_irvk8")
 shader_parameter/outline_width = 0.010000000475
 shader_parameter/outline_tint = Color(1, 1, 1, 1)
 shader_parameter/atlas_region_pos = Vector2(0, 0)
@@ -1034,24 +1029,21 @@ shader_parameter/atlas_region_size = Vector2(1, 1)
 shader_parameter/draw_size = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wdmux"]
-shader = ExtResource("5_0prml")
+shader = ExtResource("7_irvk8")
 shader_parameter/outline_width = 0.02000000095
 shader_parameter/outline_tint = Color(1, 1, 1, 1)
 shader_parameter/atlas_region_pos = Vector2(0, 0)
 shader_parameter/atlas_region_size = Vector2(1, 1)
 shader_parameter/draw_size = Vector2(1, 1)
 
-[node name="MainMenu" type="Control" unique_id=2080455168]
+[node name="Credits" type="Control" unique_id=2080455168]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.99631536)
-script = ExtResource("1_h03rr")
-game_scene = ExtResource("2_ljhhu")
-credits_scene = ExtResource("3_wdmux")
+script = ExtResource("1_wxe8p")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1070499897]
 material = SubResource("ShaderMaterial_v5l7k")
@@ -1059,35 +1051,33 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -2.0
-offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BlobShadow" type="Sprite2D" parent="." unique_id=1154190075]
 modulate = Color(1, 1, 1, 0.4)
-position = Vector2(1058, 847)
+position = Vector2(1260, 847)
 scale = Vector2(2.5234375, 1)
-texture = ExtResource("2_f0s2b")
+texture = ExtResource("4_oqbrf")
 
 [node name="ColorRect3" type="TextureRect" parent="." unique_id=1384795866]
 layout_mode = 0
-offset_left = -65.08772
+offset_left = 136.91226
 offset_top = -26.25423
-offset_right = 642.07965
+offset_right = 844.0796
 offset_bottom = 1092.2622
 rotation = -0.18048593
-texture = ExtResource("6_vob5f")
+texture = ExtResource("5_uje3r")
 expand_mode = 1
 
 [node name="PaperTexture" type="TextureRect" parent="." unique_id=1703583036]
 layout_mode = 0
-offset_left = -117.00003
+offset_left = 85.0
 offset_top = 58.320156
-offset_right = 631.88794
+offset_right = 833.88794
 offset_bottom = 1152.403
 rotation = -0.32668245
-texture = ExtResource("6_o1bnh")
+texture = ExtResource("6_wjhs5")
 expand_mode = 1
 
 [node name="Character" type="TextureRect" parent="." unique_id=1979667886]
@@ -1096,40 +1086,28 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 750.0
+offset_left = 952.0
 offset_top = 127.0
-offset_right = -374.0
+offset_right = -172.0
 offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_qkuje")
+texture = ExtResource("8_ga2io")
 expand_mode = 1
 stretch_mode = 4
 
 [node name="Buttons" type="Control" parent="." unique_id=1224854734]
 anchors_preset = 0
-offset_left = 451.0
+offset_left = 653.0
 offset_top = 491.0
-offset_right = 491.0
+offset_right = 693.0
 offset_bottom = 531.0
 metadata/_edit_group_ = true
 
 [node name="BlobShadow2" type="Sprite2D" parent="Buttons" unique_id=1034986897]
 modulate = Color(1, 1, 1, 0.4)
 scale = Vector2(2.21875, 0.59765625)
-texture = ExtResource("2_f0s2b")
-
-[node name="BlobShadow3" type="Sprite2D" parent="Buttons" unique_id=1525608978]
-modulate = Color(1, 1, 1, 0.4)
-position = Vector2(0, 111)
-scale = Vector2(2.21875, 0.59765625)
-texture = ExtResource("2_f0s2b")
-
-[node name="BlobShadow4" type="Sprite2D" parent="Buttons" unique_id=732226551]
-modulate = Color(1, 1, 1, 0.4)
-position = Vector2(0, 215)
-scale = Vector2(2.21875, 0.59765625)
-texture = ExtResource("2_f0s2b")
+texture = ExtResource("4_oqbrf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Buttons" unique_id=220634897]
 layout_mode = 0
@@ -1140,143 +1118,62 @@ offset_bottom = 297.0
 theme_override_constants/separation = 20
 metadata/_edit_group_ = true
 
-[node name="StartGameButton" type="Button" parent="Buttons/VBoxContainer" unique_id=608372103]
+[node name="BackButton" type="Button" parent="Buttons/VBoxContainer" unique_id=608372103]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_ljhhu")
-theme_override_fonts/font = ExtResource("4_5mgu5")
+theme_override_fonts/font = ExtResource("11_7jw87")
 theme_override_font_sizes/font_size = 55
-text = "Start Game"
-
-[node name="CreditsButton" type="Button" parent="Buttons/VBoxContainer" unique_id=1385454119]
-unique_name_in_owner = true
-layout_mode = 2
-theme = SubResource("Theme_ljhhu")
-theme_override_fonts/font = ExtResource("4_5mgu5")
-theme_override_font_sizes/font_size = 55
-text = "Credits
-"
-
-[node name="ExitButton" type="Button" parent="Buttons/VBoxContainer" unique_id=2070455624]
-unique_name_in_owner = true
-layout_mode = 2
-theme = SubResource("Theme_ljhhu")
-theme_override_fonts/font = ExtResource("4_5mgu5")
-theme_override_font_sizes/font_size = 55
-text = "Exit"
+text = "Back"
 
 [node name="Title" type="Sprite2D" parent="." unique_id=1266124202]
 material = SubResource("ShaderMaterial_0prml")
-position = Vector2(379, 237)
+position = Vector2(581, 237)
 scale = Vector2(0.28051183, 0.28051183)
-texture = ExtResource("12_yipxn")
+texture = ExtResource("12_a8gjy")
 
 [node name="TitleShadow" type="Sprite2D" parent="Title" unique_id=1696421981]
 modulate = Color(1, 1, 1, 0.4)
 show_behind_parent = true
 position = Vector2(90.90526, -151.50874)
 scale = Vector2(8.397039, 1.9356358)
-texture = ExtResource("2_f0s2b")
+texture = ExtResource("4_oqbrf")
 
 [node name="TitleShadow" type="Sprite2D" parent="Title/TitleShadow" unique_id=81352323]
 modulate = Color(1, 1, 1, 0.4)
 show_behind_parent = true
 position = Vector2(99.98011, 290.07202)
 scale = Vector2(0.43839753, 1.0073489)
-texture = ExtResource("2_f0s2b")
+texture = ExtResource("4_oqbrf")
 
 [node name="TitleShadow2" type="Sprite2D" parent="Title" unique_id=713691510]
 modulate = Color(1, 1, 1, 0.4)
 show_behind_parent = true
 position = Vector2(-372.53333, 279.8456)
 scale = Vector2(8.397039, 1.9356358)
-texture = ExtResource("2_f0s2b")
+texture = ExtResource("4_oqbrf")
 
 [node name="Camera" type="Sprite2D" parent="." unique_id=1080727120]
 material = SubResource("ShaderMaterial_wdmux")
-position = Vector2(600, 273)
+position = Vector2(802, 273)
 scale = Vector2(0.2514802, 0.25148016)
-texture = ExtResource("13_mxqo5")
+texture = ExtResource("13_o6rmj")
 
-[node name="BlobShadow2" type="Sprite2D" parent="." unique_id=532908324]
-modulate = Color(1, 1, 1, 0.4)
-position = Vector2(1388, 545)
-scale = Vector2(1.2968746, 2.1523438)
-texture = ExtResource("2_f0s2b")
-
-[node name="Controls" type="VBoxContainer" parent="." unique_id=116068204]
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1194305656]
 layout_mode = 0
-offset_left = 1268.0
-offset_top = 294.0
-offset_right = 1528.0
-offset_bottom = 683.0
-theme_override_constants/separation = 19
+offset_left = 397.0
+offset_top = 598.0
+offset_right = 997.0
+offset_bottom = 848.0
+scale = Vector2(0.9952111, 1)
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 21
+text = "Items: https://www.kenney.nl/assets/food-kit
+world design: https://www.kenney.nl/assets/platformer-kit
+camera tripod asset: 
+Camera stand by Jason Oudshoorn [CC-BY] via Poly Pizza Camera stand by Jason Oudshoorn [CC-BY] 
+(https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/5CHQvf_emuN)
+"
+fit_content = true
 
-[node name="Label" type="Label" parent="Controls" unique_id=263717934]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 21
-theme_override_fonts/font = ExtResource("4_5mgu5")
-theme_override_font_sizes/font_size = 64
-text = "Controls:"
-
-[node name="ControlsItem" type="HBoxContainer" parent="Controls" unique_id=2104099245]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Controls/ControlsItem" unique_id=176017501]
-layout_mode = 2
-texture = ExtResource("14_wdmux")
-
-[node name="Label" type="Label" parent="Controls/ControlsItem" unique_id=1786374208]
-layout_mode = 2
-text = "* Pick up items
-* Interact with cameras
-* Exit camera view"
-
-[node name="ControlsItem2" type="HBoxContainer" parent="Controls" unique_id=1702104383]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Controls/ControlsItem2" unique_id=62704770]
-layout_mode = 2
-texture = ExtResource("15_4fdh4")
-
-[node name="Label" type="Label" parent="Controls/ControlsItem2" unique_id=834152778]
-layout_mode = 2
-text = "* Throw items
-* Start camera timer"
-
-[node name="Label2" type="Label" parent="Controls" unique_id=1697007546]
-layout_mode = 2
-text = "When you have item in hand:"
-
-[node name="ControlsItem3" type="HBoxContainer" parent="Controls" unique_id=1020450563]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Controls/ControlsItem3" unique_id=1531641047]
-layout_mode = 2
-texture = ExtResource("15_4fdh4")
-
-[node name="+" type="Label" parent="Controls/ControlsItem3" unique_id=535870693]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 32
-text = "+"
-
-[node name="TextureRect2" type="TextureRect" parent="Controls/ControlsItem3" unique_id=1305933192]
-layout_mode = 2
-texture = ExtResource("16_kabri")
-
-[node name="Label" type="Label" parent="Controls/ControlsItem3" unique_id=152809086]
-layout_mode = 2
-text = "* Boost jump"
-
-[connection signal="pressed" from="Buttons/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
-[connection signal="pressed" from="Buttons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
-<<<<<<< Updated upstream
-[connection signal="pressed" from="Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
-=======
-[connection signal="pressed" from="Buttons/VBoxContainer/ExitButton" to="." method="_on_start_game_button_pressed"]
->>>>>>> Stashed changes
+[connection signal="pressed" from="Buttons/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://rt7crj1i0pdd" path="res://src/interacting/interactable.tscn" id="2_nym6r"]
 [ext_resource type="PackedScene" uid="uid://eqb0c8dqcys6" path="res://src/resources/GLB format/Camera stand by Jason Oudshoorn - 5CHQvf_emuN.glb" id="3_ndy2e"]
 [ext_resource type="Shader" uid="uid://c7aoheoag5ixh" path="res://src/shaders/parchment_effect.gdshader" id="3_pr2qs"]
+[ext_resource type="Texture2D" uid="uid://xdbnvdm1a6lk" path="res://assets/ui/inputs/keyboard_e.png" id="4_llkt7"]
+[ext_resource type="Texture2D" uid="uid://cfgy1d2yweftm" path="res://assets/ui/inputs/mouse_left.png" id="6_5rbd7"]
 [ext_resource type="FontFile" uid="uid://cyhc64qmxw2b3" path="res://assets/fonts/kenney_input_keyboard_&_mouse.ttf" id="6_pl626"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hwyno"]
@@ -127,22 +129,36 @@ offset_bottom = 68.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hwyno")
 
-[node name="HintExit" type="Label" parent="UI/CameraOverlay" unique_id=607124152]
+[node name="Hints" type="HBoxContainer" parent="UI/CameraOverlay" unique_id=699142160]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 832.0
-offset_right = 151.0
-offset_bottom = 866.0
+offset_left = 23.0
+offset_top = 818.0
+offset_right = 417.0
+offset_bottom = 882.0
+theme_override_constants/separation = 25
+
+[node name="HintExit" type="HBoxContainer" parent="UI/CameraOverlay/Hints" unique_id=1612596614]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/CameraOverlay/Hints/HintExit" unique_id=337726813]
+layout_mode = 2
+texture = ExtResource("4_llkt7")
+
+[node name="HintExit" type="Label" parent="UI/CameraOverlay/Hints/HintExit" unique_id=607124152]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
-text = "[E] Leave"
+text = "Exit Camera"
 
-[node name="HintShoot" type="Label" parent="UI/CameraOverlay" unique_id=2106574791]
-layout_mode = 0
-offset_left = 1416.0
-offset_top = 832.0
-offset_right = 1557.0
-offset_bottom = 866.0
+[node name="HintShoot" type="HBoxContainer" parent="UI/CameraOverlay/Hints" unique_id=440551809]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/CameraOverlay/Hints/HintShoot" unique_id=1853450774]
+layout_mode = 2
+texture = ExtResource("6_5rbd7")
+
+[node name="HintShoot" type="Label" parent="UI/CameraOverlay/Hints/HintShoot" unique_id=2106574791]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "[LMB] Shoot"
@@ -228,16 +244,36 @@ theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 20
 vertical_alignment = 1
 
-[node name="ToggleHint" type="Label" parent="UI/PhotoResultUI/ResultContainer" unique_id=1789489493]
+[node name="ToggleHint" type="HBoxContainer" parent="UI/PhotoResultUI/ResultContainer" unique_id=1994311647]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_constants/separation = 25
+
+[node name="HintExit" type="HBoxContainer" parent="UI/PhotoResultUI/ResultContainer/ToggleHint" unique_id=147261193]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PhotoResultUI/ResultContainer/ToggleHint/HintExit" unique_id=121899448]
+layout_mode = 2
+texture = ExtResource("4_llkt7")
+
+[node name="HintExit" type="Label" parent="UI/PhotoResultUI/ResultContainer/ToggleHint/HintExit" unique_id=1483042903]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
-text = "[LMB] Toggle ghosts  |  [E] Close"
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "Exit Photo View"
+
+[node name="HintShoot" type="HBoxContainer" parent="UI/PhotoResultUI/ResultContainer/ToggleHint" unique_id=1795659184]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PhotoResultUI/ResultContainer/ToggleHint/HintShoot" unique_id=95116553]
+layout_mode = 2
+texture = ExtResource("6_5rbd7")
+
+[node name="HintShoot" type="Label" parent="UI/PhotoResultUI/ResultContainer/ToggleHint/HintShoot" unique_id=1617678528]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 24
+text = "Toggle Ghosts"
 
 [node name="FadeRect" type="ColorRect" parent="UI" unique_id=1685703220]
 unique_name_in_owner = true
@@ -249,19 +285,41 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TimerUI" type="PanelContainer" parent="UI" unique_id=334476303]
+[node name="TimerUI" type="Control" parent="UI" unique_id=1220120948]
 unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 799.5
+offset_top = 30.0
+offset_right = 1212.5
+offset_bottom = 111.0
+
+[node name="Prompt" type="Label" parent="UI/TimerUI" unique_id=1377442808]
+layout_mode = 0
+offset_left = -768.5
+offset_top = 55.0
+offset_right = 775.5
+offset_bottom = 136.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 27
+text = "Get all items and yourself to correct positions marked by ghost silhoulettes on the photo in time!"
+horizontal_alignment = 1
+
+[node name="TimerUI" type="PanelContainer" parent="UI/TimerUI" unique_id=334476303]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.5
-offset_top = 20.0
-offset_right = 20.5
-offset_bottom = 85.0
+offset_left = -226.5
+offset_top = -10.0
+offset_right = -185.5
+offset_bottom = 43.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e5o58")
 
-[node name="CountdownLabel" type="Label" parent="UI/TimerUI" unique_id=39188668]
+[node name="CountdownLabel" type="Label" parent="UI/TimerUI/TimerUI" unique_id=39188668]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

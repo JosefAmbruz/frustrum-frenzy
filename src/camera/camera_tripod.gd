@@ -20,10 +20,10 @@ var _photo_taken := false
 @onready var camera_overlay = $CanvasLayer/CameraOverlay
 @onready var red_dot = $CanvasLayer/CameraOverlay/RedDot
 @onready var photo_result_ui = $CanvasLayer/PhotoResultUI
-@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/CapturedImage
+@onready var captured_image = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/CapturedImage
 @onready var toggle_hint: Label = $CanvasLayer/PhotoResultUI/ResultContainer/ToggleHint
-@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/ScoreLabel
-@onready var details_label = $CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer/DetailsLabel
+@onready var score_label = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar/ScoreLabel
+@onready var details_label = $CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar/DetailsLabel
 @onready var fade_rect = $CanvasLayer/FadeRect
 @onready var interactable: Area3D = %Interactable
 @onready var timer_ui = $CanvasLayer/TimerUI
@@ -67,7 +67,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		photo_result_ui.visible = false
 		_photo_taken = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		EventBus.player_released.emit()
+		EventBus.player_released.emit.call_deferred()
+		EventBus.interaction_text_toggled.emit.call_deferred(true)
 		return
 
 	if event.is_action_released("interact"):
@@ -195,7 +196,7 @@ func _on_pose_timer_timeout() -> void:
 	_photo_taken = true
 	toggle_hint.show()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	EventBus.interaction_text_toggled.emit(true)
+	EventBus.interaction_text_toggled.emit(false)
 
 	# reveal
 	var reveal_tween = create_tween()
@@ -285,22 +286,34 @@ func evaluate_new_objectives() -> void:
 	if max_score > 0:
 		percentage = (final_score / max_score) * 100.0
 	
-	# Update UI to show format: 2500 / 3500
-	score_label.text = "Score: %d / %d\n" % [final_score, max_score]
-	
-	if percentage >= 80.0:
-		score_label.add_theme_color_override("font_color", Color.GREEN)
+	# Update UI to show format: 2500 / 3500 with grade
+	var grade_text = ""
+	if percentage >= 90.0:
+		grade_text = "STAR PHOTO!"
+		score_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0))
+	elif percentage >= 80.0:
+		grade_text = "Great shot!"
+		score_label.add_theme_color_override("font_color", Color(0.2, 0.9, 0.6))
 	elif percentage >= 50.0:
-		score_label.add_theme_color_override("font_color", Color.YELLOW)
+		grade_text = "Nice try!"
+		score_label.add_theme_color_override("font_color", Color(0.0, 0.8, 1.0))
 	else:
-		score_label.add_theme_color_override("font_color", Color.RED)
-	
-	# details
+		grade_text = "Try again!"
+		score_label.add_theme_color_override("font_color", Color(1.0, 0.4, 0.4))
+
+	score_label.text = "%d / %d\n%s" % [final_score, max_score, grade_text]
+
+	# details with playful prefixes
 	if details_label != null:
 		var details_text = ""
 		for detail in details_array:
-			details_text += detail + "\n"
-			
+			var prefix = "> "
+			if "wrong" in detail or "not found" in detail or "too far" in detail or "Clutter" in detail:
+				prefix = "x "
+			elif "nailed" in detail or "belongs" in detail or "Pose" in detail:
+				prefix = "* "
+			details_text += prefix + detail + "\n"
+
 		details_label.text = details_text
 
 # Helper function to find all items the camera can see

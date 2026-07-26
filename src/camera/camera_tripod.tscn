@@ -33,7 +33,7 @@ corner_radius_bottom_left = 100
 content_margin_left = 15.0
 content_margin_top = 15.0
 content_margin_right = 15.0
-content_margin_bottom = 60.0
+content_margin_bottom = 15.0
 bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5y8sc"]
@@ -131,6 +131,7 @@ offset_left = 48.0
 offset_top = 832.0
 offset_right = 151.0
 offset_bottom = 866.0
+theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "[E] Leave"
 
@@ -140,6 +141,7 @@ offset_left = 1416.0
 offset_top = 832.0
 offset_right = 1557.0
 offset_bottom = 866.0
+theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "[LMB] Shoot"
 
@@ -177,20 +179,6 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="ScoreContainer" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=807837786]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer" unique_id=1077149923]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Score: 100% "
-vertical_alignment = 1
-
-[node name="DetailsLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/ScoreContainer" unique_id=1916489103]
-layout_mode = 2
-size_flags_horizontal = 8
-
 [node name="CapturedFrame" type="PanelContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1160635967]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -198,7 +186,11 @@ size_flags_vertical = 6
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_08vw2")
 
-[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame" unique_id=1406486013]
+[node name="PhotoLayout" type="VBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame" unique_id=1545145293]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CapturedImage" type="TextureRect" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout" unique_id=1406486013]
 material = SubResource("ShaderMaterial_5y8sc")
 custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
@@ -208,10 +200,33 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 4
 
+[node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout" unique_id=1843215279]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar" unique_id=1077149923]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 54
+vertical_alignment = 1
+
+[node name="DetailsLabel" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer/CapturedFrame/PhotoLayout/BottomBar" unique_id=1916489103]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 20
+vertical_alignment = 1
+
 [node name="ToggleHint" type="Label" parent="CanvasLayer/PhotoResultUI/ResultContainer" unique_id=1789489493]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "[LMB] Toggle ghosts  |  [E] Close"
 horizontal_alignment = 1
@@ -240,6 +255,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_e5o58")
 [node name="CountdownLabel" type="Label" parent="CanvasLayer/TimerUI" unique_id=39188668]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 
 [node name="PosePrompt" type="Label" parent="CanvasLayer" unique_id=2014561317]

@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://vkss4ww7wy37" path="res://assets/ui/buttonLong_brown_pressed.png" id="7_o1bnh"]
 [ext_resource type="Texture2D" uid="uid://o5x3y4m0ktof" path="res://assets/sprites/title.png" id="12_yipxn"]
 [ext_resource type="Texture2D" uid="uid://c757nglbb4igl" path="res://assets/sprites/camera.png" id="13_mxqo5"]
+[ext_resource type="Texture2D" uid="uid://xdbnvdm1a6lk" path="res://assets/ui/inputs/keyboard_e.png" id="14_wdmux"]
+[ext_resource type="Texture2D" uid="uid://cfgy1d2yweftm" path="res://assets/ui/inputs/mouse_left.png" id="15_4fdh4"]
+[ext_resource type="Texture2D" uid="uid://dim55oopv1drp" path="res://assets/ui/inputs/keyboard_space.png" id="16_kabri"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v5l7k"]
 shader = ExtResource("1_qoywa")
@@ -1053,20 +1056,22 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BlobShadow" type="Sprite2D" parent="." unique_id=1154190075]
 modulate = Color(1, 1, 1, 0.4)
-position = Vector2(1260, 847)
+position = Vector2(1058, 847)
 scale = Vector2(2.5234375, 1)
 texture = ExtResource("2_f0s2b")
 
 [node name="ColorRect3" type="TextureRect" parent="." unique_id=1384795866]
 layout_mode = 0
-offset_left = 136.91226
+offset_left = -65.08772
 offset_top = -26.25423
-offset_right = 844.0796
+offset_right = 642.07965
 offset_bottom = 1092.2622
 rotation = -0.18048593
 texture = ExtResource("6_vob5f")
@@ -1074,9 +1079,9 @@ expand_mode = 1
 
 [node name="PaperTexture" type="TextureRect" parent="." unique_id=1703583036]
 layout_mode = 0
-offset_left = 85.0
+offset_left = -117.00003
 offset_top = 58.320156
-offset_right = 833.88794
+offset_right = 631.88794
 offset_bottom = 1152.403
 rotation = -0.32668245
 texture = ExtResource("6_o1bnh")
@@ -1088,9 +1093,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 952.0
+offset_left = 750.0
 offset_top = 127.0
-offset_right = -172.0
+offset_right = -374.0
 offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1100,9 +1105,9 @@ stretch_mode = 4
 
 [node name="Buttons" type="Control" parent="." unique_id=1224854734]
 anchors_preset = 0
-offset_left = 653.0
+offset_left = 451.0
 offset_top = 491.0
-offset_right = 693.0
+offset_right = 491.0
 offset_bottom = 531.0
 metadata/_edit_group_ = true
 
@@ -1140,7 +1145,7 @@ theme_override_fonts/font = ExtResource("4_5mgu5")
 theme_override_font_sizes/font_size = 55
 text = "Start Game"
 
-[node name="OptionsButton" type="Button" parent="Buttons/VBoxContainer" unique_id=1385454119]
+[node name="CreditsButton" type="Button" parent="Buttons/VBoxContainer" unique_id=1385454119]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_ljhhu")
@@ -1159,7 +1164,7 @@ text = "Exit"
 
 [node name="Title" type="Sprite2D" parent="." unique_id=1266124202]
 material = SubResource("ShaderMaterial_0prml")
-position = Vector2(581, 237)
+position = Vector2(379, 237)
 scale = Vector2(0.28051183, 0.28051183)
 texture = ExtResource("12_yipxn")
 
@@ -1186,10 +1191,85 @@ texture = ExtResource("2_f0s2b")
 
 [node name="Camera" type="Sprite2D" parent="." unique_id=1080727120]
 material = SubResource("ShaderMaterial_wdmux")
-position = Vector2(802, 273)
+position = Vector2(600, 273)
 scale = Vector2(0.2514802, 0.25148016)
 texture = ExtResource("13_mxqo5")
 
+[node name="BlobShadow2" type="Sprite2D" parent="." unique_id=532908324]
+modulate = Color(1, 1, 1, 0.4)
+position = Vector2(1388, 545)
+scale = Vector2(1.2968746, 2.1523438)
+texture = ExtResource("2_f0s2b")
+
+[node name="Controls" type="VBoxContainer" parent="." unique_id=116068204]
+layout_mode = 0
+offset_left = 1268.0
+offset_top = 294.0
+offset_right = 1528.0
+offset_bottom = 683.0
+theme_override_constants/separation = 19
+
+[node name="Label" type="Label" parent="Controls" unique_id=263717934]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 21
+theme_override_fonts/font = ExtResource("4_5mgu5")
+theme_override_font_sizes/font_size = 64
+text = "Controls:"
+
+[node name="ControlsItem" type="HBoxContainer" parent="Controls" unique_id=2104099245]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Controls/ControlsItem" unique_id=176017501]
+layout_mode = 2
+texture = ExtResource("14_wdmux")
+
+[node name="Label" type="Label" parent="Controls/ControlsItem" unique_id=1786374208]
+layout_mode = 2
+text = "* Pick up items
+* Interact with cameras
+* Exit camera view"
+
+[node name="ControlsItem2" type="HBoxContainer" parent="Controls" unique_id=1702104383]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Controls/ControlsItem2" unique_id=62704770]
+layout_mode = 2
+texture = ExtResource("15_4fdh4")
+
+[node name="Label" type="Label" parent="Controls/ControlsItem2" unique_id=834152778]
+layout_mode = 2
+text = "* Throw items
+* Start camera timer"
+
+[node name="Label2" type="Label" parent="Controls" unique_id=1697007546]
+layout_mode = 2
+text = "When you have item in hand:"
+
+[node name="ControlsItem3" type="HBoxContainer" parent="Controls" unique_id=1020450563]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Controls/ControlsItem3" unique_id=1531641047]
+layout_mode = 2
+texture = ExtResource("15_4fdh4")
+
+[node name="+" type="Label" parent="Controls/ControlsItem3" unique_id=535870693]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "+"
+
+[node name="TextureRect2" type="TextureRect" parent="Controls/ControlsItem3" unique_id=1305933192]
+layout_mode = 2
+texture = ExtResource("16_kabri")
+
+[node name="Label" type="Label" parent="Controls/ControlsItem3" unique_id=152809086]
+layout_mode = 2
+text = "* Boost jump"
+
 [connection signal="pressed" from="Buttons/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
-[connection signal="pressed" from="Buttons/VBoxContainer/OptionsButton" to="." method="_on_start_game_button_pressed"]
-[connection signal="pressed" from="Buttons/VBoxContainer/ExitButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

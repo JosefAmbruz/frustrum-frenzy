@@ -30,6 +30,8 @@ var _photo_taken := false
 @onready var pose_timer: Timer = $PoseTimer
 @onready var pose_intro_timer: Timer = $PoseIntroTimer
 @onready var pose_prompt: Label = %PosePrompt
+@onready var reference_viewport: SubViewport = $ReferenceViewport
+@onready var reference_camera: Camera3D = $ReferenceViewport/Camera3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -158,45 +160,54 @@ func _on_pose_timer_timeout() -> void:
 	pose_prompt.visible = false
 
 	# wait for GPU to render frames
-	fade_rect.visible = false
 	await get_tree().process_frame
 	await get_tree().process_frame
 
 	# turn off highlights so they don't appear in the photo
 	disable_highlights()
 
-	# --- REFERENCE PHOTO WITH GHOSTS ---
-	_ghosts_visible = true
-	toggle_hologram(true)
-	await get_tree().process_frame
-	await get_tree().process_frame
-
-	var ref_img = get_viewport().get_texture().get_image()
-	_reference_texture = ImageTexture.create_from_image(ref_img)
-
-	toggle_hologram(false)
-	await get_tree().process_frame
-
-	# fade to black (or white)
-	var flash_tween = create_tween()
-	flash_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.15)
-	await flash_tween.finished
-
-	# work in dark
+	# hide viewfinder UI before final capture
 	camera_overlay.visible = false
+
+	# --- FINAL PHOTO WITHOUT GHOSTS (no overlay) ---
+	await get_tree().process_frame
+	var final_img = get_viewport().get_texture().get_image()
+	_captured_texture = ImageTexture.create_from_image(final_img)
 
 	# play camera click sound
 	SoundManager.play_sound("camera_click_sound")
-	
+
 	# restore background music
 	SoundManager.restore_background_music()
 
-	# --- FINAL PHOTO WITHOUT GHOSTS ---
-	var viewport_img = get_viewport().get_texture().get_image()
-	_captured_texture = ImageTexture.create_from_image(viewport_img)
+	# --- FLASH covers ghost toggle ---
+	fade_rect.modulate.a = 1.0
 	fade_rect.visible = true
+	await get_tree().process_frame
 
-	# show reference photo (with ghosts) first
+	# enable ghosts (covered by white flash)
+	_ghosts_visible = true
+	toggle_hologram(true)
+
+	# sync reference camera and render one frame
+	reference_viewport.world_3d = get_viewport().world_3d
+	reference_viewport.size = Vector2i(get_viewport().get_visible_rect().size)
+	reference_camera.global_transform = view_camera.global_transform
+	reference_camera.fov = view_camera.fov
+	reference_camera.make_current()
+	reference_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await get_tree().process_frame
+
+	# capture reference from SubViewport (clean, no overlay)
+	var ref_img = reference_viewport.get_texture().get_image()
+	_reference_texture = ImageTexture.create_from_image(ref_img)
+
+	# disable ghosts
+	toggle_hologram(false)
+	_ghosts_visible = false
+
+	# show reference photo (with ghosts)
+	_ghosts_visible = true
 	captured_image.texture = _reference_texture
 	photo_result_ui.visible = true
 	_photo_taken = true
@@ -204,7 +215,7 @@ func _on_pose_timer_timeout() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	EventBus.interaction_text_toggled.emit(false)
 
-	# reveal
+	# reveal with fade from white
 	var reveal_tween = create_tween()
 	reveal_tween.tween_property(fade_rect, "modulate:a", 0.0, 0.2)
 

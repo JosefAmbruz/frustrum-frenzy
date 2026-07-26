@@ -71,7 +71,7 @@ shape = SubResource("CylinderShape3D_hwyno")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=907995485]
 transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 0.140793, 1.9778359, -0.0032069646)
-fov = 38.147804
+fov = 27.681015
 
 [node name="CountdownTimer" type="Timer" parent="." unique_id=1828718521]
 one_shot = true

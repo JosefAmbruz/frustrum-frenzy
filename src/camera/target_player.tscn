@@ -330,94 +330,92 @@ shadow_mesh = SubResource("ArrayMesh_boh62")
 script = ExtResource("1_i0y42")
 position_tolerance = 4.0
 
-[node name="GhostMesh" type="MeshInstance3D" parent="." unique_id=1449389338]
-visible = false
-material_override = ExtResource("1_p7vgq")
+[node name="GhostMesh" type="Node3D" parent="."]
 
-[node name="Hare" type="Node3D" parent="." unique_id=685421737]
+[node name="Hare" type="Node3D" parent="GhostMesh" unique_id=685421737]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 
-[node name="Base" type="Marker3D" parent="Hare" unique_id=2019024372]
+[node name="Base" type="Marker3D" parent="GhostMesh/Hare" unique_id=2019024372]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32181108, 0)
 
-[node name="Torso" type="Marker3D" parent="Hare/Base" unique_id=1852717074]
+[node name="Torso" type="Marker3D" parent="GhostMesh/Hare/Base" unique_id=1852717074]
 transform = Transform3D(0.99377733, -0.11138492, 0, 0.11138492, 0.99377733, 0, 0, 0, 1, 0, 0.13248248, 0)
 
-[node name="Neck" type="Marker3D" parent="Hare/Base/Torso" unique_id=1523058872]
+[node name="Neck" type="Marker3D" parent="GhostMesh/Hare/Base/Torso" unique_id=1523058872]
 transform = Transform3D(1, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999999, 0, 1.0963612, 0)
 metadata/_edit_group_ = true
 
-[node name="Head" type="MeshInstance3D" parent="Hare/Base/Torso/Neck" unique_id=1341000627]
+[node name="Head" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso/Neck" unique_id=1341000627]
 transform = Transform3D(0.44932652, 0, 0, 0, 0.44932652, 0, 0, 0, 0.44932652, 0, 0.5422112, 0)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_n63q0")
 metadata/_edit_lock_ = true
 
-[node name="LeftEar" type="Marker3D" parent="Hare/Base/Torso/Neck" unique_id=891673143]
+[node name="LeftEar" type="Marker3D" parent="GhostMesh/Hare/Base/Torso/Neck" unique_id=891673143]
 transform = Transform3D(0.9999997, 0, 0, 0, 0.99999964, 0, 0, 0, 1, 0.2733713, 0.8567859, 0)
 
-[node name="EarL" type="MeshInstance3D" parent="Hare/Base/Torso/Neck/LeftEar" unique_id=1376308223]
+[node name="EarL" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso/Neck/LeftEar" unique_id=1376308223]
 transform = Transform3D(0.3935417, 0, 0, 0, 0.3935417, 0, 0, 0, 0.3935417, 0.18333754, -0.11469674, -0.019630192)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_0epun")
 metadata/_edit_group_ = true
 
-[node name="RightEar" type="Marker3D" parent="Hare/Base/Torso/Neck" unique_id=865560002]
+[node name="RightEar" type="Marker3D" parent="GhostMesh/Hare/Base/Torso/Neck" unique_id=865560002]
 transform = Transform3D(0.92263067, 0.38568377, 0, -0.3856838, 0.9226306, 0, 0, 0, 0.99999994, -0.26295218, 0.85859346, 0)
 
-[node name="EarR" type="MeshInstance3D" parent="Hare/Base/Torso/Neck/RightEar" unique_id=1646767850]
+[node name="EarR" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso/Neck/RightEar" unique_id=1646767850]
 transform = Transform3D(-0.3935417, 0, -3.4404508e-08, 0, 0.3935417, 0, 3.4404508e-08, 0, -0.3935417, -0.18472806, -0.122134924, -0.09755931)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_2e7ud")
 metadata/_edit_group_ = true
 
-[node name="LeftArm" type="Marker3D" parent="Hare/Base/Torso" unique_id=2103100970]
+[node name="LeftArm" type="Marker3D" parent="GhostMesh/Hare/Base/Torso" unique_id=2103100970]
 transform = Transform3D(-0.22455344, -0.9744614, 0, 0.9744614, -0.22455344, 0, 0, 0, 0.9999997, 0.29564178, 0.96889234, 0)
 metadata/_edit_group_ = true
 
-[node name="HandL" type="MeshInstance3D" parent="Hare/Base/Torso/LeftArm" unique_id=296165714]
+[node name="HandL" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso/LeftArm" unique_id=296165714]
 transform = Transform3D(0.31753296, 0, 0, 0, 0.31753296, 0, 0, 0, 0.31753296, 0.4993837, -0.6204936, 0.21530019)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_u6o2x")
 
-[node name="RightArm" type="Marker3D" parent="Hare/Base/Torso" unique_id=1288549907]
+[node name="RightArm" type="Marker3D" parent="GhostMesh/Hare/Base/Torso" unique_id=1288549907]
 transform = Transform3D(0.9999997, 0, 0, 0, 0.9999999, 0, 0, 0, 0.99999934, -0.30718473, 0.9688924, 0)
 metadata/_edit_group_ = true
 
-[node name="HandR" type="MeshInstance3D" parent="Hare/Base/Torso/RightArm" unique_id=225790502]
+[node name="HandR" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso/RightArm" unique_id=225790502]
 transform = Transform3D(-0.31753296, 0, -2.7759613e-08, 0, 0.31753296, 0, 2.7759613e-08, 0, -0.31753296, -0.4833677, -0.6204936, 0.21530019)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_2kprh")
 
-[node name="Tail" type="Marker3D" parent="Hare/Base/Torso" unique_id=564683054]
+[node name="Tail" type="Marker3D" parent="GhostMesh/Hare/Base/Torso" unique_id=564683054]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17733005, -0.48038363)
 metadata/_edit_group_ = true
 
-[node name="Tail" type="MeshInstance3D" parent="Hare/Base/Torso/Tail" unique_id=1812040942]
+[node name="Tail" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso/Tail" unique_id=1812040942]
 transform = Transform3D(0.2075895, 0, 0, 0, 0.2075895, 0, 0, 0, 0.2075895, 0.004754007, 0.016267061, -0.23006648)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_y2fcy")
 
-[node name="Torso" type="MeshInstance3D" parent="Hare/Base/Torso" unique_id=1102990750]
+[node name="Torso" type="MeshInstance3D" parent="GhostMesh/Hare/Base/Torso" unique_id=1102990750]
 transform = Transform3D(0.5425897, 0, 0, 0, 0.60925806, 0, 0, 0, 0.60925806, 0, 0.30484322, 0)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_yg31f")
 metadata/_edit_lock_ = true
 
-[node name="LeftLeg" type="Marker3D" parent="Hare/Base" unique_id=86059182]
+[node name="LeftLeg" type="Marker3D" parent="GhostMesh/Hare/Base" unique_id=86059182]
 transform = Transform3D(0.9999999, 0, 0, 0, 0.7438104, 0.66839063, 0, -0.6683905, 0.74381053, 0, 0.111, 0)
 metadata/_edit_group_ = true
 
-[node name="FootL" type="MeshInstance3D" parent="Hare/Base/LeftLeg" unique_id=1268730411]
+[node name="FootL" type="MeshInstance3D" parent="GhostMesh/Hare/Base/LeftLeg" unique_id=1268730411]
 transform = Transform3D(0.00030895337, 0, -0.35407987, 0, 0.35408, 0, 0.35407987, 0, 0.00030895337, 0.43444675, -0.3113135, 0.005741628)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_3j3br")
 
-[node name="RightLeg" type="Marker3D" parent="Hare/Base" unique_id=1476065590]
+[node name="RightLeg" type="Marker3D" parent="GhostMesh/Hare/Base" unique_id=1476065590]
 transform = Transform3D(1, 0, 0, 0, 0.99999964, 0, 0, 0, 0.9999997, 0, 0.111, 0)
 metadata/_edit_group_ = true
 
-[node name="FootR" type="MeshInstance3D" parent="Hare/Base/RightLeg" unique_id=739980374]
+[node name="FootR" type="MeshInstance3D" parent="GhostMesh/Hare/Base/RightLeg" unique_id=739980374]
 transform = Transform3D(0.00030895337, 0, -0.35407987, 0, 0.35408, 0, 0.35407987, 0, 0.00030895337, -0.4387459, -0.30828908, 0.0057416186)
 material_override = ExtResource("1_p7vgq")
 mesh = SubResource("ArrayMesh_rtxd5")

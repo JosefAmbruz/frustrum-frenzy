@@ -37,6 +37,7 @@ func _process(delta: float) -> void:
 				interaction_label.text = "Drop"
 				label_secondary.text = "Throw"
 				second_input.show()
+				icon.show()
 			else:
 				interaction_label.text = curr_interactions[0].interact_name
 				second_input.hide()

@@ -1098,10 +1098,10 @@ stretch_mode = 4
 
 [node name="Buttons" type="Control" parent="." unique_id=1224854734]
 anchors_preset = 0
-offset_left = 653.0
-offset_top = 491.0
-offset_right = 693.0
-offset_bottom = 531.0
+offset_left = 662.0
+offset_top = 675.0
+offset_right = 702.0
+offset_bottom = 715.0
 metadata/_edit_group_ = true
 
 [node name="BlobShadow2" type="Sprite2D" parent="Buttons" unique_id=1034986897]
@@ -1161,13 +1161,13 @@ texture = ExtResource("13_o6rmj")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1194305656]
 layout_mode = 0
-offset_left = 397.0
-offset_top = 598.0
-offset_right = 997.0
-offset_bottom = 848.0
+offset_left = 393.0
+offset_top = 734.0
+offset_right = 993.0
+offset_bottom = 984.0
 scale = Vector2(0.9952111, 1)
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 21
+theme_override_font_sizes/normal_font_size = 15
 text = "Items: https://www.kenney.nl/assets/food-kit
 world design: https://www.kenney.nl/assets/platformer-kit
 camera tripod asset: 
@@ -1175,5 +1175,19 @@ Camera stand by Jason Oudshoorn [CC-BY] via Poly Pizza Camera stand by Jason Oud
 (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/5CHQvf_emuN)
 "
 fit_content = true
+
+[node name="Label" type="Label" parent="." unique_id=1432947134]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 393.0
+offset_right = 818.0
+offset_bottom = 590.0
+theme_override_colors/font_color = Color(0.0029971018, 0.14039752, 0.656937, 1)
+theme_override_font_sizes/font_size = 34
+text = "game by:
+Jožka, Radek, Honza, 
+Lukáš, Steve, 
+Julis and Mates"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Buttons/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

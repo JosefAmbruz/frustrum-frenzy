@@ -16,6 +16,9 @@ shader_parameter/atlas_region_pos = Vector2(0, 0)
 shader_parameter/atlas_region_size = Vector2(1, 1)
 shader_parameter/draw_size = Vector2(1, 1)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_c7vyj"]
+viewport_path = NodePath("SubViewport")
+
 [node name="InteractingComponent" type="Node3D" unique_id=1637550885]
 script = ExtResource("1_tc6x1")
 
@@ -33,7 +36,35 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 2.4037032, 0)
 material_overlay = SubResource("ShaderMaterial_f4c7q")
 billboard = 1
 fixed_size = true
+texture = SubResource("ViewportTexture_c7vyj")
+region_rect = Rect2(100, 0, 0, 0)
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=350414564]
+size = Vector2i(197, 74)
+
+[node name="Panel" type="PanelContainer" parent="SubViewport" unique_id=1850036240]
+offset_right = 200.0
+offset_bottom = 74.0
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport/Panel" unique_id=127122918]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport/Panel/MarginContainer" unique_id=633511186]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport/Panel/MarginContainer/HBoxContainer" unique_id=241385845]
+layout_mode = 2
 texture = ExtResource("3_c7vyj")
+
+[node name="Label" type="Label" parent="SubViewport/Panel/MarginContainer/HBoxContainer" unique_id=969812471]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Interact"
 
 [connection signal="area_entered" from="InteractRange" to="." method="_on_interact_range_area_entered"]
 [connection signal="area_exited" from="InteractRange" to="." method="_on_interact_range_area_exited"]

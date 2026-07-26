@@ -21,7 +21,7 @@ item_id = "pumpkin"
 
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_tkdkl")]
 unique_name_in_owner = true
-interact_name = "[E] Pick up"
+interact_name = "Pick up"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=1022768583]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49923706, 0)

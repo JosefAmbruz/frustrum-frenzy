@@ -3,6 +3,7 @@ extends Node3D
 @export var player: NodePath
 
 @onready var icon: Sprite3D = %Icon
+@onready var interaction_label: Label = %Label
 
 var curr_interactions := []
 var can_interact := true
@@ -30,6 +31,7 @@ func _process(delta: float) -> void:
 	if curr_interactions and can_interact and not interaction_blocked:
 		curr_interactions.sort_custom(_sort_by_nearest)
 		if curr_interactions[0].is_interactable:
+			interaction_label.text = curr_interactions[0].interact_name
 			icon.show()
 	else:
 		icon.hide()

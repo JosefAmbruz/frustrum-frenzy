@@ -87,7 +87,7 @@ one_shot = true
 [node name="Interactable" parent="." unique_id=718664010 instance=ExtResource("2_nym6r")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9318713, 0, 0)
-interact_name = "[E] View "
+interact_name = "View "
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=22570842]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0758667, 1.4042969, 0)
@@ -159,9 +159,10 @@ texture = ExtResource("6_5rbd7")
 
 [node name="HintShoot" type="Label" parent="UI/CameraOverlay/Hints/HintShoot" unique_id=2106574791]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7471145, 0.9916877, 0.7057557, 1)
 theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
-text = "[LMB] Shoot"
+text = "Start Camera Timer"
 
 [node name="PhotoResultUI" type="Control" parent="UI" unique_id=1348612492]
 unique_name_in_owner = true
@@ -344,9 +345,9 @@ vertical_alignment = 1
 
 [node name="Objectives" type="Node3D" parent="." unique_id=1146842973]
 
-[node name="ReferenceViewport" type="SubViewport" parent="."]
+[node name="ReferenceViewport" type="SubViewport" parent="." unique_id=244908557]
 
-[node name="Camera3D" type="Camera3D" parent="ReferenceViewport"]
+[node name="Camera3D" type="Camera3D" parent="ReferenceViewport" unique_id=1240614945]
 
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]
 [connection signal="timeout" from="PoseTimer" to="." method="_on_pose_timer_timeout"]

@@ -146,7 +146,11 @@ texture = ExtResource("4_llkt7")
 
 [node name="HintExit" type="Label" parent="UI/CameraOverlay/Hints/HintExit" unique_id=607124152]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_pl626")
+theme_override_font_sizes/font_size = 24
+text = "Exit Camera"
+
+[node name="HintExit2" type="Label" parent="UI/CameraOverlay/Hints/HintExit" unique_id=1353321888]
+layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Exit Camera"
 
@@ -160,7 +164,6 @@ texture = ExtResource("6_5rbd7")
 [node name="HintShoot" type="Label" parent="UI/CameraOverlay/Hints/HintShoot" unique_id=2106574791]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7471145, 0.9916877, 0.7057557, 1)
-theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "Start Camera Timer"
 
@@ -259,7 +262,6 @@ texture = ExtResource("4_llkt7")
 
 [node name="HintExit" type="Label" parent="UI/PhotoResultUI/ResultContainer/ToggleHint/HintExit" unique_id=1483042903]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "Exit Photo View"
 
@@ -272,7 +274,6 @@ texture = ExtResource("6_5rbd7")
 
 [node name="HintShoot" type="Label" parent="UI/PhotoResultUI/ResultContainer/ToggleHint/HintShoot" unique_id=1617678528]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 text = "Toggle Ghosts"
 
@@ -303,7 +304,6 @@ offset_right = 775.5
 offset_bottom = 136.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 27
 text = "Get all items and yourself to correct positions marked by ghost silhoulettes on the photo in time!"
 horizontal_alignment = 1
@@ -324,7 +324,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_e5o58")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("6_pl626")
 theme_override_font_sizes/font_size = 24
 
 [node name="PosePrompt" type="Label" parent="UI" unique_id=2014561317]

@@ -1149,7 +1149,7 @@ script = ExtResource("1_ig8t0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=70628751]
 libraries/ = SubResource("AnimationLibrary_ig8t0")
-autoplay = &"Running"
+autoplay = &"Pose"
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=435901448]
 unique_name_in_owner = true

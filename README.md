@@ -2,6 +2,8 @@
 An entry for GMTK 2026 Game Jam.
 Playable here: https://josef-ambruz.itch.io/frustrum-frenzy
 
+Frustrum Frenzy is a fast-paced platformer that turns the whole world into your personal photo studio. Scattered across the landscape are cameras on tripods just waiting to be triggered. Your goal? Start the timer, scramble into position, and capture the perfect shot before the countdown hits zero!
+
 ## Screenshots:
 <img width="1596" height="894" alt="image" src="https://github.com/user-attachments/assets/63882cb1-4936-450f-9ecb-2af9d8fe6c67" />
 
